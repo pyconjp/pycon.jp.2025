@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
-import { getBloggerPosts } from "./libs/blogger";
-import { Blogger } from "./types/blogger";
+import { getBloggerPosts } from "../libs/blogger";
+import { Blogger } from "../types/blogger";
 import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
