@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: '/:lang(ja|en)/:path*',
+        destination: '/:path*?lang=:lang',
+      },
+    ];
+  },
+
   reactStrictMode: true,
 };
 

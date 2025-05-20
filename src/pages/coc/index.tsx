@@ -13,16 +13,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function Home() {
+export default function Coc() {
   const {query} = useRouter();
   const lang = query.lang === 'en' ? 'en' : 'ja';
 
   return (
     <>
-      <PageHead title='トップページ' description='' lang={lang} pagePath='/'/>
+      <PageHead title={lang === 'en' ? 'Code of Conduction' : '行動規範'} description='' lang={lang} pagePath='/coc' imagePath='ogp/coc.jpg'/>
       <div className={`${geistSans.className} ${geistMono.className}`}>
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          {lang === "ja" ? "ここは日本語版トップページです" : "Welcome to the English homepage"}
+          {lang === "ja" ? "ここは日本語版のCoCページです" : "Welcome to the English CoC page"}
         </main>
       </div>
     </>
