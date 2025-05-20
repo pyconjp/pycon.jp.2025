@@ -1,4 +1,4 @@
-import { Blogger } from "../types/blogger";
+import {Blogger} from "@/types/blogger";
 
 export async function getBloggerPosts(): Promise<Blogger[]> {
   if (!process.env.BLOGGER_API_KEY) {
@@ -9,10 +9,10 @@ export async function getBloggerPosts(): Promise<Blogger[]> {
   const response = await fetch(apiUrl);
   const data = await response.json();
   return (
-    data.items.slice(0, 5).map((item: any) => ({ // ひとまず5件表示
+    data.items.slice(0, 5).map((item: { url: string, title: string, published: string }) => ({ // ひとまず5件表示
       url: item.url,
       title: item.title,
       published: item.published,
     })) as Blogger[]
   )
-};
+}

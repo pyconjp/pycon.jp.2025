@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
-import { getBloggerPosts } from "../libs/blogger";
-import { Blogger } from "../types/blogger";
-import { useEffect, useState } from "react";
-import { GetServerSideProps } from "next";
+import { getBloggerPosts } from "@/libs/blogger";
+import { Blogger } from "@/types/blogger";
+import {GetStaticProps} from "next";
 import Link from "next/link";
 
 const geistSans = Geist({
@@ -131,7 +130,7 @@ export default function Home({ posts }: { posts: Blogger[] }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const posts = await getBloggerPosts();
   return {
     props: {
