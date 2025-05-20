@@ -1,5 +1,9 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
+import { getBloggerPosts } from "@/libs/blogger";
+import { Blogger } from "@/types/blogger";
+import {GetStaticProps} from "next";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,12 +15,24 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function Home() {
+export default function Home({ posts }: { posts: Blogger[] }) {
   return (
     <div
       className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
     >
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        {posts.map((post) => (
+          <div key={post.url} className="flex flex-col gap-4">
+            <h2 className="text-lg font-semibold">
+              <Link href={post.url}>
+                {post.title}
+              </Link>
+            </h2>
+            <time className="text-sm text-gray-500" dateTime={post.published}>
+              {new Date(post.published).toLocaleDateString()}
+            </time>
+          </div>
+        ))}
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -113,3 +129,12 @@ export default function Home() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const posts = await getBloggerPosts();
+  return {
+    props: {
+      posts,
+    },
+  };
+};
