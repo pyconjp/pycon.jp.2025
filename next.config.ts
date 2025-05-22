@@ -4,17 +4,22 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:lang(ja|en)/:path*',
-        destination: '/:path*?lang=:lang',
+        source: '/ja/:path*',
+        destination: '/ja/:path*',
+      },
+      {
+        source: '/en/:path*',
+        destination: '/en/:path*',
+      },
+      {
+        source: '/:path*',
+        destination: '/ja/:path*',
       },
     ];
   },
 
   reactStrictMode: true,
-  output: "export",
-  images: {
-    unoptimized: true,
-  },
+  output: "standalone",
 };
 
 export default nextConfig;

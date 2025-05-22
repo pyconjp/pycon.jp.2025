@@ -1,10 +1,10 @@
 import {Geist, Geist_Mono} from "next/font/google";
-import {useRouter} from "next/router";
 import PageHead from "@/components/PageHead";
-import { getBloggerPosts } from "@/libs/blogger";
-import { Blogger } from "@/types/blogger";
+import {getBloggerPosts} from "@/libs/blogger";
+import {Blogger} from "@/types/blogger";
 import {GetStaticProps} from "next";
 import Link from "next/link";
+import {Lang} from "@/types/lang";
 
 // TODO: 実際のフォントを反映する
 const geistSans = Geist({
@@ -17,10 +17,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function Home({ posts }: { posts: Blogger[] }) {
-  const {query} = useRouter();
-  const lang = query.lang === 'en' ? 'en' : 'ja';
+export const getStaticPaths = async () => {
+  return {
+    paths: [
+      {params: {lang: 'ja'}},
+      {params: {lang: 'en'}},
+    ],
+    fallback: false,
+  }
+}
 
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  const lang = params?.lang || 'ja';
+  const posts = await getBloggerPosts();
+  return {
+    props: {
+      lang,
+      posts,
+    },
+    revalidate: 3600,
+  };
+};
+
+export default function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
   return (
     <>
       <PageHead title='トップページ' description='' lang={lang} pagePath='/'/>
@@ -44,12 +63,3 @@ export default function Home({ posts }: { posts: Blogger[] }) {
     </>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getBloggerPosts();
-  return {
-    props: {
-      posts,
-    },
-  };
-};
