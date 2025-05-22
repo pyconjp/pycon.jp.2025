@@ -13,13 +13,17 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/:path*',
+        has: [
+          {
+            type: 'missing',
+            key: 'lang',
+          },
+        ],
         destination: '/ja/:path*',
       },
     ];
   },
-
-  reactStrictMode: true,
-  output: "standalone",
 };
 
 export default nextConfig;
+
