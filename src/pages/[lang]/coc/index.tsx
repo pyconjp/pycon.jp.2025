@@ -44,9 +44,6 @@ export default function Coc({lang}: { lang: Lang }) {
         pagePath='/coc'
         imagePath='ogp/coc.jpg'
       />
-
-      <PageHead title={lang === 'en' ? 'Code of Conduction' : '行動規範'} description='' lang={lang} pagePath='/coc'
-                imagePath='ogp/coc.jpg'/>
       <div className={`${geistSans.className} ${geistMono.className}`}>
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
           {lang === "ja" ? "ここは日本語版のCoCページです" : "Welcome to the English CoC page"}
