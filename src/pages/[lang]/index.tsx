@@ -42,7 +42,12 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 export default function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
   return (
     <>
-      <PageHead title='トップページ' description='' lang={lang} pagePath='/'/>
+      <PageHead
+        title={lang === "ja" ? 'トップページ' : 'TOP Page'}
+        description={lang === "ja" ? 'PyCon JP 2025のトップページです' : 'This is the TOP page of PyCon JP 2025'}
+        lang={lang}
+        pagePath='/'
+      />
       <div className={`${geistSans.className} ${geistMono.className}`}>
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
           {lang === "ja" ? "ここは日本語版トップページです" : "Welcome to the English homepage"}

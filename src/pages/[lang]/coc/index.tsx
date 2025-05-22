@@ -37,6 +37,14 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 export default function Coc({lang}: { lang: Lang }) {
   return (
     <>
+      <PageHead
+        title={lang === "ja" ? '行動規範' : 'Code of Conduction'}
+        description={lang === "ja" ? 'PyCon JP 2025の行動規範ページです' : 'This is the Code of Conduction page of PyCon JP 2025'}
+        lang={lang}
+        pagePath='/coc'
+        imagePath='ogp/coc.jpg'
+      />
+
       <PageHead title={lang === 'en' ? 'Code of Conduction' : '行動規範'} description='' lang={lang} pagePath='/coc'
                 imagePath='ogp/coc.jpg'/>
       <div className={`${geistSans.className} ${geistMono.className}`}>

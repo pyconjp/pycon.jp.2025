@@ -13,7 +13,7 @@ export default function PageHead({title, description, pagePath, imagePath = 'ogp
 
   return (
     <Head>
-      <title>{title ? title + ' | PyCon JP 2025' : 'PyCon JP 2025'}</title>
+      <title>{title ? (title + ' | PyCon JP 2025') : 'PyCon JP 2025'}</title>
       <meta httpEquiv="Content-Language" content={lang}/>
       <meta property="og:title" content={title}/>
       <meta property="og:description" content={description || ''}/>
