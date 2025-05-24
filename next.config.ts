@@ -1,20 +1,18 @@
 import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-  async rewrites() {
+  async redirects() {
     return [
       {
-        source: '/ja/:path*',
-        destination: '/ja/:path*',
+        source: '/',
+        destination: '/ja',
+        permanent: false,
       },
       {
-        source: '/en/:path*',
-        destination: '/en/:path*',
-      },
-      {
-        source: '/:path*',
-        destination: '/ja/:path*',
-      },
+        source: '/:path((?!ja$|ja/|en$|en/).+)',
+        destination: '/ja/:path',
+        permanent: false,
+      }
     ];
   },
 
