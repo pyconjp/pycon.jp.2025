@@ -1,5 +1,5 @@
 import {Geist, Geist_Mono} from "next/font/google";
-import PageHead from "@/components/PageHead";
+import PageHead from "@/components/elements/PageHead";
 import {GetStaticProps} from "next";
 import {Lang} from "@/types/lang";
 
