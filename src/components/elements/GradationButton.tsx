@@ -8,7 +8,7 @@ type Props = {
 export default function GradationButton({label, link}: Props) {
   return (
     <Link href={link} target="_blank" rel="noopener noreferrer nofollow">
-      <button className="bg-gradient-to-br from-primary from-[76.92%] to-secondary to-[100%] text-white font-bold min-w-[140px] min-h-[50px] flex items-center justify-center rounded-full">
+      <button className="bg-gradient-to-br from-primary from-[76.92%] to-secondary to-[100%] text-white font-bold min-w-[140px] min-h-[50px] flex items-center justify-center rounded-full cursor-pointer">
         {label}
       </button>
     </Link>
