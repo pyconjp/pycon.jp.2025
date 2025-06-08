@@ -6,6 +6,7 @@ import {GetStaticProps} from "next";
 import {Lang} from "@/types/lang";
 import NewsSection from "@/components/sections/NewsSection";
 import {dictionary} from "@/lang";
+import FixedMenu from "@/components/elements/FixedMenu";
 
 // TODO: 実際のフォントを反映する
 const geistSans = Geist({
@@ -55,6 +56,7 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
           {lang === "ja" ? "ここは日本語版トップページです" : "Welcome to the English homepage"}
           <NewsSection posts={posts} lang={lang}/>
+          <FixedMenu/>
         </main>
       </div>
     </>
