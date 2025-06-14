@@ -54,7 +54,7 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
         pagePath='/'
       />
       <div className={`${geistSans.className} ${geistMono.className}`}>
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start w-11/12 lg:w-10/12 mx-auto">
           {lang === "ja" ? "ここは日本語版トップページです" : "Welcome to the English homepage"}
           <NewsSection posts={posts} lang={lang}/>
           <MdxExample/>
