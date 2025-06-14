@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   };
 };
 
-export default function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
+function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
   const dict = dictionary[lang];
 
   return (
@@ -60,3 +60,7 @@ export default function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
     </>
   );
 }
+
+Home.activeHeader = 'home';
+
+export default Home;

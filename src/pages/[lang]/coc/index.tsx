@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   };
 };
 
-export default function Coc({lang}: { lang: Lang }) {
+function Coc({lang}: { lang: Lang }) {
   return (
     <>
       <PageHead
@@ -52,3 +52,7 @@ export default function Coc({lang}: { lang: Lang }) {
     </>
   );
 }
+
+Coc.activeHeader = 'about';
+
+export default Coc;
