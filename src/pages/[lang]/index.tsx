@@ -6,6 +6,7 @@ import {GetStaticProps} from "next";
 import {Lang} from "@/types/lang";
 import NewsSection from "@/components/sections/NewsSection";
 import {dictionary} from "@/lang";
+import dynamic from "next/dynamic";
 
 // TODO: 実際のフォントを反映する
 const geistSans = Geist({
@@ -42,6 +43,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
 function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
   const dict = dictionary[lang];
+  const MdxExample = dynamic(() => import(`@/components/markdown/${lang}/example.mdx`), {ssr: true});
 
   return (
     <>
@@ -52,9 +54,10 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
         pagePath='/'
       />
       <div className={`${geistSans.className} ${geistMono.className}`}>
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start w-11/12 lg:w-10/12 mx-auto">
           {lang === "ja" ? "ここは日本語版トップページです" : "Welcome to the English homepage"}
           <NewsSection posts={posts} lang={lang}/>
+          <MdxExample/>
         </main>
       </div>
     </>
