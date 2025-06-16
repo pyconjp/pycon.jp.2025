@@ -33,7 +33,7 @@ export default function HeaderMenu({active, lang, ...props}: {
   const dict = dictionary[lang];
 
   return (
-    <nav className={clsx('flex flex-row items-center justify-between', props?.className)} {...props}>
+    <nav className={clsx(props?.className)} {...props}>
       {menu.map((item) => (
         <li key={item.key} className='list-none'>
           <a

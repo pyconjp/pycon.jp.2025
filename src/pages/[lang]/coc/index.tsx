@@ -44,7 +44,7 @@ function Coc({lang}: { lang: Lang }) {
           description={lang === "ja" ? 'PyCon JP 2025の行動規範ページです' : 'This is the Code of Conduction page of PyCon JP 2025'}
           lang={lang}
           pagePath='/coc'
-          imagePath='/public/ogp/coc.jpg'
+          imagePath='/common/ogp/coc.jpg'
         />
         <div className={`${geistSans.className} ${geistMono.className}`}>
           <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
