@@ -7,7 +7,7 @@ import LangButton from "@/components/elements/LangButton";
 export default function Header({active, lang}: { active?: ActiveHeader, lang: Lang }) {
   return (
     <header
-      className="sticky top-0 bg-white pt-14 lg:pt-0 lg:h-24 lg:mx-12">
+      className="sticky top-0 bg-white pt-14 lg:pt-0 lg:h-24 lg:mx-12 text-xs lg:text-base">
       <div className='flex flex-row items-center justify-between h-10 lg:h-full px-6 lg:px-0'>
         <div className='lg:w-60'>
           <Image src='/common/logo_pc.png' alt='PyCon JP 2025 Logo' width={243} height={57}
@@ -15,10 +15,10 @@ export default function Header({active, lang}: { active?: ActiveHeader, lang: La
           <Image src='/common/logo_sp.png' alt='PyCon JP 2025 Logo' width={112.44} height={38.29}
                  className='lg:hidden'/>
         </div>
-        <div className='flex flex-row justify-between items-center gap-12'>
+        <div className='flex flex-row justify-between items-center lg:gap-12 gap-4'>
           <HeaderMenu active={active} className='flex-row items-center justify-between hidden lg:flex lg:flex-1 gap-8'
                       lang={lang}/>
-          <div></div>
+          <div className='block lg:hidden text-gray-500 text-xs font-bold'>広島国際会議場</div>
           <LangButton lang={lang}/>
         </div>
       </div>

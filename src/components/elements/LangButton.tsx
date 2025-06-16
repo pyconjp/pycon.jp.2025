@@ -23,10 +23,10 @@ export default function LangButton({lang}: { lang: Lang }) {
   );
 
   return (
-    <div className={'w-24 flex flex-row items-center justify-between bg-gray-200 rounded-lg py-2 px-3'}>
+    <div className={'w-16 lg:w-24 flex flex-row items-center justify-between bg-gray-200 rounded-md py-2 px-3'}>
       {lang === 'ja'
-        ? <><Active>JA</Active><span>/</span><InActive>EN</InActive></>
-        : <><InActive>JA</InActive><span>/</span><Active>EN</Active></>
+        ? <><Active>JP</Active><span className='lg:inline hidden'>/</span><InActive>EN</InActive></>
+        : <><InActive>JP</InActive><span className='lg:inline hidden'>/</span><Active>EN</Active></>
       }
     </div>
   );
