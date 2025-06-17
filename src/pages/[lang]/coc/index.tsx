@@ -1,19 +1,14 @@
-import {Geist, Geist_Mono} from "next/font/google";
+import {Geist, Geist_Mono, Noto_Sans_JP} from "next/font/google";
 import PageHead from "@/components/elements/PageHead";
 import {GetStaticProps} from "next";
 import {Lang} from "@/types/lang";
+import dynamic from "next/dynamic";
+import Navi_about from "@/components/sections/Navi_about";
 
-// TODO: 実際のフォントを反映する
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const NotoSansJP = Noto_Sans_JP({
+  variable: "--font-noto-sans-jp",
   subsets: ["latin"],
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 
 export const getStaticPaths = async () => {
   return {
@@ -35,6 +30,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 };
 
 function Coc({lang}: { lang: Lang }) {
+  const CocContent = dynamic(() => import(`@/components/markdown/${lang}/coc.mdx`), {ssr: true});
   return (
     <>
       <PageHead
@@ -44,9 +40,10 @@ function Coc({lang}: { lang: Lang }) {
         pagePath='/coc'
         imagePath='ogp/coc.jpg'
       />
-      <div className={`${geistSans.className} ${geistMono.className}`}>
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          {lang === "ja" ? "ここは日本語版のCoCページです" : "Welcome to the English CoC page"}
+      <div>
+        <Navi_about position="coc" />
+        <main className="flex justify-center items-center">
+          <CocContent />
         </main>
       </div>
     </>
