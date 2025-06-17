@@ -10,9 +10,8 @@ export default function Navi_about({ position }: Navi_aboutProps) {
       {["会場案内", "行動規範", "メンバー", "スポンサー", "お知らせ"].map((item, index) => (
         <Link
           key={index}
-          href="#"
-          className={`relative pb-2 after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-6 after:h-[2px] after:bg-black after:transition-opacity after:duration-300 ${position === item ? "after:opacity-100" : "after:opacity-0 hover:after:opacity-100"
-}`}
+          href={`/${item}`}
+          className={`relative pb-2 after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-6 after:h-[2px] after:bg-black after:transition-opacity after:duration-300 ${position === item ? "after:opacity-100" : "after:opacity-0 hover:after:opacity-100"}`}
         >
           {item}
         </Link>
