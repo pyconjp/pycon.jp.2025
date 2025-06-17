@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ExternalLink from "../elements/ExternalLink";
 
 interface Navi_aboutProps {
   position: "会場案内" | "行動規範" | "スポンサー" | "メンバー" | "お知らせ";
