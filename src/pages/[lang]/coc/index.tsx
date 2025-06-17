@@ -35,7 +35,7 @@ function Coc({lang}: { lang: Lang }) {
         imagePath='ogp/coc.jpg'
       />
       <div>
-        <Navi_about position="行動規範" />
+        <Navi_about position="coc" />
         <main className="flex justify-center items-center">
           <CocContent />
         </main>
