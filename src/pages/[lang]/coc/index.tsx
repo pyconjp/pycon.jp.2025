@@ -1,14 +1,8 @@
-import {Geist, Geist_Mono, Noto_Sans_JP} from "next/font/google";
 import PageHead from "@/components/elements/PageHead";
 import {GetStaticProps} from "next";
 import {Lang} from "@/types/lang";
 import dynamic from "next/dynamic";
 import Navi_about from "@/components/sections/Navi_about";
-
-const NotoSansJP = Noto_Sans_JP({
-  variable: "--font-noto-sans-jp",
-  subsets: ["latin"],
-});
 
 export const getStaticPaths = async () => {
   return {
