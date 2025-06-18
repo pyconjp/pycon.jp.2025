@@ -10,7 +10,6 @@ const En: Dictionary = {
     coc: 'Code of Conduct',
     member: 'Members',
     sponsor: 'Sponsors',
-    news: 'News',
   }
 }
 

@@ -10,6 +10,5 @@ export type Dictionary = {
     coc: string,
     member: string,
     sponsor: string,
-    news: string,
   }
 };

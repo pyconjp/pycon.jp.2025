@@ -10,7 +10,6 @@ const Ja: Dictionary = {
     coc: '行動規範',
     member: 'メンバー',
     sponsor: 'スポンサー',
-    news: 'お知らせ',
   }
 }
 

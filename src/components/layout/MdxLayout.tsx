@@ -1,6 +1,7 @@
-export default function MdxLayout({ children }: { children: React.ReactNode }) {
+export default function MdxLayout({children}: { children: React.ReactNode }) {
   return (
-    <div className="prose m-4 text-black marker:text-black prose-p:text-[14px] prose-h2:text-[32px] font-[600] max-lg:mx-12 my-10">
+    <div
+      className="prose text-black marker:text-black prose-p:text-sm prose-h2:text-3xl font-semibold">
       {children}
     </div>
   )

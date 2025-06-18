@@ -28,16 +28,18 @@ function Coc({lang}: { lang: Lang }) {
   return (
     <>
       <PageHead
-        title={lang === "ja" ? '行動規範' : 'Code of Conduction'}
-        description={lang === "ja" ? 'PyCon JP 2025の行動規範ページです' : 'This is the Code of Conduction page of PyCon JP 2025'}
+        title={lang === "ja" ? '行動規範' : 'Code of Conduct'}
+        description={lang === "ja" ? 'PyCon JP 2025の行動規範ページです' : 'This is the Code of Conduct page of PyCon JP 2025'}
         lang={lang}
         pagePath='/coc'
         imagePath='ogp/coc.jpg'
       />
       <div>
-        <Navi_about position="coc" />
+        <Navi_about position="coc" lang={lang}/>
         <main className="flex justify-center items-center">
-          <CocContent />
+          <div className=' m-4 mx-12 lg:mx-4 my-10'>
+            <CocContent/>
+          </div>
         </main>
       </div>
     </>

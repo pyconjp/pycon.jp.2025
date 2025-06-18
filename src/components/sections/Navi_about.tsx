@@ -1,27 +1,33 @@
 import Link from "next/link";
+import {Lang} from "@/types/lang";
+import {dictionary} from "@/lang";
+
+type Position = "venue" | "coc" | "sponsor" | "member";
 
 interface Navi_aboutProps {
-  position: "venue" | "coc" | "sponsor" | "member" | "news";
+  position: Position;
+  lang: Lang,
 }
 
-const navItems = {
-  venue: "会場案内",
-  coc: "行動規範",
-  member: "メンバー",
-  sponsor: "スポンサー",
-  news: "お知らせ",
-};
+const navItems: { key: Position, href: string }[] = [
+  {key: "venue", href: "/venue"},
+  {key: "coc", href: "/coc"},
+  {key: "sponsor", href: "/sponsors"},
+  {key: "member", href: "/members"},
+];
 
-export default function Navi_about_JP({ position }: Navi_aboutProps) {
+export default function Navi_about({position, lang}: Navi_aboutProps) {
+  const dict = dictionary[lang];
+
   return (
     <nav className="flex sm:justify-center space-x-8 text-sm font-semibold my-6 overflow-x-scroll flex-nowrap px-4">
-      {Object.entries(navItems).map(([item, label]) => (
+      {navItems.map(({key, href}) => (
         <Link
-          key={item}
-          href={`/${item}`}
-          className={`relative pb-2 after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-6 after:h-[2px] after:bg-black after:transition-opacity after:duration-300 ${position === item ? "after:opacity-100" : "after:opacity-0 hover:after:opacity-100"} whitespace-nowrap`}
+          key={key}
+          href={href}
+          className={`relative pb-2 after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-6 after:h-0.5 after:bg-black after:transition-opacity after:duration-300 ${position === key ? "after:opacity-100" : "after:opacity-0 hover:after:opacity-100"} whitespace-nowrap`}
         >
-          {label}
+          {dict.NavBar_About[key]}
         </Link>
       ))}
     </nav>
