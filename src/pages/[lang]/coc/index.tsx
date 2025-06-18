@@ -3,6 +3,7 @@ import {GetStaticProps} from "next";
 import {Lang} from "@/types/lang";
 import dynamic from "next/dynamic";
 import Navi_about from "@/components/sections/Navi_about";
+import DefaultLayout from "@/components/layout/DefaultLayout";
 
 export const getStaticPaths = async () => {
   return {
@@ -26,7 +27,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 function Coc({lang}: { lang: Lang }) {
   const CocContent = dynamic(() => import(`@/components/markdown/${lang}/coc.mdx`), {ssr: true});
   return (
-    <>
+    <DefaultLayout lang={lang} activeHeader="about">
       <PageHead
         title={lang === "ja" ? '行動規範' : 'Code of Conduct'}
         description={lang === "ja" ? 'PyCon JP 2025の行動規範ページです' : 'This is the Code of Conduct page of PyCon JP 2025'}
@@ -42,10 +43,8 @@ function Coc({lang}: { lang: Lang }) {
           </div>
         </main>
       </div>
-    </>
+    </DefaultLayout>
   );
 }
-
-Coc.activeHeader = 'about';
 
 export default Coc;

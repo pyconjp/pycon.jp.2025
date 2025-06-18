@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {Lang} from "@/types/lang";
 import {dictionary} from "@/lang";
+import clsx from "clsx";
 
 type Position = "venue" | "coc" | "sponsor" | "member";
 
@@ -25,7 +26,11 @@ export default function Navi_about({position, lang}: Navi_aboutProps) {
         <Link
           key={key}
           href={href}
-          className={`relative pb-2 after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-6 after:h-0.5 after:bg-black after:transition-opacity after:duration-300 ${position === key ? "after:opacity-100" : "after:opacity-0 hover:after:opacity-100"} whitespace-nowrap`}
+          className={clsx(
+            "relative pb-2 after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-6 after:h-0.5 after:bg-black after:transition-opacity after:duration-300 whitespace-nowrap",
+            {"after:opacity-100": position === key},
+            {"after:opacity-0 hover:after:opacity-100": position !== key},
+          )}
         >
           {dict.NavBar_About[key]}
         </Link>

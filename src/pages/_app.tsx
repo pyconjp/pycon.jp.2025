@@ -1,12 +1,10 @@
 import "@/styles/globals.css";
-import {ActiveHeader} from "@/types/header";
-import DefaultLayout from "@/components/layout/DefaultLayout";
 import {MDXProvider} from "@mdx-js/react";
 import {mdxComponents} from "@/components/markdown/mdx-component";
-import { Noto_Sans_JP } from "next/font/google";
+import {Noto_Sans_JP} from "next/font/google";
 
 type CustomAppProps = {
-  Component: React.ComponentType & { activeHeader?: ActiveHeader };
+  Component: React.ComponentType;
   pageProps: Record<string, unknown>;
 }
 
@@ -19,9 +17,7 @@ export default function App({Component, pageProps}: CustomAppProps) {
   return (
     <div className={`${NotoSansJP.className}`}>
       <MDXProvider components={mdxComponents}>
-        <DefaultLayout activeHeader={Component.activeHeader}>
-          <Component {...pageProps} />
-        </DefaultLayout>
+        <Component {...pageProps} />
       </MDXProvider>
     </div>
   );
