@@ -10,7 +10,7 @@ const menu: { key: ActiveHeader, href: string }[] = [
   },
   {
     'key': 'about',
-    'href': '/about',
+    'href': '/coc',
   },
   {
     'key': 'timetable',
