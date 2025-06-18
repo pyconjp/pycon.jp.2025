@@ -12,4 +12,10 @@ export type Dictionary = {
     'speakers': string,
     'map': string,
   },
+  'NavBar_About': {
+    venue: string,
+    coc: string,
+    member: string,
+    sponsor: string,
+  },
 };

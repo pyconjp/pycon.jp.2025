@@ -11,6 +11,12 @@ const Ja: Dictionary = {
     'timetable': 'タイムテーブル',
     'speakers': 'スピーカー',
     'map': '周辺施設',
+  },
+  'NavBar_About': {
+    venue: '会場案内',
+    coc: '行動規範',
+    member: 'メンバー',
+    sponsor: 'スポンサー',
   }
 }
 

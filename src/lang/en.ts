@@ -11,6 +11,12 @@ const En: Dictionary = {
     'timetable': 'Timetable',
     'speakers': 'Speakers',
     'map': 'Map',
+  },
+  'NavBar_About': {
+    venue: 'Venue',
+    coc: 'Code of Conduct',
+    member: 'Members',
+    sponsor: 'Sponsors',
   }
 }
 
