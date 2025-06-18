@@ -4,6 +4,19 @@ const En: Dictionary = {
   'top': {
     'title': 'TOP page',
     'description': 'is the TOP page of PyCon JP 2025',
+  },
+  'menu': {
+    'home': 'Home',
+    'about': 'About',
+    'timetable': 'Timetable',
+    'speakers': 'Speakers',
+    'map': 'Map',
+  },
+  'NavBar_About': {
+    venue: 'Venue',
+    coc: 'Code of Conduct',
+    member: 'Members',
+    sponsor: 'Sponsors',
   }
 }
 

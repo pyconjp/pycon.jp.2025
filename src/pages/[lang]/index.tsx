@@ -7,6 +7,7 @@ import {Lang} from "@/types/lang";
 import NewsSection from "@/components/sections/NewsSection";
 import {dictionary} from "@/lang";
 import dynamic from "next/dynamic";
+import DefaultLayout from "@/components/layout/DefaultLayout";
 
 // TODO: 実際のフォントを反映する
 const geistSans = Geist({
@@ -46,7 +47,7 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
   const MdxExample = dynamic(() => import(`@/components/markdown/${lang}/example.mdx`), {ssr: true});
 
   return (
-    <>
+    <DefaultLayout activeHeader='home' lang={lang}>
       <PageHead
         title={dict.top.title}
         description={dict.top.description}
@@ -60,10 +61,8 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
           <MdxExample/>
         </main>
       </div>
-    </>
+    </DefaultLayout>
   );
 }
-
-Home.activeHeader = 'home';
 
 export default Home;
