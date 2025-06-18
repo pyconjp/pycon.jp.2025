@@ -37,7 +37,7 @@ function Coc({lang}: { lang: Lang }) {
       <div>
         <Navi_about position="coc" lang={lang}/>
         <main className="flex justify-center items-center">
-          <div className=' m-4 mx-12 lg:mx-4 my-10'>
+          <div className=' m-4 mx-12 lg:mx-4 my-10 prose-h2:scroll-mt-20 prose-h3:scroll-mt-20'>
             <CocContent/>
           </div>
         </main>
