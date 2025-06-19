@@ -1,8 +1,8 @@
 import {ActiveHeader} from "@/types/header";
-import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
 import FixedMenu from "@/components/elements/FixedMenu";
 import {Lang} from "@/types/lang";
+import Header from "@/components/sections/Header";
 
 type DefaultLayoutProps = {
   children: React.ReactNode;

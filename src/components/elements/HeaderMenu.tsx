@@ -26,9 +26,10 @@ const menu: { key: ActiveHeader, href: string }[] = [
   }
 ];
 
-export default function HeaderMenu({active, lang, ...props}: {
+export default function HeaderMenu({active, lang, isTop, ...props}: {
   active?: ActiveHeader,
   lang: Lang
+  isTop?: boolean
 } & React.HTMLAttributes<HTMLElement>) {
   const dict = dictionary[lang];
 
@@ -39,7 +40,7 @@ export default function HeaderMenu({active, lang, ...props}: {
           <li key={item.key} className='list-none'>
             <a
               href={item.href}
-              className={clsx('font-bold', {'border-b-1 pb-1.5': active === item.key})}
+              className={clsx('font-bold', {'border-b-1 pb-1.5': active === item.key, 'text-white': isTop})}
             >
               {dict.menu[item.key]}
             </a>
