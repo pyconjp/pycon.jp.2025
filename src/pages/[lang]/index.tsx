@@ -36,10 +36,6 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
 
   return (
     <>
-      <Header active={'home'} lang={lang} className='lg:hidden'/>
-      <div className='h-dvh'>
-        <HeroSection/>
-      </div>
       <DefaultLayout activeHeader='home' lang={lang}>
         <PageHead
           title={dict.top.title}
@@ -47,6 +43,7 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
           lang={lang}
           pagePath='/'
         />
+        <HeroSection/>
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start w-11/12 lg:w-10/12 mx-auto">
           <NewsSection posts={posts} lang={lang}/>
         </main>

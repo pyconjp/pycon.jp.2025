@@ -14,7 +14,7 @@ export default function Header({active, lang, ...props}: Props) {
   return (
     <header
       {...props}
-      className={clsx("sticky z-10 top-0 bg-white pt-14 lg:pt-0 lg:h-24 lg:mx-12 text-xs lg:text-base", props.className)}>
+      className={clsx("sticky z-10 top-0 bg-white pt-14 lg:pt-0 lg:h-24 lg:px-12 text-xs lg:text-base", props.className)}>
       <div className='flex flex-row items-center justify-between h-10 lg:h-full px-6 lg:px-0'>
         <div className='lg:w-60'>
           <Image src='/common/logo_pc.png' alt='PyCon JP 2025 Logo' width={243} height={57}
