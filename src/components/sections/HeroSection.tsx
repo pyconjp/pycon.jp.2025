@@ -7,13 +7,17 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
 import LinkButton from "@/components/elements/LinkButton";
+import {Lang} from "@/types/lang";
+import dynamic from "next/dynamic";
 
 const images = [
   '/common/hero/hero_1.jpg',
   '/common/hero/hero_2.jpg',
 ]
 
-export default function HeroSection() {
+export default function HeroSection({lang}: {lang: Lang}) {
+  const Abstract = dynamic(() => import(`@/components/markdown/${lang}/abstract.mdx`), {ssr: true});
+
   const DateArea = ({day, month, date, weekday, className}: {
     day: string,
     month: string,
@@ -91,10 +95,7 @@ export default function HeroSection() {
           <Image src='/common/hero/theme.png' alt='あつまれPythonのピース' width={1120} height={1120}
                  className='w-4/6 max-w-72 mx-auto'/>
           <div className='text-sm lg:text-base mb-4'>
-            2025年、Pythonカンファレンス「PyCon
-            JP」は、「あつまれPythonのピース」をテーマに、広島で開催されます。初の地方開催となる今回は、会場が平和記念公園内の国際会議場。平和を願い、発信し続けてきたこの地で、Pythonが大切にしてきた「多様性」や「オープンさ」を、あらためて感じられるイベントになるでしょう。
-            関東や遠方の方も、少し足を伸ばして、凛とした空気の平和公園で技術トークを楽しむ時間には、きっと特別な価値があります。
-            全国から集まる仲間たちと、コードの話も、これからの社会の話もちょっぴりしてみませんか？お好み焼きも、牡蠣も待っています。9月、広島でお会いしましょう！
+            <Abstract/>
           </div>
           <LinkButton href='https://example.com'>
             チケットを購入する

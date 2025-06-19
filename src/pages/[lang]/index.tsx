@@ -70,7 +70,7 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
       />
       <div>
         <Header active={'home'} lang={lang} isTop={true} className='hidden lg:block'/>
-        <HeroSection/>
+        <HeroSection lang={lang}/>
       </div>
       <div>
         <div ref={sentinelRef} className='h-1'/>
