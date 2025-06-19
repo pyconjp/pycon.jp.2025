@@ -14,9 +14,9 @@ export default function DefaultLayout({children, activeHeader, lang}: DefaultLay
   return (
     <div>
       <Header active={activeHeader} lang={lang}/>
-      <main className='min-h-dvh'>
+      <div className='min-h-dvh'>
         {children}
-      </main>
+      </div>
       <FixedMenu/>
       <Footer/>
     </div>

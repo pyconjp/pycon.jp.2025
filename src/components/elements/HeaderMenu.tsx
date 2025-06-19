@@ -34,16 +34,18 @@ export default function HeaderMenu({active, lang, ...props}: {
 
   return (
     <nav className={clsx(props?.className)} {...props}>
-      {menu.map((item) => (
-        <li key={item.key} className='list-none'>
-          <a
-            href={item.href}
-            className={clsx('font-bold', {'border-b-1 pb-1.5': active === item.key})}
-          >
-            {dict.menu[item.key]}
-          </a>
-        </li>
-      ))}
+      <ul className='flex flex-row items-center justify-between lg:gap-8 gap-3'>
+        {menu.map((item) => (
+          <li key={item.key} className='list-none'>
+            <a
+              href={item.href}
+              className={clsx('font-bold', {'border-b-1 pb-1.5': active === item.key})}
+            >
+              {dict.menu[item.key]}
+            </a>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }
