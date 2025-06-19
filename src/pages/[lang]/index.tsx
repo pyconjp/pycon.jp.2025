@@ -12,7 +12,6 @@ import Footer from "@/components/sections/Footer";
 import {useEffect, useRef, useState} from "react";
 import clsx from "clsx";
 import KeynoteSection from "@/components/sections/KeynoteSection";
-import ImageSlideSection from "@/components/sections/ImageSlideSection";
 import OverviewSection from "@/components/sections/OverviewSection";
 
 export const getStaticPaths = async () => {
