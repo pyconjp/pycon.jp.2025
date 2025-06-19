@@ -2,7 +2,7 @@ import PageHead from "@/components/elements/PageHead";
 import {GetStaticProps} from "next";
 import {Lang} from "@/types/lang";
 import dynamic from "next/dynamic";
-import Navi_about from "@/components/sections/Navi_about";
+import Navi_about from "@/components/elements/Navi_about";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 
 export const getStaticPaths = async () => {
