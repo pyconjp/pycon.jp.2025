@@ -6,7 +6,6 @@ import { Lang } from "@/types/lang";
 import { Sponsor } from "@/types/sponsor";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import "@/styles/globals.css";
 import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import SponsorLinkButton from "@/components/elements/SponsorLinkButton";
 import Link from "next/link";
