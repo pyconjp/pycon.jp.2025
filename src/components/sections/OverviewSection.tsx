@@ -8,18 +8,6 @@ type Props = { lang: Lang } & React.HTMLAttributes<HTMLElement>;
 
 export default function OverviewSection({lang, ...props}: Props) {
   const Overview = dynamic(() => import(`@/components/markdown/${lang}/overview.mdx`), {ssr: true});
-  const ShadowText = ({text, ...props}: { text: string } & React.HTMLAttributes<HTMLDivElement>) => (
-    <div {...props}
-         className={
-           clsx(
-             "relative text-gray-500 before:absolute before:-left-0.5 before:-top-0.5 before:text-white before:block",
-             `before:content-['${text.replaceAll(' ', '_')}']`,
-             props.className,
-           )
-         }>
-      {text}
-    </div>
-  );
 
   return (
     <section {...props} className={clsx('flex lg:flex-row flex-col gap-14', props.className)}>
@@ -27,8 +15,22 @@ export default function OverviewSection({lang, ...props}: Props) {
         <Image src='/common/overview/overview_main.jpg' alt='Overview Image Main' width={564} height={812}
                className='h-full w-full object-cover rounded-2xl'/>
         <div className='absolute bottom-[5%] left-[10%] text-white'>
-          <ShadowText text='Overview' className='text-6xl mb-5'/>
-          <ShadowText text='About PyCon JP' className='text-xl'/>
+          <h2 className={
+            clsx(
+              "relative text-gray-500 after:text-white after:absolute after:-left-1 after:-top-1 text-6xl mb-5",
+              `after:content-['Overview']`,
+            )
+          }>
+            Overview
+          </h2>
+          <div className={
+            clsx(
+              "relative text-gray-500 after:text-white after:absolute after:-left-0.5 after:-top-0.5 text-xl",
+              `after:content-['About_PyCon_JP']`,
+            )
+          }>
+            About PyCon JP
+          </div>
         </div>
       </div>
       <div className='flex-[2_2_0]'>
