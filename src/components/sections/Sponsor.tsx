@@ -16,7 +16,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
     <section {...props}>
       <div className="relative">
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-          <span className="text-5xl font-bold">Platinum Sponsors</span><span className="lg:mx-24">プラチナムスポンサー</span>
+          <span className="text-5xl font-bold">Platinum Sponsors</span><span className="lg:mx-24 text-[##808080]">プラチナスポンサー</span>
         </h2>
         <div className="grid lg:grid-cols-2 gap-24 space-y-12 justify-center items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'platinum').map((sponsor, index) => (
@@ -41,7 +41,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
       </div>
       <div className="relative py-2">
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-          <span className="text-5xl font-bold">PSF</span><span className="lg:mx-24">PSF</span>
+          <span className="text-5xl font-bold">PSF</span><span className="lg:mx-24 text-[##808080]">PSF</span>
         </h2>
         <div className="grid lg:grid-cols-2 gap-24 space-y-12 justify-center items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'psf').map((sponsor, index) => (
@@ -67,7 +67,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
       </div>
       <div className="relative py-2">
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-          <span className="text-5xl font-bold">Gold Sponsors</span><span className="lg:mx-24">ゴールドスポンサー</span>
+          <span className="text-5xl font-bold">Gold Sponsors</span><span className="lg:mx-24 text-[##808080]">ゴールドスポンサー</span>
         </h2>
         <div className="grid lg:grid-cols-4 gap-10 space-y-24 justify-center items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'gold').map((sponsor, index) => (
@@ -93,7 +93,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
       </div>
       <div className="relative py-2">
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-          <span className="text-5xl font-bold">Silver Sponsors</span><span className="lg:mx-24">シルバースポンサー</span>
+          <span className="text-5xl font-bold">Silver Sponsors</span><span className="lg:mx-24 text-[##808080]">シルバースポンサー</span>
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 justify-center items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'silver').map((sponsor, index) => (

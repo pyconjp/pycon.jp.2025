@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
-import {MDXProvider} from "@mdx-js/react";
-import {mdxComponents} from "@/components/markdown/mdx-component";
-import {Noto_Sans_JP} from "next/font/google";
+import { MDXProvider } from "@mdx-js/react";
+import { mdxComponents } from "@/components/markdown/mdx-component";
+import { Noto_Sans_JP } from "next/font/google";
 
 type CustomAppProps = {
   Component: React.ComponentType;
@@ -13,7 +13,7 @@ const NotoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
 });
 
-export default function App({Component, pageProps}: CustomAppProps) {
+export default function App({ Component, pageProps }: CustomAppProps) {
   return (
     <div className={`${NotoSansJP.className}`}>
       <MDXProvider components={mdxComponents}>
