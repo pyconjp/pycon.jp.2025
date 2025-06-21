@@ -4,13 +4,13 @@ import dynamic from "next/dynamic";
 
 type Props = { lang: Lang } & React.HTMLAttributes<HTMLElement>;
 
-export default function KeynoteSection({lang, ...props}: Props) {
+export default function KeynotesSection({lang, ...props}: Props) {
   const KeynoteContent1 = dynamic(() => import(`@/components/markdown/${lang}/keynote_1.mdx`), {ssr: true});
   const KeynoteContent2 = dynamic(() => import(`@/components/markdown/${lang}/keynote_2.mdx`), {ssr: true});
   return (
     <section {...props}>
       <h1 className='text-6xl font-bold'>
-        Keynote<br/>2025
+        Keynotes<br/>2025
       </h1>
       <div className='flex flex-col lg:flex-row gap-24'>
         <div className='flex-1'>

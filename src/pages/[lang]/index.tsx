@@ -11,7 +11,7 @@ import FixedMenu from "@/components/elements/FixedMenu";
 import Footer from "@/components/sections/Footer";
 import {useEffect, useRef, useState} from "react";
 import clsx from "clsx";
-import KeynoteSection from "@/components/sections/KeynoteSection";
+import KeynotesSection from "@/components/sections/KeynotesSection";
 import OverviewSection from "@/components/sections/OverviewSection";
 import RecruitmentSection from "@/components/sections/RecruitmentSection";
 
@@ -79,7 +79,7 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
           'opacity-100': isStickyVisible,
           'opacity-0 pointer-events-none': !isStickyVisible
         })}/>
-        <KeynoteSection className='mx-auto lg:w-5/8 w-10/12 mt-20' lang={lang}/>
+        <KeynotesSection className='mx-auto lg:w-5/8 w-10/12 mt-20' lang={lang}/>
         <NewsSection className='mx-auto lg:w-5/8 w-10/12 mt-20' posts={posts} lang={lang}/>
         <OverviewSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
         <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
