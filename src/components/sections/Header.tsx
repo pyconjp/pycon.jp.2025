@@ -17,9 +17,9 @@ export default function Header({active, lang, isTop, ...props}: Props) {
       {...props}
       className={clsx("sticky z-10 top-0 pt-14 lg:pt-0 lg:px-12 text-xs lg:text-base", props.className, {
         'lg:h-24 bg-white': !isTop,
-        'lg:h-96 bg-gradient-to-b from-blur to-transparent': isTop
+        'lg:h-96 bg-gradient-to-b from-blur to-transparent pointer-events-none': isTop
       })}>
-      <div className={clsx('flex flex-row justify-between h-10 px-6 lg:px-0', {
+      <div className={clsx('flex flex-row justify-between h-10 px-6 lg:px-0 pointer-events-auto', {
         'items-center lg:h-full': !isTop,
         'items-start lg:h-24 pt-7': isTop
       })}>
@@ -37,7 +37,7 @@ export default function Header({active, lang, isTop, ...props}: Props) {
           <LangButton lang={lang} isTop={isTop}/>
         </div>
       </div>
-      <div className="relative overflow-x-scroll whitespace-nowrap scrollbar-hide lg:hidden px-6">
+      <div className="relative overflow-x-scroll whitespace-nowrap scrollbar-hide lg:hidden px-6 pointer-events-auto">
         <HeaderMenu active={active} className="py-4 lg:hidden" lang={lang} isTop={isTop}/>
       </div>
     </header>
