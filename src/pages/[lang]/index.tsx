@@ -93,7 +93,7 @@ function Home({lang, posts, sponsors}: { lang: Lang, posts: Blogger[], sponsors:
         </div>
       </div>
       <FixedMenu/>
-      <Footer/>
+      <Footer lang={lang}/>
     </main>
   );
 }

@@ -18,7 +18,7 @@ export default function DefaultLayout({children, activeHeader, lang}: DefaultLay
         {children}
       </div>
       <FixedMenu/>
-      <Footer/>
+      <Footer lang={lang}/>
     </div>
   );
 }
