@@ -1,6 +1,5 @@
 import { Lang } from "@/types/lang";
 import { Sponsor } from "@/types/sponsor";
-import Image from "next/image";
 import React from "react";
 import ImageWithFallback from "@/components/elements/ImageWithFallback";
 
