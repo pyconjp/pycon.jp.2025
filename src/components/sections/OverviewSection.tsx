@@ -38,7 +38,7 @@ export default function OverviewSection({lang, ...props}: Props) {
                className='w-full mb-12 rounded-2xl'/>
         <Overview/>
         <div className='mt-4'/>
-        <LinkButton href='https://exampe.com' className='mt-12'>
+        <LinkButton href='https://www.pycon.jp/' className='mt-12'>
           カンファレンスについて
         </LinkButton>
       </div>
