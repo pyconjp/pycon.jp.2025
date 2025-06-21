@@ -1,4 +1,3 @@
-import {Geist, Geist_Mono} from "next/font/google";
 import PageHead from "@/components/elements/PageHead";
 import {getBloggerPosts} from "@/libs/blogger";
 import {Blogger} from "@/types/blogger";
@@ -6,19 +5,15 @@ import {GetStaticProps} from "next";
 import {Lang} from "@/types/lang";
 import NewsSection from "@/components/sections/NewsSection";
 import {dictionary} from "@/lang";
-import dynamic from "next/dynamic";
-import DefaultLayout from "@/components/layout/DefaultLayout";
-
-// TODO: 実際のフォントを反映する
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import HeroSection from "@/components/sections/HeroSection";
+import Header from "@/components/sections/Header";
+import FixedMenu from "@/components/elements/FixedMenu";
+import Footer from "@/components/sections/Footer";
+import {useEffect, useRef, useState} from "react";
+import clsx from "clsx";
+import KeynotesSection from "@/components/sections/KeynotesSection";
+import OverviewSection from "@/components/sections/OverviewSection";
+import RecruitmentSection from "@/components/sections/RecruitmentSection";
 
 export const getStaticPaths = async () => {
   return {
@@ -44,24 +39,54 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
 function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
   const dict = dictionary[lang];
-  const MdxExample = dynamic(() => import(`@/components/markdown/${lang}/example.mdx`), {ssr: true});
+  const sentinelRef = useRef(null);
+  const [isStickyVisible, setStickyVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setStickyVisible(!entry.isIntersecting);
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0,
+      }
+    );
+
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <DefaultLayout activeHeader='home' lang={lang}>
+    <main>
+      <Header active={'home'} lang={lang} className='lg:hidden'/>
       <PageHead
         title={dict.top.title}
         description={dict.top.description}
         lang={lang}
         pagePath='/'
       />
-      <div className={`${geistSans.className} ${geistMono.className}`}>
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start w-11/12 lg:w-10/12 mx-auto">
-          {lang === "ja" ? "ここは日本語版トップページです" : "Welcome to the English homepage"}
-          <NewsSection posts={posts} lang={lang}/>
-          <MdxExample/>
-        </main>
+      <div>
+        <Header active={'home'} lang={lang} isTop={true} className='hidden lg:block'/>
+        <HeroSection lang={lang}/>
       </div>
-    </DefaultLayout>
+      <div>
+        <div ref={sentinelRef} className='h-1'/>
+        <Header active={'home'} lang={lang} className={clsx('hidden lg:block', {
+          'opacity-100': isStickyVisible,
+          'opacity-0 pointer-events-none': !isStickyVisible
+        })}/>
+        <KeynotesSection className='mx-auto lg:w-5/8 w-10/12 mt-20' lang={lang}/>
+        <NewsSection className='mx-auto lg:w-5/8 w-10/12 mt-20' posts={posts} lang={lang}/>
+        <OverviewSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
+        <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
+      </div>
+      <FixedMenu/>
+      <Footer/>
+    </main>
   );
 }
 
