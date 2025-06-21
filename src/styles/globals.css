@@ -6,8 +6,15 @@
 @plugin "@tailwindcss/typography";
 @plugin "tailwind-scrollbar-hide";
 
+@layer base {
+    :root {
+        --font-jost: 'Jost', sans-serif;
+    }
+}
+
 @theme {
     --color-primary: #24A53D;
     --color-secondary: #FF9DA5;
     --color-blur: #C08430;
+    --font-jost: 'Jost', sans-serif;
 }

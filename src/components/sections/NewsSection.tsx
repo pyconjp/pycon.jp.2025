@@ -11,7 +11,7 @@ export default function NewsSection({lang, posts, ...props}: Props) {
   return (
     <section {...props}>
       <h1 className='flex items-center gap-10'>
-        <span className='text-6xl font-bold'>Topics</span><span className='my-auto text-base'>お知らせ</span>
+        <span className='text-6xl font-bold font-jost'>Topics</span><span className='my-auto text-base'>お知らせ</span>
       </h1>
       <div className='grid lg:grid-cols-2 grid-cols-1 gap-5 mt-11'>
         {posts.map((post) => (

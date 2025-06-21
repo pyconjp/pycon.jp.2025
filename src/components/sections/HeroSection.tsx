@@ -69,7 +69,7 @@ export default function HeroSection({lang}: {lang: Lang}) {
         <div
           className='absolute bg-white w-[120%] aspect-[16_/_3] rounded-t-[100%] lg:top-[85dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0'/>
       </div>
-      <div className='lg:w-5/8 w-10/12 mx-auto mt-[-15dvh] lg:mt-[-30dvh] z-10'>
+      <div className='lg:w-5/8 w-10/12 mx-auto mt-[-15dvh] lg:mt-[-30dvh] z-10 font-jost'>
         <div className='flex flex-col w-80 font-semibold ml-auto mx-auto lg:mr-0'>
           <div className='flex flex-row lg:h-60 h-40'>
             <DateArea day='DAY 1' month='09' date='26' weekday='FRI' className='bg-secondary text-black'/>
