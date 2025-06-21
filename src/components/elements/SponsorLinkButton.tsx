@@ -12,6 +12,7 @@ const getDomainFromUrl = (url: string): string | null => {
     const urlObject = new URL(url);
     return urlObject.hostname;
   } catch (error) {
+    console.error("Invalid URL:", url, error);
     return url;
   }
 };
