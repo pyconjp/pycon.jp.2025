@@ -14,6 +14,9 @@ import clsx from "clsx";
 import KeynotesSection from "@/components/sections/KeynotesSection";
 import OverviewSection from "@/components/sections/OverviewSection";
 import RecruitmentSection from "@/components/sections/RecruitmentSection";
+import {getSponsors} from "@/libs/spreadsheet";
+import {Sponsor} from "@/types/sponsor";
+import SponsorSection from "@/components/sections/Sponsor";
 
 export const getStaticPaths = async () => {
   return {
@@ -28,16 +31,18 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
   const lang = params?.lang || 'ja';
   const posts = await getBloggerPosts();
+  const sponsors = await getSponsors();
   return {
     props: {
       lang,
       posts,
+      sponsors,
     },
     revalidate: 3600,
   };
 };
 
-function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
+function Home({lang, posts, sponsors}: { lang: Lang, posts: Blogger[], sponsors: Sponsor[] }) {
   const dict = dictionary[lang];
   const sentinelRef = useRef(null);
   const [isStickyVisible, setStickyVisible] = useState(false);
@@ -83,6 +88,9 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
         <NewsSection className='mx-auto lg:w-5/8 w-10/12 mt-20' posts={posts} lang={lang}/>
         <OverviewSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
         <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
+        <div className="bg-[#FAFAFA] py-2 pb-10">
+          <SponsorSection className="mx-auto lg:w-5/8 w-10/12" sponsors={sponsors} lang={lang} />
+        </div>
       </div>
       <FixedMenu/>
       <Footer/>
