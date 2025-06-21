@@ -2,6 +2,7 @@ import { Lang } from "@/types/lang";
 import { Sponsor } from "@/types/sponsor";
 import Image from "next/image";
 import React from "react";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 
 type Props = {
   sponsors: Sponsor[];
@@ -22,7 +23,8 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           {sponsors.filter(sponsor => sponsor.plan === 'platinum').map((sponsor, index) => (
             <div key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <Image src={`/common/sponsor/${sponsor.logo_image}` || `/common/logo_pc.png`}
+                <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
+                  fallback={`/common/logo_pc.png`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
