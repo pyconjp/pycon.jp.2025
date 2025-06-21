@@ -21,13 +21,13 @@ export default function SponsorLinkButton({href, title, ...props}: Props) {
   return (
     <div {...props}>
       <ExternalLink href={href}>
-      <span className='w-full bg-gray-50 border-gray-300 border-1 flex items-center justify-between p-5 lg:p-6 rounded-2xl'>
-        <span className="flex flex-col gap-2">
-          <span className="font-semibold">{title}</span>
-          {getDomainFromUrl(href)}
+        <span className='w-full bg-gray-50 border-gray-300 border-1 flex items-center justify-between p-5 lg:p-6 rounded-2xl'>
+          <span className="flex flex-col gap-2">
+            <span className="font-semibold">{title}</span>
+            {getDomainFromUrl(href)}
+          </span>
+          <FontAwesomeIcon icon={faArrowRight} className="rotate-315"/>
         </span>
-        <FontAwesomeIcon icon={faArrowRight} className="rotate-315"/>
-      </span>
       </ExternalLink>
     </div>
   )
