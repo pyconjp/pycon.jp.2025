@@ -8,7 +8,10 @@ export default function ImageWithFallback({fallback = '/common/no_image.jpg', ..
     <Image
       {...props}
       alt={props.alt}
-      onError={() => setSrc(fallback)}
+      onError={() => {
+        console.error('Image failed to load:', props.src);
+        setSrc(fallback);
+      }}
       src={src}
       unoptimized
     />
