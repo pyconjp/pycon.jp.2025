@@ -100,7 +100,7 @@ function SponsorPage({ sponsors, lang }: Props) {
                       alt={lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
                       width={480}
                       height={210}
-                      className="w-92 h-42 lg:p-5 object-contain"
+                      className="w-92 h-42 p-2 lg:p-5 object-contain"
                       fallback={'/common/logo_pc.png'}
                     />
                   </div>
