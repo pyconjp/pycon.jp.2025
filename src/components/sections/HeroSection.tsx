@@ -61,7 +61,7 @@ export default function HeroSection({lang}: {lang: Lang}) {
         >
           {images.map((src, index) => (
             <SwiperSlide key={index}>
-              <Image src={src} alt={`Hero Section ${index}`} width={4096} height={2731}
+              <Image src={src} alt={`Hero Section ${index}`} width={1024} height={683}
                      className='w-full h-full object-cover' loading='lazy'/>
             </SwiperSlide>
           ))}
