@@ -10,6 +10,7 @@ export default function ImageWithFallback({fallback = '/common/no_image.jpg', ..
       alt={props.alt}
       onError={() => {console.log(props.src); setIsError(true);}}
       src={isError ? fallback : props.src}
+      unoptimized
     />
   )
 }
