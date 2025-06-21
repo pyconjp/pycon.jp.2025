@@ -8,7 +8,7 @@ export default function ImageWithFallback({fallback = '/common/no_image.jpg', ..
     <Image
       {...props}
       alt={props.alt}
-      onError={() => setIsError(true)}
+      onError={() => {console.log(props.src); setIsError(true);}}
       src={isError ? fallback : props.src}
     />
   )
