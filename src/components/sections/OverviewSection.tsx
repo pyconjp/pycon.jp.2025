@@ -12,7 +12,7 @@ export default function OverviewSection({lang, ...props}: Props) {
   return (
     <section {...props} className={clsx('flex lg:flex-row flex-col gap-14', props.className)}>
       <div className='flex-[3_3_0] relative lg:aspect-auto aspect-[2_/_3]'>
-        <Image src='/common/overview/overview_main.jpg' alt='Overview Image Main' width={564} height={812}
+        <Image src='/common/overview/overview_main.jpg' alt='Overview Image Main' width={232} height={406}
                className='h-full w-full object-cover rounded-2xl'/>
         <div className='absolute bottom-[5%] left-[10%] text-white'>
           <h2 className={
