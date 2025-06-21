@@ -13,6 +13,7 @@ import {useEffect, useRef, useState} from "react";
 import clsx from "clsx";
 import KeynoteSection from "@/components/sections/KeynoteSection";
 import OverviewSection from "@/components/sections/OverviewSection";
+import RecruitmentSection from "@/components/sections/RecruitmentSection";
 
 export const getStaticPaths = async () => {
   return {
@@ -81,6 +82,7 @@ function Home({lang, posts}: { lang: Lang, posts: Blogger[] }) {
         <KeynoteSection className='mx-auto lg:w-5/8 w-10/12 mt-20' lang={lang}/>
         <NewsSection className='mx-auto lg:w-5/8 w-10/12 mt-20' posts={posts} lang={lang}/>
         <OverviewSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
+        <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
       </div>
       <FixedMenu/>
       <Footer/>
