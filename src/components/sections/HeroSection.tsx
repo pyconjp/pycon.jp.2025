@@ -57,7 +57,7 @@ export default function HeroSection({lang}: {lang: Lang}) {
             disableOnInteraction: false,
           }}
           loop={true}
-          className="w-full h-[50vh] lg:h-[85vh] overflow-hidden !-z-10"
+          className="w-full h-[50vh] lg:h-[85vh] overflow-hidden !-z-20"
         >
           {images.map((src, index) => (
             <SwiperSlide key={index}>
@@ -92,8 +92,9 @@ export default function HeroSection({lang}: {lang: Lang}) {
       <div
         className='relative lg:w-5/8 w-10/12 h-auto mx-auto flex flex-col lg:flex-row gap-12 bg-transparent lg:-mt-24 lg:items-end'>
         <div className='flex-1'>
-          <Image src='/common/hero/theme.png' alt='あつまれPythonのピース' width={1120} height={1120}
-                 className='w-4/6 max-w-72 mx-auto'/>
+          <div className='relative after:bg-white after:absolute after:w-full after:h-full after:-z-10 after:top-0 after:left-0 after:rounded-2xl w-4/6 max-w-72 mx-auto'>
+            <Image src='/common/hero/theme.png' alt='あつまれPythonのピース' width={1120} height={1120} className='z-10'/>
+          </div>
           <div className='text-sm lg:text-base mb-4'>
             <Abstract/>
           </div>
