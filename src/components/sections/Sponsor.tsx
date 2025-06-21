@@ -24,7 +24,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
             <div key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                 <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
-                  fallback={`/common/logo_pc.png`}
+                  fallback={`/common/no_image.jpg`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
