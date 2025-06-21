@@ -48,11 +48,13 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           {sponsors.filter(sponsor => sponsor.plan === 'psf').map((sponsor, index) => (
             <div key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <Image src={`/common/sponsor/${sponsor.logo_image}` || `/common/logo_pc.png`}
+                <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
-                  className="w-72 h-42 object-contain" />
+                  className="w-72 h-42 object-contain p-7"
+                  fallback={'/common/logo_pc.png'}
+                />
               </div>
               <div className="flex flex-col my-4">
                 <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
@@ -72,11 +74,13 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           {sponsors.filter(sponsor => sponsor.plan === 'gold').map((sponsor, index) => (
             <div key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[230px] lg:max-h-[220px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <Image src={`/common/sponsor/${sponsor.logo_image}` || `/common/logo_pc.png`}
+                <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
-                  className="w-52 h-42 object-contain" />
+                  className="w-52 h-42 p-5 object-contain"
+                  fallback={'/common/logo_pc.png'}
+                />
               </div>
               <div className="flex flex-col my-4">
                 <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
@@ -96,11 +100,13 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           {sponsors.filter(sponsor => sponsor.plan === 'silver').map((sponsor, index) => (
             <div key={index} className="max-w-[145px] h-[220px] lg:max-w-[230px] lg:h-[160px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <Image src={`/common/sponsor/${sponsor.logo_image}` || `/common/logo_pc.png`}
+                <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
-                  className="w-32 h-22 object-contain p-2" />
+                  className="w-32 h-22 object-contain p-2"
+                  fallback={'/common/logo_pc.png'}
+                />
               </div>
               <div className="flex flex-col my-4">
                 <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
