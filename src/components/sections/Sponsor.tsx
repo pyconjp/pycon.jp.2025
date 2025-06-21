@@ -47,7 +47,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           {sponsors.filter(sponsor => sponsor.plan === 'psf').map((sponsor, index) => (
             <div key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <ImageWithFallback src={encodeURIComponent(`/common/sponsor/${sponsor.logo_image}`)}
+                <ImageWithFallback src={`/common/sponsor/${encodeURIComponent(sponsor.logo_image)}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
@@ -73,7 +73,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           {sponsors.filter(sponsor => sponsor.plan === 'gold').map((sponsor, index) => (
             <div key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[230px] lg:max-h-[220px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <ImageWithFallback src={encodeURIComponent(`/common/sponsor/${sponsor.logo_image}`)}
+                <ImageWithFallback src={`/common/sponsor/${encodeURIComponent(sponsor.logo_image)}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
@@ -99,7 +99,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           {sponsors.filter(sponsor => sponsor.plan === 'silver').map((sponsor, index) => (
             <div key={index} className="max-w-[145px] h-[220px] lg:max-w-[230px] lg:h-[160px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <ImageWithFallback src={encodeURIComponent(`/common/sponsor/${sponsor.logo_image}`)}
+                <ImageWithFallback src={`/common/sponsor/${encodeURIComponent(sponsor.logo_image)}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
