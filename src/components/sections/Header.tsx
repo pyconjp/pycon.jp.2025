@@ -15,7 +15,7 @@ export default function Header({active, lang, isTop, ...props}: Props) {
   return (
     <header
       {...props}
-      className={clsx("sticky z-10 top-0 pt-14 lg:pt-0 lg:px-12 text-xs lg:text-base", props.className, {
+      className={clsx("sticky z-10 top-0 pt-4 lg:pt-0 lg:px-12 text-xs lg:text-base", props.className, {
         'lg:h-24 bg-white': !isTop,
         'lg:h-96 bg-gradient-to-b from-blur to-transparent pointer-events-none': isTop
       })}>

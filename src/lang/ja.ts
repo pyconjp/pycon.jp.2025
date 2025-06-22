@@ -27,6 +27,16 @@ const Ja: Dictionary = {
     contact_us: "お問い合わせ",
     description: "ボランティアによる運営ですので、回答には1週間程度を要します。\n 何卒お待ちいただけますようにお願いします。",
     past_events: "過去のPyCon JPのイベント一覧",
+  },
+  'members': {
+    team: {
+      chair: '座長チーム',
+      program: 'プログラムチーム',
+      venue: '会場チーム',
+      pr: '広報チーム',
+      sponsor: 'スポンサーチーム',
+      attendee: '参加者管理チーム',
+    }
   }
 }
 

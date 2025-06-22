@@ -28,6 +28,16 @@ const En: Dictionary = {
     description: "As this event is organized by volunteers, it may take about a week for a reply. \nWe appreciate your understanding and patience.",
     past_events: "List of past PyCon JP events"
   },
+  'members': {
+    team: {
+      chair: 'Chair Team',
+      program: 'Program Team',
+      venue: 'Venue Team',
+      pr: 'Public Relations Team',
+      sponsor: 'Sponsor Team',
+      attendee: 'Attendee Management Team',
+    }
+  }
 }
 
 export default En;

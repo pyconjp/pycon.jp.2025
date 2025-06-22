@@ -94,7 +94,7 @@ export default function Footer({lang}: { lang: Lang }) {
           </div>
           <div className='inline-flex justify-end mt-8 lg:mt-0 underline'>
             <Link href='https://www.pycon.jp/organizer/index.html' rel='noopener noreferrer' target='_blank'
-                  className='text-secondary-300 hover:opacity-80'>
+                  className='text-secondary-300 hover:opacity-80 text-white'>
               {dict.footer.past_events}
             </Link>
             <FontAwesomeIcon icon={faArrowRight} className='h-6 text-secondary-300'/>
