@@ -38,7 +38,7 @@ function MembersPage({lang, members}: { lang: Lang, members: Member[] }) {
         title={lang === "ja" ? '主催メンバー' : 'Organizing Members'}
         description={lang === "ja" ? 'PyCon JP 2025の主催メンバーページです' : 'This is the Organizing Members page of PyCon JP 2025'}
         lang={lang}
-        pagePath='/sponsor'
+        pagePath='/members'
       />
       <div className="pt-2 pb-36">
         <MemberHeader/>

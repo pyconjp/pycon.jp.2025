@@ -45,10 +45,10 @@ export default function MemberPage({lang, member}: { lang: Lang, member: Member 
     <DefaultLayout lang={lang} activeHeader="about">
       <Navi_about position="member" lang={lang}/>
       <PageHead
-        title={lang === "ja" ? '主催メンバー' : 'Organizing Members'}
+        title={lang === "ja" ? member.name_ja + ' | 主催メンバー' : member.name_en + ' | Organizing Members'}
         description={lang === "ja" ? 'PyCon JP 2025の主催メンバーページです' : 'This is the Organizing Members page of PyCon JP 2025'}
         lang={lang}
-        pagePath='/sponsor'
+        pagePath={'/members/' + member.path}
       />
       <div className="pt-2 pb-36 bg-gray-50">
         <MemberSection member={member} lang={lang} className='mx-auto lg:w-1/3 w-10/12 lg:mt-20 mt-12'/>
