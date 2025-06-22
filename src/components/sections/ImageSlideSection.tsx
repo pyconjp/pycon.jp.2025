@@ -19,7 +19,7 @@ export default function ImageSlideSection({...props}: Props) {
     <section {...props} className={clsx('grid grid-cols-4', props.className)} >
       {images.map((image, index) => (
         <Image key={index} src={image} alt={`Slide Image ${index}`} width={600} height={400}
-               className={'aspect-[5_/_3] object-cover w-full'}/>
+               className={'aspect-[5_/_6] lg:aspect-[5_/_3] object-cover w-full'}/>
       ))}
     </section>
   )

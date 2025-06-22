@@ -27,5 +27,15 @@ export type Dictionary = {
     contact_us: string,
     description: string,
     past_events: string,
+  },
+  members: {
+    team: {
+      chair: string,
+      program: string,
+      venue: string,
+      pr: string,
+      sponsor: string,
+      attendee: string,
+    }
   }
 };
