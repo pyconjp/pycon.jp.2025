@@ -89,7 +89,7 @@ function Home({lang, posts, sponsors}: { lang: Lang, posts: Blogger[], sponsors:
         <NewsSection className='mx-auto lg:w-5/8 w-10/12 mt-20' posts={posts} lang={lang}/>
         <ImageSlideSection className='w-full my-20 lg:my-36'/>
         <OverviewSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
-        <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
+        <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 my-20'/>
         <div className="bg-[#FAFAFA] py-2 pb-10">
           <SponsorSection className="mx-auto lg:w-5/8 w-10/12" sponsors={sponsors} lang={lang} />
         </div>
