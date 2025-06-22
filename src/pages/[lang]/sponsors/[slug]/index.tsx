@@ -31,12 +31,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = [];
   for (const lang of langs) {
     for (const sponsor of sponsors) {
-      paths.push({
-        params: {
-          lang,
-          slug: sponsor.path,
-        },
-      });
+      if (sponsor.path) {
+        paths.push({
+          params: {
+            lang,
+            slug: sponsor.path,
+          },
+        });
+      }
     }
   }
   return {
