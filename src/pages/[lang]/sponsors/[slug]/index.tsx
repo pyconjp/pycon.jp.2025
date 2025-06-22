@@ -117,9 +117,11 @@ function SponsorPage({ sponsors, lang }: Props) {
                 <h2 className="my-6 text-xl font-bold">
                   {lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
                 </h2>
-                <p className="text-base">
-                  {lang === 'ja' ? currentSponsor.pr_ja : currentSponsor.pr_en}
-                </p>
+                {currentSponsor.plan !== 'silver' && (
+                  <p className="text-base">
+                    {lang === 'ja' ? currentSponsor.pr_ja : currentSponsor.pr_en}
+                  </p>
+                )}
                 <SponsorLinkButton
                   href={lang === 'ja' ? currentSponsor.url_ja : currentSponsor.url_en}
                   title={lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
