@@ -3,13 +3,23 @@ import {useRouter} from "next/router";
 import React from "react";
 import clsx from "clsx";
 
-export default function LangButton({lang, isTop}: { lang: Lang, isTop?: boolean }) {
-  const path = useRouter().pathname;
+export default function LangButton({lang, isTop}: { lang: Lang, isTop?: boolean  }) {
+  const path = useRouter().route;
+  const query = useRouter().query;
 
   const onClick = () => {
     const newLang = lang === 'ja' ? 'en' : 'ja';
     document.cookie = `lang=${newLang}; path=/; max-age=31536000`; // 1 year
-    location.href = path.replace('/[lang]', `/${newLang}`);
+    location.href = Object.keys(query)
+      .reduce(
+        (acc, key) => {
+          if (key !== 'lang') {
+            return acc.replace(`[${key}]`, query[key] as string);
+          }
+          return acc;
+        },
+        path.replace('[lang]', newLang)
+      );
   }
 
   const InActive = ({children}: { children: React.ReactNode }) => (

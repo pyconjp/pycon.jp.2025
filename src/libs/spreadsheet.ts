@@ -37,7 +37,7 @@ export async function getSponsors(): Promise<Sponsor[]> {
   }
   const sponsors: Sponsor[] = await fetchSheet<Sponsor>(
     process.env.SPONSOR_SPREADSHEET_ID || '',
-    'Webサイト掲載用!A2:H100',
+    'Webサイト掲載用!A2:I100',
     [
       'name_ja',
       'name_en',
@@ -47,6 +47,7 @@ export async function getSponsors(): Promise<Sponsor[]> {
       'pr_en',
       'logo_image',
       'plan',
+      'path'
     ]
   );
   return sponsors;

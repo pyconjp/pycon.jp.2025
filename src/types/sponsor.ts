@@ -7,6 +7,7 @@ export type Sponsor = {
   pr_en: string;
   logo_image: string;
   plan: 'platinum' | 'gold' | 'silver' | 'psf';
+  path: string;
 }
 
 export type SpecialSponsor = {
@@ -18,6 +19,7 @@ export type SpecialSponsor = {
   title_en: string;
   logo_image: string;
   plan: 'psf' | 'advertising' | 'special';
+  path: string;
 }
 
 export type Patron = {
