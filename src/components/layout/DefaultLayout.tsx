@@ -1,8 +1,8 @@
 import {ActiveHeader} from "@/types/header";
-import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
 import FixedMenu from "@/components/elements/FixedMenu";
 import {Lang} from "@/types/lang";
+import Header from "@/components/sections/Header";
 
 type DefaultLayoutProps = {
   children: React.ReactNode;
@@ -14,11 +14,11 @@ export default function DefaultLayout({children, activeHeader, lang}: DefaultLay
   return (
     <div>
       <Header active={activeHeader} lang={lang}/>
-      <main className='min-h-dvh'>
+      <div className='min-h-dvh'>
         {children}
-      </main>
+      </div>
       <FixedMenu/>
-      <Footer/>
+      <Footer lang={lang}/>
     </div>
   );
 }

@@ -5,7 +5,7 @@ export async function getBloggerPosts(): Promise<Blogger[]> {
     return [];
   }
   const baseUrl = "https://www.googleapis.com/blogger/v3/blogs/1711203921350230994/posts";
-  const apiUrl = `${baseUrl}?key=${process.env.BLOGGER_API_KEY}`;
+  const apiUrl = `${baseUrl}?key=${process.env.BLOGGER_API_KEY}&labels=pyconjp2025`;
   const response = await fetch(apiUrl);
   const data = await response.json();
   return (
