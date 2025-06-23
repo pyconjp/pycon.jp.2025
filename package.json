@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "echo NEXT_PUBLIC_BASE_URL=$CF_PAGES_URL > .env.production && next build",
     "start": "next start",
     "lint": "next lint"
   },

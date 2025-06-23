@@ -33,7 +33,6 @@ function Coc({lang}: { lang: Lang }) {
         description={lang === "ja" ? 'PyCon JP 2025の行動規範ページです' : 'This is the Code of Conduct page of PyCon JP 2025'}
         lang={lang}
         pagePath='/coc'
-        imagePath='ogp/coc.jpg'
       />
       <div>
         <Navi_about position="coc" lang={lang}/>
