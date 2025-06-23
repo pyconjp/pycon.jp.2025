@@ -21,7 +21,7 @@ export default function Navi_about({position, lang}: Navi_aboutProps) {
   const dict = dictionary[lang];
 
   return (
-    <nav className="flex justify-center space-x-8 text-sm font-semibold my-6 overflow-x-scroll flex-nowrap px-4 scrollbar-hide">
+    <nav className="bg-[#FAFAFA] flex justify-center space-x-8 text-sm font-semibold py-4 border-b border-[#E4E7EB] overflow-x-scroll flex-nowrap px-4 scrollbar-hide">
       {navItems.map(({key, href}) => (
         <Link
           key={key}
