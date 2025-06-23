@@ -18,7 +18,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
       {sponsors.filter(sponsor => sponsor.plan === 'platinum').length > 0 && 
         <div className="relative py-2">
           <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-            <span className="text-  5xl font-bold font-jost">Platinum Sponsors</span><span className="lg:mx-24 text-[##808080]">プラチナスポンサー</span>
+            <span className="text-5xl font-bold font-jost">Platinum Sponsors</span><span className="lg:mx-24 text-[##808080]">プラチナスポンサー</span>
           </h2>
           <div className="grid lg:grid-cols-2 gap-24 gap-y-48 justify-center items-center">
             {sponsors.filter(sponsor => sponsor.plan === 'platinum').map((sponsor, index) => (
