@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "NEXT_PUBLIC_BASE_URL=${CF_PAGES_URL} next start",
     "lint": "next lint"
   },
   "dependencies": {
