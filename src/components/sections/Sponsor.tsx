@@ -15,64 +15,68 @@ const gold_len = 20;
 export default function SponsorSection({ sponsors, lang, ...props }: Props) {
   return (
     <section {...props}>
-      <div className="relative py-2">
-        <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-          <span className="text-5xl font-bold">Platinum Sponsors</span><span className="lg:mx-24 text-[##808080]">プラチナスポンサー</span>
-        </h2>
-        <div className="grid lg:grid-cols-2 gap-24 gap-y-48 justify-center items-center">
-          {sponsors.filter(sponsor => sponsor.plan === 'platinum').map((sponsor, index) => (
-            <Link href={`/sponsors/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
-              <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
-                  fallback={`/common/no_image.jpg`}
-                  alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
-                  width={480}
-                  height={210}
-                  className="w-72 h-42 object-contain" />
-              </div>
-              <div className="flex flex-col my-4">
-                <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
-                <p className="lg:max-w-[480px] mt-4">
-                  {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, platinum_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, platinum_len) + "..." : ""}
-                </p>
-              </div>
-            </Link>
-          ))}
+      {sponsors.filter(sponsor => sponsor.plan === 'platinum').length > 0 && 
+        <div className="relative py-2">
+          <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
+            <span className="text-5xl font-bold font-jost">Platinum Sponsors</span><span className="lg:mx-24 text-[##808080]">プラチナスポンサー</span>
+          </h2>
+          <div className="grid lg:grid-cols-2 gap-24 gap-y-48 justify-center items-center">
+            {sponsors.filter(sponsor => sponsor.plan === 'platinum').map((sponsor, index) => (
+              <Link href={`/sponsors/${lang}/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
+                <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
+                  <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
+                    fallback={`/common/no_image.jpg`}
+                    alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
+                    width={480}
+                    height={210}
+                    className="w-72 h-42 object-contain" />
+                </div>
+                <div className="flex flex-col my-4">
+                  <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
+                  <p className="lg:max-w-[480px] mt-4">
+                    {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, platinum_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, platinum_len) + "..." : ""}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="relative py-2">
-        <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-          <span className="text-5xl font-bold">PSF</span><span className="lg:mx-24 text-[##808080]">PSF</span>
-        </h2>
-        <div className="grid lg:grid-cols-2 gap-24 space-y-12 justify-center items-center">
-          {sponsors.filter(sponsor => sponsor.plan === 'psf').map((sponsor, index) => (
-            <Link href={`/sponsors/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
-              <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
-                  alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
-                  width={480}
-                  height={210}
-                  className="w-72 h-42 object-contain p-7"
-                  fallback={'/common/logo_pc.png'}
-                />
-              </div>
-              <div className="flex flex-col my-4">
-                <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
-                <p className="lg:max-w-[480px]">
-                  {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, platinum_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, platinum_len) + "..." : ""}
-                </p>
-              </div>
-            </Link>
-          ))}
+        }
+      {sponsors.filter(sponsor => sponsor.plan === 'psf').length > 0 && 
+        <div className="relative py-2">
+          <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
+            <span className="text-5xl font-bold font-jost">PSF</span><span className="lg:mx-24 text-[##808080]">PSF</span>
+          </h2>
+          <div className="grid lg:grid-cols-2 gap-24 space-y-12 justify-center items-center">
+            {sponsors.filter(sponsor => sponsor.plan === 'psf').map((sponsor, index) => (
+              <Link href={`/sponsors/${lang}/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
+                <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
+                  <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
+                    alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
+                    width={480}
+                    height={210}
+                    className="w-72 h-42 object-contain p-7"
+                    fallback={'/common/logo_pc.png'}
+                  />
+                </div>
+                <div className="flex flex-col my-4">
+                  <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
+                  <p className="lg:max-w-[480px]">
+                    {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, platinum_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, platinum_len) + "..." : ""}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      }
       <div className="relative py-2">
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-          <span className="text-5xl font-bold">Gold Sponsors</span><span className="lg:mx-24 text-[##808080]">ゴールドスポンサー</span>
+          <span className="text-5xl font-bold font-jost">Gold Sponsors</span><span className="lg:mx-24 text-[##808080]">ゴールドスポンサー</span>
         </h2>
         <div className="grid lg:grid-cols-4 gap-6 gap-y-24 justify-center items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'gold').map((sponsor, index) => (
-            <Link href={`/sponsors/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
+            <Link href={`/sponsors/${lang}/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                 <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
@@ -94,11 +98,11 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
       </div>
       <div className="relative py-2">
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
-          <span className="text-5xl font-bold">Silver Sponsors</span><span className="lg:mx-24 text-[##808080]">シルバースポンサー</span>
+          <span className="text-5xl font-bold font-jost">Silver Sponsors</span><span className="lg:mx-24 text-[##808080]">シルバースポンサー</span>
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 gap-y-8 lg:gap-y-10 place-items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'silver').map((sponsor, index) => (
-            <Link href={`/sponsors/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
+            <Link href={`/sponsors/${lang}/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                 <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
