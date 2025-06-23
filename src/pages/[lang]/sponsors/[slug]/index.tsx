@@ -106,11 +106,11 @@ function SponsorPage({ sponsors, lang }: Props) {
                       fallback={'/common/logo_pc.png'}
                     />
                   </div>
-                  <div className="rounded-xl border border-[#0000001A] p-4 lg:p-8 w-[85px] h-[115px] lg:w-[160px] lg:h-[175px] flex justify-center items-center">
-                    <Image src={`/common/sponsor_pyconlogo.png`}
+                  <div className="rounded-xl border border-[#0000001A] w-[85px] h-[115px] lg:w-[160px] lg:h-[175px] flex justify-center items-center">
+                    <Image src={`/common/pyconjp2025_item_logo_sq2.png`}
                       alt="PyCon JP 2025 Logo"
-                      width={680}
-                      height={210}
+                      width={880}
+                      height={410}
                       className="w-full h-full object-contain" />
                   </div>
                 </div>

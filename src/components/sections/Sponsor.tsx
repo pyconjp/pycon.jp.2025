@@ -70,7 +70,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
           <span className="text-5xl font-bold">Gold Sponsors</span><span className="lg:mx-24 text-[##808080]">ゴールドスポンサー</span>
         </h2>
-        <div className="grid lg:grid-cols-4 gap-10 space-y-24 justify-center items-center">
+        <div className="grid lg:grid-cols-4 gap-10 gap-y-24 justify-center items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'gold').map((sponsor, index) => (
             <Link href={`/sponsors/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[230px] lg:max-h-[220px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
