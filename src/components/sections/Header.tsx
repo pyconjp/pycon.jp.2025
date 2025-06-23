@@ -4,6 +4,8 @@ import HeaderMenu from "@/components/elements/HeaderMenu";
 import {Lang} from "@/types/lang";
 import LangButton from "@/components/elements/LangButton";
 import clsx from "clsx";
+import Link from "next/link";
+import {dictionary} from "@/lang";
 
 type Props = {
   active?: ActiveHeader;
@@ -12,6 +14,8 @@ type Props = {
 } & React.HTMLAttributes<HTMLElement>;
 
 export default function Header({active, lang, isTop, ...props}: Props) {
+  const dict = dictionary[lang];
+
   return (
     <header
       {...props}
@@ -24,16 +28,18 @@ export default function Header({active, lang, isTop, ...props}: Props) {
         'items-start lg:h-24 pt-7': isTop
       })}>
         <div className={clsx({'lg:w-60': !isTop, 'lg:w-96 pt-3': isTop})}>
-          <Image src='/common/logo_pc.png' alt='PyCon JP 2025 Logo' width={243} height={57}
-                 className={clsx('hidden', {'lg:block': !isTop})}/>
-          <Image src='/common/logo_sp.png' alt='PyCon JP 2025 Logo' width={112.44} height={38.29}
-                 className='lg:hidden'/>
-          <Image src='/common/logo_pc_top.png' alt='PyCon JP 2025 Logo' width={372} height={144}
-                 className={clsx('hidden', {'lg:block': isTop})}/>
+          <Link href={`/${lang}`}>
+            <Image src='/common/logo_pc.png' alt='PyCon JP 2025 Logo' width={243} height={57}
+                   className={clsx('hidden', {'lg:block': !isTop})}/>
+            <Image src='/common/logo_sp.png' alt='PyCon JP 2025 Logo' width={112.44} height={38.29}
+                   className='lg:hidden'/>
+            <Image src='/common/logo_pc_top.png' alt='PyCon JP 2025 Logo' width={372} height={144}
+                   className={clsx('hidden', {'lg:block': isTop})}/>
+          </Link>
         </div>
         <div className='flex flex-row justify-between items-center lg:gap-12 gap-4'>
           <HeaderMenu active={active} className='hidden lg:block' lang={lang} isTop={isTop}/>
-          <div className='block lg:hidden text-gray-500 text-xs font-bold'>広島国際会議場</div>
+          <div className='block lg:hidden text-gray-500 text-xs font-bold text-right'>{dict.header.venue}</div>
           <LangButton lang={lang} isTop={isTop}/>
         </div>
       </div>
