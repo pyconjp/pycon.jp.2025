@@ -4,6 +4,13 @@ const Ja: Dictionary = {
   'top': {
     title: 'トップページ',
     description: 'PyCon JP 2025のトップページです',
+    sprint_day: '開発スプリント',
+    see_all: 'すべて',
+    about_conference: 'カンファレンスについて',
+    sponsor_recruitment: 'スポンサー募集',
+    speaker_recruitment: 'スピーカー募集',
+    sponsor_registration: 'スポンサー受付',
+    speaker_registration: 'スピーカー受付',
   },
   'menu': {
     home: 'ホーム',
@@ -23,6 +30,9 @@ const Ja: Dictionary = {
     member: 'メンバー',
     sponsor: 'スポンサー',
   },
+  'header': {
+    venue: '広島国際会議場',
+  },
   'footer': {
     contact_us: "お問い合わせ",
     description: "ボランティアによる運営ですので、回答には1週間程度を要します。\n 何卒お待ちいただけますようにお願いします。",
@@ -36,7 +46,11 @@ const Ja: Dictionary = {
       pr: '広報チーム',
       sponsor: 'スポンサーチーム',
       attendee: '参加者管理チーム',
-    }
+    },
+    role: '役割',
+  },
+  'button': {
+    buy_ticket: 'チケットを購入',
   }
 }
 

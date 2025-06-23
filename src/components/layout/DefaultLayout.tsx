@@ -17,7 +17,7 @@ export default function DefaultLayout({children, activeHeader, lang}: DefaultLay
       <div className='min-h-dvh'>
         {children}
       </div>
-      <FixedMenu/>
+      <FixedMenu lang={lang}/>
       <Footer lang={lang}/>
     </div>
   );

@@ -94,7 +94,7 @@ function Home({lang, posts, sponsors}: { lang: Lang, posts: Blogger[], sponsors:
           <SponsorSection className="mx-auto lg:w-5/8 w-10/12" sponsors={sponsors} lang={lang} />
         </div>
       </div>
-      <FixedMenu/>
+      <FixedMenu lang={lang}/>
       <Footer lang={lang}/>
     </main>
   );

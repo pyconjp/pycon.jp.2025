@@ -1,6 +1,7 @@
 import {Blogger} from "@/types/blogger";
 import {Lang} from "@/types/lang";
 import ExternalLink from "@/components/elements/ExternalLink";
+import {dictionary} from "@/lang";
 
 type Props = {
   posts: Blogger[],
@@ -8,6 +9,8 @@ type Props = {
 } & React.HTMLAttributes<HTMLElement>;
 
 export default function NewsSection({lang, posts, ...props}: Props) {
+  const dict = dictionary[lang];
+
   return (
     <section {...props}>
       <h1 className='flex items-center gap-10'>
@@ -30,7 +33,7 @@ export default function NewsSection({lang, posts, ...props}: Props) {
         <ExternalLink href='https://pyconjp.blogspot.com/search/label/pyconjp2025'>
           <span className='bg-gray-50 border-gray-300 border-2 flex items-center justify-center rounded-2xl min-h-36'>
             <span className="text-lg font-semibold">
-              すべて
+              {dict.top.see_all}
             </span>
           </span>
         </ExternalLink>

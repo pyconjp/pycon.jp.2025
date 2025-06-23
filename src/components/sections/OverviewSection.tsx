@@ -3,10 +3,12 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import clsx from "clsx";
 import LinkButton from "@/components/elements/LinkButton";
+import {dictionary} from "@/lang";
 
 type Props = { lang: Lang } & React.HTMLAttributes<HTMLElement>;
 
 export default function OverviewSection({lang, ...props}: Props) {
+  const dict = dictionary[lang];
   const Overview = dynamic(() => import(`@/components/markdown/${lang}/overview.mdx`), {ssr: true});
 
   return (
@@ -30,7 +32,7 @@ export default function OverviewSection({lang, ...props}: Props) {
         <Overview/>
         <div className='mt-4'/>
         <LinkButton href='https://www.pycon.jp/' className='mt-12'>
-          カンファレンスについて
+          {dict.top.about_conference}
         </LinkButton>
       </div>
     </section>

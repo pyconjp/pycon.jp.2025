@@ -21,7 +21,7 @@ export default function MemberSection({lang, member, ...props}: Props) {
     <section {...props} className={clsx('border-gray-300 border-2 bg-white rounded-lg', props.className)}>
       <div className='relative'>
         <Image src={`/common/member_cover.jpg`} alt='Cover Image' width={400} height={400}
-               className='w-full aspect-[8_/_3] object-cover'/>
+               className='w-full aspect-[8_/_3] object-cover rounded-t-lg'/>
         <ImageWithFallback src={`/common/members/${member.image}`}
                            alt={lang === 'ja' ? (member.name_ja && member.name_en) : (member.name_en && member.name_ja)}
                            width={110} height={110}
@@ -45,8 +45,8 @@ export default function MemberSection({lang, member, ...props}: Props) {
         <div className='grid grid-cols-1 gap-2'>
           {member.team && (
             <div className='flex gap-4 font-semibold border-b-2 border-gray-200 py-4'>
-              <h2 className='w-1/5'>
-                役割
+              <h2 className='w-1/4 lg:w-1/5'>
+                {dict.members.role}
               </h2>
               <span>
                 {dict.members.team[member.team]}
@@ -55,7 +55,7 @@ export default function MemberSection({lang, member, ...props}: Props) {
           )}
           {member.github && (
             <div className='flex gap-4 font-semibold border-b-2 border-gray-200 py-4'>
-              <h2 className='w-1/5'>
+              <h2 className='w-1/4 lg:w-1/5'>
                 GitHub
               </h2>
               <ExternalLink href={`https://github.com/${member.github}`} className='hover:opacity-50'>
@@ -65,7 +65,7 @@ export default function MemberSection({lang, member, ...props}: Props) {
           )}
           {member.twitter && (
             <div className='flex gap-4 font-semibold border-b-2 border-gray-200 py-4'>
-              <h2 className='w-1/5'>
+              <h2 className='w-1/4 lg:w-1/5'>
                 Twitter
               </h2>
               <ExternalLink href={`https://twitter.com/${member.twitter}`} className='hover:opacity-50'>
@@ -75,7 +75,7 @@ export default function MemberSection({lang, member, ...props}: Props) {
           )}
           {member.facebook && (
             <div className='flex gap-4 font-semibold border-b-2 border-gray-200 py-4'>
-              <h2 className='w-1/5'>
+              <h2 className='w-1/4 lg:w-1/5'>
                 Facebook
               </h2>
               <ExternalLink href={`https://www.facebook.com/${member.facebook}`} className='hover:opacity-50'>
