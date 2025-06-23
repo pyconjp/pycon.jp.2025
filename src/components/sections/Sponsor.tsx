@@ -22,7 +22,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           </h2>
           <div className="grid lg:grid-cols-2 gap-24 gap-y-48 justify-center items-center">
             {sponsors.filter(sponsor => sponsor.plan === 'platinum').map((sponsor, index) => (
-              <Link href={`/sponsors/${lang}/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
+              <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
                 <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                   <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                     fallback={`/common/no_image.jpg`}
@@ -49,7 +49,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
           </h2>
           <div className="grid lg:grid-cols-2 gap-24 space-y-12 justify-center items-center">
             {sponsors.filter(sponsor => sponsor.plan === 'psf').map((sponsor, index) => (
-              <Link href={`/sponsors/${lang}/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
+              <Link href={`/${lang}/sponsors/${sponsor.path}}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
                 <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                   <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
@@ -76,7 +76,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
         </h2>
         <div className="grid lg:grid-cols-4 gap-6 gap-y-24 justify-center items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'gold').map((sponsor, index) => (
-            <Link href={`/sponsors/${lang}/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
+            <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                 <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
@@ -102,7 +102,7 @@ export default function SponsorSection({ sponsors, lang, ...props }: Props) {
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 gap-y-8 lg:gap-y-10 place-items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'silver').map((sponsor, index) => (
-            <Link href={`/sponsors/${lang}/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
+            <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                 <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
