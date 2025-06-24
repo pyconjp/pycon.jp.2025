@@ -41,7 +41,7 @@ export default function HeaderMenu({active, lang, isTop, ...props}: {
           <li key={item.key} className='list-none'>
             <Link
               href={`/${lang}${item.href}`}
-              className={clsx('font-bold', {'border-b-1 pb-1.5': active === item.key, 'text-white': isTop})}
+              className={clsx('font-bold', {'border-b-2 pb-1.5': active === item.key, 'text-white': isTop})}
             >
               {dict.menu[item.key]}
             </Link>
