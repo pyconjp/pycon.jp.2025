@@ -38,95 +38,103 @@ export async function getSponsors(): Promise<Sponsor[]> {
   if (!process.env.SPONSOR_SPREADSHEET_ID) {
     return [];
   }
+
   if (cache.has('sponsors')) {
     console.log('Using cached sponsors');
-    return cache.get('sponsors') as Sponsor[];
+    return cache.get('sponsors') as Promise<Sponsor[]>;
   }
 
-  const sponsors = await fetchSheet<Sponsor>(
-    process.env.SPONSOR_SPREADSHEET_ID || '',
-    'Webサイト掲載用!A2:I100',
-    [
-      'name_ja',
-      'name_en',
-      'url_ja',
-      'url_en',
-      'pr_ja',
-      'pr_en',
-      'logo_image',
-      'plan',
-      'path'
-    ]
-  );
+  const sponsorPromise = (async () => {
+    const sponsors = await fetchSheet<Sponsor>(
+      process.env.SPONSOR_SPREADSHEET_ID || '',
+      'Webサイト掲載用!A2:I100',
+      [
+        'name_ja',
+        'name_en',
+        'url_ja',
+        'url_en',
+        'pr_ja',
+        'pr_en',
+        'logo_image',
+        'plan',
+        'path'
+      ]
+    );
 
-  cache.set('sponsors', sponsors);
+    console.log('Sponsors loaded');
+    return sponsors;
+  })();
 
-  console.log('Sponsors loaded');
-  return sponsors;
+  cache.set('sponsors', sponsorPromise);
+  return sponsorPromise;
 }
 
 export async function getMembers(): Promise<Member[]> {
   if (!process.env.MEMBER_SPREADSHEET_ID) {
     return [];
   }
+
   if (cache.has('members')) {
     console.log('Using cached members');
-    return cache.get('members') as Member[];
+    return cache.get('members') as Promise<Member[]>;
   }
 
-  const rawMembers: RawMember[] = await fetchSheet<RawMember>(
-    process.env.MEMBER_SPREADSHEET_ID || '',
-    "'フォームの回答 1'!C2:M100",
-    [
-      'name_ja',
-      'name_en',
-      'github',
-      'twitter',
-      'facebook',
-      'image',
-      'other',
-      'profile_ja',
-      'profile_en',
-      'team',
-      'path',
-    ]
-  );
+  const memberPromise = (async () => {
+    const rawMembers: RawMember[] = await fetchSheet<RawMember>(
+      process.env.MEMBER_SPREADSHEET_ID || '',
+      "'フォームの回答 1'!C2:M100",
+      [
+        'name_ja',
+        'name_en',
+        'github',
+        'twitter',
+        'facebook',
+        'image',
+        'other',
+        'profile_ja',
+        'profile_en',
+        'team',
+        'path',
+      ]
+    );
 
-  const members: Member[] = rawMembers.map(rawMember => ({
-    name_ja: rawMember.name_ja,
-    name_en: rawMember.name_en,
-    github: rawMember.github,
-    twitter: rawMember.twitter,
-    facebook: rawMember.facebook,
-    image: rawMember.image,
-    other: rawMember.other,
-    profile_ja: rawMember.profile_ja,
-    profile_en: rawMember.profile_en,
-    team: (() => {
-      switch (rawMember.team) {
-        case '座長チーム / Chair team':
-          return 'chair';
-        case 'プログラムチーム / Program team':
-          return 'program';
-        case '会場チーム / Venue team':
-          return 'venue';
-        case '広報チーム / Public relations team':
-          return 'pr';
-        case 'スポンサーチーム / Sponsor team':
-          return 'sponsor';
-        case '参加者管理チーム / Attendee management team':
-          return 'attendee';
-        default:
-          return null;
-      }
-    })(),
-    path: rawMember.path,
-  }));
+    const members: Member[] = rawMembers.map(rawMember => ({
+      name_ja: rawMember.name_ja,
+      name_en: rawMember.name_en,
+      github: rawMember.github,
+      twitter: rawMember.twitter,
+      facebook: rawMember.facebook,
+      image: rawMember.image,
+      other: rawMember.other,
+      profile_ja: rawMember.profile_ja,
+      profile_en: rawMember.profile_en,
+      team: (() => {
+        switch (rawMember.team) {
+          case '座長チーム / Chair team':
+            return 'chair';
+          case 'プログラムチーム / Program team':
+            return 'program';
+          case '会場チーム / Venue team':
+            return 'venue';
+          case '広報チーム / Public relations team':
+            return 'pr';
+          case 'スポンサーチーム / Sponsor team':
+            return 'sponsor';
+          case '参加者管理チーム / Attendee management team':
+            return 'attendee';
+          default:
+            return null;
+        }
+      })(),
+      path: rawMember.path,
+    }));
 
-  cache.set('members', members);
+    console.log('Members loaded');
+    return members;
+  })();
 
-  console.log('Members loaded');
-  return members;
+  cache.set('members', memberPromise);
+  return memberPromise;
 }
 
 export async function getMember(path: string): Promise<Member | undefined> {
