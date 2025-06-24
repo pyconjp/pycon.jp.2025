@@ -15,6 +15,7 @@ export const getStaticPaths = async () => {
   return {
     paths: members
       .filter((member: Member) => member.path !== '')
+      .filter((member: Member) => member.name_ja !== '' || member.name_en !== '')
       .map((member: Member) => [
         {params: {lang: 'ja', slug: member.path}},
         {params: {lang: 'en', slug: member.path}},
