@@ -40,12 +40,11 @@ export async function getSponsors(): Promise<Sponsor[]> {
   }
 
   if (cache.has('sponsors')) {
-    console.log('Using cached sponsors');
     return cache.get('sponsors') as Promise<Sponsor[]>;
   }
 
   const sponsorPromise = (async () => {
-    const sponsors = await fetchSheet<Sponsor>(
+    return await fetchSheet<Sponsor>(
       process.env.SPONSOR_SPREADSHEET_ID || '',
       'Webサイト掲載用!A2:I100',
       [
@@ -60,9 +59,6 @@ export async function getSponsors(): Promise<Sponsor[]> {
         'path'
       ]
     );
-
-    console.log('Sponsors loaded');
-    return sponsors;
   })();
 
   cache.set('sponsors', sponsorPromise);
@@ -75,7 +71,6 @@ export async function getMembers(): Promise<Member[]> {
   }
 
   if (cache.has('members')) {
-    console.log('Using cached members');
     return cache.get('members') as Promise<Member[]>;
   }
 
@@ -129,7 +124,6 @@ export async function getMembers(): Promise<Member[]> {
       path: rawMember.path,
     }));
 
-    console.log('Members loaded');
     return members;
   })();
 
