@@ -100,7 +100,7 @@ export default function HeroSection({lang}: {lang: Lang}) {
           <div className='text-sm lg:text-base mb-4'>
             <Abstract/>
           </div>
-          <LinkButton href='https://example.com'>
+          <LinkButton href='https://pyconjp.connpass.com/event/359523/'>
             {dict.button.buy_ticket}
           </LinkButton>
         </div>

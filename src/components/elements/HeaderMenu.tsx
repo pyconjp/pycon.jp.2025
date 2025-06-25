@@ -3,8 +3,9 @@ import clsx from "clsx";
 import {Lang} from "@/types/lang";
 import {dictionary} from "@/lang";
 import Link from "next/link";
+import Tooltip from 'rc-tooltip';
 
-const menu: { key: ActiveHeader, href: string }[] = [
+const menu: { key: ActiveHeader, href: string, isComingSoon?: boolean }[] = [
   {
     'key': 'home',
     'href': '/',
@@ -16,14 +17,17 @@ const menu: { key: ActiveHeader, href: string }[] = [
   {
     'key': 'timetable',
     'href': '/timetable',
+    'isComingSoon': true,
   },
   {
     'key': 'speakers',
     'href': '/speakers',
+    'isComingSoon': true,
   },
   {
     'key': 'map',
     'href': '/map',
+    'isComingSoon': true,
   }
 ];
 
@@ -39,12 +43,18 @@ export default function HeaderMenu({active, lang, isTop, ...props}: {
       <ul className='flex flex-row items-center justify-between lg:gap-8 gap-3'>
         {menu.map((item) => (
           <li key={item.key} className='list-none'>
-            <Link
-              href={`/${lang}${item.href}`}
-              className={clsx('font-bold', {'border-b-2 pb-1.5': active === item.key, 'text-white': isTop})}
-            >
-              {dict.menu[item.key]}
-            </Link>
+            {
+              item.isComingSoon ?
+                <Tooltip overlay={<span>{dict.menu.coming_soon}</span>} trigger={['hover', 'click']} placement='bottom'>
+                  <span className={clsx('font-bold cursor-pointer', {'border-b-2 pb-1.5': active === item.key, 'text-white': isTop})}>
+                    {dict.menu[item.key]}
+                  </span>
+                </Tooltip>
+                : <Link href={`/${lang}${item.href}`}
+                        className={clsx('font-bold', {'border-b-2 pb-1.5': active === item.key, 'text-white': isTop})}>
+                  {dict.menu[item.key]}
+                </Link>
+            }
           </li>
         ))}
       </ul>
