@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import {MDXProvider} from "@mdx-js/react";
 import {mdxComponents} from "@/components/markdown/mdx-component";
 import {Noto_Sans_JP, Jost} from "next/font/google";
+import {GoogleAnalytics} from "@next/third-parties/google";
 
 type CustomAppProps = {
   Component: React.ComponentType;
@@ -20,11 +21,16 @@ const JostFont = Jost({
 });
 
 export default function App({Component, pageProps}: CustomAppProps) {
+  const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+
   return (
-    <div className={`${NotoSansJP.className} ${JostFont.variable}`}>
-      <MDXProvider components={mdxComponents}>
-        <Component {...pageProps} />
-      </MDXProvider>
-    </div>
+    <>
+      <div className={`${NotoSansJP.className} ${JostFont.variable}`}>
+        <MDXProvider components={mdxComponents}>
+          <Component {...pageProps} />
+        </MDXProvider>
+      </div>
+      {gaId && (<GoogleAnalytics gaId={gaId}/>)}
+    </>
   );
 }
