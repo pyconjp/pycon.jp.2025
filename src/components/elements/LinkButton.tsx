@@ -12,7 +12,7 @@ export default function LinkButton({href, children, ...props}: Props) {
     <div {...props}>
       <ExternalLink href={href}>
       <span
-        className='w-full bg-gray-50 border-gray-300 border-2 flex justify-between items-center p-2 lg:p-4 rounded-xl text-sm lg:text-base font-semibold'>
+        className='w-full bg-gray-50 border-gray-300 border-2 flex justify-between items-center p-2 lg:p-4 rounded-lg lg:rounded-xl text-sm lg:text-base font-semibold'>
         {children}
         <FontAwesomeIcon icon={faArrowRight}/>
       </span>

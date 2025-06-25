@@ -22,11 +22,23 @@ export default function MemberSection({lang, member, ...props}: Props) {
       <div className='relative'>
         <Image src={`/common/member_cover.jpg`} alt='Cover Image' width={400} height={400}
                className='w-full aspect-[8_/_3] object-cover rounded-t-lg'/>
-        <ImageWithFallback src={`/common/members/${member.image}`}
-                           alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
-                           width={110} height={110}
-                           className='aspect-square w-24 absolute left-1/2 -translate-x-1/2 -bottom-12 rounded-sm object-cover'/>
-        <Link href={`/${lang}/members`} className='absolute bg-black rounded-full text-white w-10 h-10 -top-5 -right-5 flex items-center justify-center'>
+        {
+          member.image
+            ? (
+              <ImageWithFallback src={`/common/members/${member.image}`}
+                                 alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
+                                 width={110} height={110}
+                                 className='aspect-square w-24 absolute left-1/2 -translate-x-1/2 -bottom-12 rounded-sm object-cover'/>
+            )
+            : (
+              <Image src='/common/no_image.jpg'
+                     alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
+                     width={110} height={110}
+                     className='aspect-square w-24 absolute left-1/2 -translate-x-1/2 -bottom-12 rounded-sm object-cover'/>
+            )
+        }
+        <Link href={`/${lang}/members`}
+              className='absolute bg-black rounded-full text-white w-10 h-10 -top-5 -right-5 flex items-center justify-center'>
           <FontAwesomeIcon icon={faTimes}/>
         </Link>
       </div>
