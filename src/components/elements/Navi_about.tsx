@@ -25,7 +25,7 @@ export default function Navi_about({position, lang}: Navi_aboutProps) {
       {navItems.map(({key, href}) => (
         <Link
           key={key}
-          href={`/${lang}/${href}`}
+          href={`/${lang}${href}`}
           className={clsx(
             "relative pb-2 after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-6 after:h-0.5 after:bg-black after:transition-opacity after:duration-300 whitespace-nowrap",
             {"after:opacity-100": position === key},

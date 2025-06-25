@@ -4,6 +4,13 @@ export type Dictionary = {
   top: {
     title: string,
     description: string,
+    sprint_day: string,
+    see_all: string,
+    about_conference: string,
+    sponsor_recruitment: string,
+    speaker_recruitment: string,
+    sponsor_registration: string,
+    speaker_registration: string,
   },
   menu: {
     home: string,
@@ -23,9 +30,26 @@ export type Dictionary = {
     member: string,
     sponsor: string,
   },
+  header: {
+    venue: string,
+  },
   footer: {
     contact_us: string,
     description: string,
     past_events: string,
+  },
+  members: {
+    team: {
+      chair: string,
+      program: string,
+      venue: string,
+      pr: string,
+      sponsor: string,
+      attendee: string,
+    },
+    role: string,
+  },
+  button: {
+    buy_ticket: string,
   }
 };

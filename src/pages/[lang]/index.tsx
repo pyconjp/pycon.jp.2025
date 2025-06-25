@@ -17,6 +17,7 @@ import RecruitmentSection from "@/components/sections/RecruitmentSection";
 import {getSpecialSponsors, getSponsors} from "@/libs/spreadsheet";
 import {SpecialSponsor, Sponsor} from "@/types/sponsor";
 import SponsorSection from "@/components/sections/Sponsor";
+import ImageSlideSection from "@/components/sections/ImageSlideSection";
 
 export const getStaticPaths = async () => {
   return {
@@ -88,13 +89,14 @@ function Home({lang, posts, sponsors, specialSponsor}: { lang: Lang, posts: Blog
         })}/>
         <KeynotesSection className='mx-auto lg:w-5/8 w-10/12 mt-20' lang={lang}/>
         <NewsSection className='mx-auto lg:w-5/8 w-10/12 mt-20' posts={posts} lang={lang}/>
+        <ImageSlideSection className='w-full my-20 lg:my-36'/>
         <OverviewSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
-        <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
+        <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 my-20'/>
         <div className="bg-[#FAFAFA] py-2 pb-10">
           <SponsorSection className="mx-auto lg:w-5/8 w-10/12" sponsors={sponsors} lang={lang} specialSponsors={specialSponsor} />
         </div>
       </div>
-      <FixedMenu/>
+      <FixedMenu lang={lang}/>
       <Footer lang={lang}/>
     </main>
   );

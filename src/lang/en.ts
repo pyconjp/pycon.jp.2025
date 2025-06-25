@@ -4,6 +4,13 @@ const En: Dictionary = {
   'top': {
     title: 'TOP page',
     description: 'is the TOP page of PyCon JP 2025',
+    sprint_day: 'Sprint Day',
+    see_all: 'See All',
+    about_conference: 'About PyCon JP',
+    sponsor_recruitment: 'Sponsor Recruitment',
+    speaker_recruitment: 'Speaker Recruitment',
+    sponsor_registration: 'See More',
+    speaker_registration: 'See More',
   },
   'menu': {
     home: 'Home',
@@ -23,11 +30,28 @@ const En: Dictionary = {
     member: 'Members',
     sponsor: 'Sponsors',
   },
+  'header': {
+    venue: 'ICCH',
+  },
   'footer': {
     contact_us: "Contact Us",
     description: "As this event is organized by volunteers, it may take about a week for a reply. \nWe appreciate your understanding and patience.",
     past_events: "List of past PyCon JP events"
   },
+  'members': {
+    team: {
+      chair: 'Chair Team',
+      program: 'Program Team',
+      venue: 'Venue Team',
+      pr: 'Public Relations Team',
+      sponsor: 'Sponsor Team',
+      attendee: 'Attendee Management Team',
+    },
+    role: 'Role',
+  },
+  'button': {
+    buy_ticket: 'Buy Ticket',
+  }
 }
 
 export default En;
