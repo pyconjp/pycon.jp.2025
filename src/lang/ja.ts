@@ -22,7 +22,7 @@ const Ja: Dictionary = {
     coc: '行動規範',
     members: 'メンバー',
     sponsors: 'スポンサー',
-    coming_soon: "(準備中)",
+    coming_soon: "準備中",
   },
   'NavBar_About': {
     venue: '会場案内',

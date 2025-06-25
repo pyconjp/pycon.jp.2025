@@ -22,7 +22,7 @@ const En: Dictionary = {
     coc: 'Code of Conduct',
     members: 'Members',
     sponsors: 'Sponsors',
-    coming_soon: "(Coming Soon)",
+    coming_soon: "Coming Soon",
   },
   'NavBar_About': {
     venue: 'Venue',
