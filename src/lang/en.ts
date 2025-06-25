@@ -48,6 +48,11 @@ const En: Dictionary = {
       attendee: 'Attendee Management Team',
     },
     role: 'Role',
+    roles: {
+      1: 'Chair of PyCon JP 2025',
+      2: 'Vice Chair of PyCon JP 2025',
+      99: '',
+    }
   },
   'button': {
     buy_ticket: 'Buy Ticket',

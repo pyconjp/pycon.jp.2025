@@ -15,6 +15,8 @@ export type RawMember = {
     | 'スポンサーチーム / Sponsor team'
     | '参加者管理チーム / Attendee management team'
   path: string;
+  cover_image: string;
+  role_id: string;
 }
 
 export type Member = {
@@ -29,4 +31,6 @@ export type Member = {
   profile_en: string;
   team: 'chair' | 'program' | 'venue' | 'pr' | 'sponsor' | 'attendee' | null;
   path: string;
+  cover_image: string;
+  role_id: 1 | 2 | 99;
 }
