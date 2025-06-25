@@ -4,7 +4,9 @@ export default function Document() {
   // TODO langを取得してlang属性を設定する
   return (
     <Html lang="ja">
-      <Head />
+      <Head>
+        <link rel="icon" href="/common/favicon.ico" />
+      </Head>
       <body className="antialiased">
         <Main />
         <NextScript />
