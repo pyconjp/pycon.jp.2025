@@ -76,7 +76,6 @@ function SponsorPage({ sponsors, lang }: Props) {
         description={lang === "ja" ? 'PyCon JP 2025のスポンサーページです' : 'This is the sponsor page of PyCon JP 2025'}
         lang={lang}
         pagePath={`/sponsors/${currentSponsor.path}`}
-        imagePath='ogp/spnsor.jpg'
       />
       <div>
         <Navi_about position="sponsor" lang={lang} />

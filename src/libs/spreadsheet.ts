@@ -1,6 +1,8 @@
-import {Sponsor} from "@/types/sponsor";
+import {SpecialSponsor, Sponsor} from "@/types/sponsor";
 import {google} from "googleapis";
 import {Member, RawMember} from "@/types/member";
+
+const cache = new Map<string, unknown>();
 
 const auth = new google.auth.JWT(
   {
@@ -36,77 +38,129 @@ export async function getSponsors(): Promise<Sponsor[]> {
   if (!process.env.SPONSOR_SPREADSHEET_ID) {
     return [];
   }
-  return await fetchSheet<Sponsor>(
-    process.env.SPONSOR_SPREADSHEET_ID || '',
-    'Webサイト掲載用!A2:I100',
-    [
-      'name_ja',
-      'name_en',
-      'url_ja',
-      'url_en',
-      'pr_ja',
-      'pr_en',
-      'logo_image',
-      'plan',
-      'path'
-    ]
-  );
+
+  if (cache.has('sponsors')) {
+    return cache.get('sponsors') as Promise<Sponsor[]>;
+  }
+
+  const sponsorPromise = (async () => {
+    return await fetchSheet<Sponsor>(
+      process.env.SPONSOR_SPREADSHEET_ID || '',
+      'Webサイト掲載用!A2:I100',
+      [
+        'name_ja',
+        'name_en',
+        'url_ja',
+        'url_en',
+        'pr_ja',
+        'pr_en',
+        'logo_image',
+        'plan',
+        'path'
+      ]
+    );
+  })();
+
+  cache.set('sponsors', sponsorPromise);
+  return sponsorPromise;
 }
 
 export async function getMembers(): Promise<Member[]> {
   if (!process.env.MEMBER_SPREADSHEET_ID) {
     return [];
   }
-  const members: RawMember[] = await fetchSheet<RawMember>(
-    process.env.MEMBER_SPREADSHEET_ID || '',
-    "'フォームの回答 1'!C2:M100",
-    [
-      'name_ja',
-      'name_en',
-      'github',
-      'twitter',
-      'facebook',
-      'image',
-      'other',
-      'profile_ja',
-      'profile_en',
-      'team',
-      'path',
-    ]
-  );
 
-  return members.map(member => ({
-    name_ja: member.name_ja,
-    name_en: member.name_en,
-    github: member.github,
-    twitter: member.twitter,
-    facebook: member.facebook,
-    image: member.image,
-    other: member.other,
-    profile_ja: member.profile_ja,
-    profile_en: member.profile_en,
-    team: (() => {
-      switch (member.team) {
-        case '座長チーム / Chair team':
-          return 'chair';
-        case 'プログラムチーム / Program team':
-          return 'program';
-        case '会場チーム / Venue team':
-          return 'venue';
-        case '広報チーム / Public relations team':
-          return 'pr';
-        case 'スポンサーチーム / Sponsor team':
-          return 'sponsor';
-        case '参加者管理チーム / Attendee management team':
-          return 'attendee';
-        default:
-          return null;
-      }
-    })(),
-    path: member.path,
-  }))
+  if (cache.has('members')) {
+    return cache.get('members') as Promise<Member[]>;
+  }
+
+  const memberPromise = (async () => {
+    const rawMembers: RawMember[] = await fetchSheet<RawMember>(
+      process.env.MEMBER_SPREADSHEET_ID || '',
+      "'フォームの回答 1'!C2:M100",
+      [
+        'name_ja',
+        'name_en',
+        'github',
+        'twitter',
+        'facebook',
+        'image',
+        'other',
+        'profile_ja',
+        'profile_en',
+        'team',
+        'path',
+      ]
+    );
+
+    const members: Member[] = rawMembers.map(rawMember => ({
+      name_ja: rawMember.name_ja,
+      name_en: rawMember.name_en,
+      github: rawMember.github,
+      twitter: rawMember.twitter,
+      facebook: rawMember.facebook,
+      image: rawMember.image,
+      other: rawMember.other,
+      profile_ja: rawMember.profile_ja,
+      profile_en: rawMember.profile_en,
+      team: (() => {
+        switch (rawMember.team) {
+          case '座長チーム / Chair team':
+            return 'chair';
+          case 'プログラムチーム / Program team':
+            return 'program';
+          case '会場チーム / Venue team':
+            return 'venue';
+          case '広報チーム / Public relations team':
+            return 'pr';
+          case 'スポンサーチーム / Sponsor team':
+            return 'sponsor';
+          case '参加者管理チーム / Attendee management team':
+            return 'attendee';
+          default:
+            return null;
+        }
+      })(),
+      path: rawMember.path,
+    }));
+
+    return members;
+  })();
+
+  cache.set('members', memberPromise);
+  return memberPromise;
 }
 
 export async function getMember(path: string): Promise<Member | undefined> {
   return (await getMembers()).find(member => member.path === path);
+}
+
+export async function getSpecialSponsors(): Promise<SpecialSponsor[]> {
+  if (!process.env.SPONSOR_SPREADSHEET_ID) {
+    return [];
+  }
+
+  if (cache.has('special_sponsors')) {
+    return cache.get('special_sponsors') as Promise<SpecialSponsor[]>;
+  }
+
+  const sponsorPromise = (async () => {
+    return await fetchSheet<SpecialSponsor>(
+      process.env.SPONSOR_SPREADSHEET_ID || '',
+      '特別スポンサー_Webサイト掲載用!A2:I100',
+      [
+        'name_ja',
+        'name_en',
+        'url_ja',
+        'url_en',
+        'title_ja',
+        'title_en',
+        'logo_image',
+        'plan',
+      ]
+    );
+  })();
+
+  cache.set('special_sponsors', sponsorPromise);
+  return sponsorPromise;
 }

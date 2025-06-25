@@ -8,8 +8,8 @@ type Props = {
   lang: 'ja' | 'en';
 }
 
-export default function PageHead({title, description, pagePath, imagePath = 'common/ogp/default.jpg', lang}: Props) {
-  const baseUrl = process.env.PRODUCTION_URL || process.env.CF_PAGES_URL || 'http://localhost:3000';
+export default function PageHead({title, description, pagePath, imagePath = '/common/ogp/default.png', lang}: Props) {
+  const baseUrl = process.env.NEXT_PUBLIC_PRODUCTION_URL || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
   return (
     <Head>
@@ -17,8 +17,8 @@ export default function PageHead({title, description, pagePath, imagePath = 'com
       <meta httpEquiv="Content-Language" content={lang}/>
       <meta property="og:title" content={title}/>
       <meta property="og:description" content={description || ''}/>
-      <meta property="og:image" content={`${baseUrl}/${imagePath}`}/>
-      <meta property="og:url" content={`${baseUrl}/${pagePath}`}/>
+      <meta property="og:image" content={`${baseUrl}${imagePath}`}/>
+      <meta property="og:url" content={`${baseUrl}${pagePath}`}/>
       <meta property="og:type" content="website"/>
       <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'ja_JP'}/>
       <meta name="twitter:card" content="summary_large_image"/>

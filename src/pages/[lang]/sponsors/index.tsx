@@ -2,9 +2,9 @@ import Navi_about from "@/components/elements/Navi_about";
 import PageHead from "@/components/elements/PageHead";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Sponsor from "@/components/sections/Sponsor";
-import { getSponsors } from "@/libs/spreadsheet";
+import { getSpecialSponsors, getSponsors } from "@/libs/spreadsheet";
 import { Lang } from "@/types/lang";
-import { Sponsor as SponsorType } from "@/types/sponsor";
+import { SpecialSponsor, Sponsor as SponsorType } from "@/types/sponsor";
 import { GetStaticProps } from "next";
 
 export const getStaticPaths = async () => {
@@ -20,16 +20,18 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const lang = params?.lang || 'ja';
   const sponsors = await getSponsors();
+  const special_Sponsors = await getSpecialSponsors();
   return {
     props: {
       lang,
       sponsors,
+      special_Sponsors
     },
     revalidate: 3600,
   };
 };
 
-function SponsorPage({ lang, sponsors }: { lang: Lang, sponsors: SponsorType[] }) {
+function SponsorPage({ lang, sponsors, special_Sponsors }: { lang: Lang, sponsors: SponsorType[], special_Sponsors: SpecialSponsor[] }) {
   return (
     <DefaultLayout lang={lang} activeHeader="about">
       <Navi_about position="sponsor" lang={lang}/>
@@ -40,7 +42,7 @@ function SponsorPage({ lang, sponsors }: { lang: Lang, sponsors: SponsorType[] }
         pagePath='/sponsor'
       />
       <div className="bg-[#FAFAFA] py-2 pb-10">
-        <Sponsor className="mx-auto lg:w-5/8 w-10/12" sponsors={sponsors} lang={lang} />
+        <Sponsor className="mx-auto lg:w-5/8 w-10/12" sponsors={sponsors} lang={lang} specialSponsors={special_Sponsors} />
       </div>
     </DefaultLayout>
   )

@@ -13,10 +13,13 @@ export const getStaticPaths = async () => {
   const members = await getMembers();
 
   return {
-    paths: members.map((member: Member) => [
-      {params: {lang: 'ja', slug: member.path}},
-      {params: {lang: 'en', slug: member.path}},
-    ]).flat(),
+    paths: members
+      .filter((member: Member) => member.path !== '')
+      .filter((member: Member) => member.name_ja !== '' || member.name_en !== '')
+      .map((member: Member) => [
+        {params: {lang: 'ja', slug: member.path}},
+        {params: {lang: 'en', slug: member.path}},
+      ]).flat(),
     fallback: false,
   }
 }

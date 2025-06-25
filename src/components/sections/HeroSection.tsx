@@ -9,6 +9,7 @@ import clsx from "clsx";
 import LinkButton from "@/components/elements/LinkButton";
 import {Lang} from "@/types/lang";
 import dynamic from "next/dynamic";
+import {dictionary} from "@/lang";
 
 const images = [
   '/common/hero/hero_1.jpg',
@@ -16,6 +17,7 @@ const images = [
 ]
 
 export default function HeroSection({lang}: {lang: Lang}) {
+  const dict = dictionary[lang];
   const Abstract = dynamic(() => import(`@/components/markdown/${lang}/abstract.mdx`), {ssr: true});
 
   const DateArea = ({day, month, date, weekday, className}: {
@@ -83,7 +85,7 @@ export default function HeroSection({lang}: {lang: Lang}) {
               <span>SUN</span>
             </div>
             <div>
-              開発スプリント
+              {dict.top.sprint_day}
             </div>
           </div>
         </div>
@@ -99,7 +101,7 @@ export default function HeroSection({lang}: {lang: Lang}) {
             <Abstract/>
           </div>
           <LinkButton href='https://example.com'>
-            チケットを購入する
+            {dict.button.buy_ticket}
           </LinkButton>
         </div>
         <div className='flex-1 w-10/12 lg:w-auto mx-auto'>
