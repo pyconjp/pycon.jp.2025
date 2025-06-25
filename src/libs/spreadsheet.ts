@@ -161,6 +161,6 @@ export async function getSpecialSponsors(): Promise<SpecialSponsor[]> {
     );
   })();
 
-  cache.set('sponsors', sponsorPromise);
+  cache.set('special_sponsors', sponsorPromise);
   return sponsorPromise;
 }
