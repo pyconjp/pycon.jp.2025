@@ -21,7 +21,7 @@ export default function MembersSection({members, lang, ...props}: Props) {
       </h1>
       <div className='grid lg:grid-cols-2 grid-rows-1 lg:gap-10 gap-6'>
         {members.sort((a, b) => a.role_id - b.role_id).map((member, index) => (
-          <Link key={index} href={`/members/${member.path}`}>
+          <Link key={index} href={`/${lang}/members/${member.path}`}>
             <div className='flex items-row gap-5 p-5 border-gray-200 border-2 rounded-xl'>
               {member.image ? (
                 <ImageWithFallback src={`/common/members/${member.image}`}
