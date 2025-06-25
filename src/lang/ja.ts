@@ -48,6 +48,11 @@ const Ja: Dictionary = {
       attendee: '参加者管理チーム',
     },
     role: '役割',
+    roles: {
+      1: 'PyCon JP 2025 座長',
+      2: 'PyCon JP 2025 副座長',
+      99: '',
+    }
   },
   'button': {
     buy_ticket: 'チケットを購入',

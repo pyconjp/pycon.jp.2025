@@ -48,6 +48,11 @@ export type Dictionary = {
       attendee: string,
     },
     role: string,
+    roles: {
+      1: string,
+      2: string,
+      99: string,
+    }
   },
   button: {
     buy_ticket: string,

@@ -77,7 +77,7 @@ export async function getMembers(): Promise<Member[]> {
   const memberPromise = (async () => {
     const rawMembers: RawMember[] = await fetchSheet<RawMember>(
       process.env.MEMBER_SPREADSHEET_ID || '',
-      "'フォームの回答 1'!C2:M100",
+      "'フォームの回答 1'!C2:O100",
       [
         'name_ja',
         'name_en',
@@ -90,6 +90,8 @@ export async function getMembers(): Promise<Member[]> {
         'profile_en',
         'team',
         'path',
+        'cover_image',
+        'role_id',
       ]
     );
 
@@ -122,6 +124,17 @@ export async function getMembers(): Promise<Member[]> {
         }
       })(),
       path: rawMember.path,
+      cover_image: rawMember.cover_image,
+      role_id: (() => {
+        switch (rawMember.role_id) {
+          case '1':
+            return 1;
+          case '2':
+            return 2;
+          default:
+            return 99;
+        }
+      })(),
     }));
 
     return members;
