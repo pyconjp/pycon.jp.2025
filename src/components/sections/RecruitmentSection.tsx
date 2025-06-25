@@ -14,7 +14,7 @@ export default function RecruitmentSection({lang, ...props}: Props) {
 
   return (
     <section {...props}
-             className={clsx('flex lg:flex-row flex-col p-6 lg:p-16 gap-10 bg-gray-100 border-2 border-gray-300 rounded-xl', props.className)}>
+             className={clsx('flex lg:flex-row flex-col p-6 lg:p-16 gap-10 bg-gray-100 border-2 border-gray-300 rounded-xl mb-15', props.className)}>
       <div className='flex-1 lg:space-y-12 space-y-6'>
         <h2 className='text-4xl font-semibold'>{dict.top.speaker_recruitment}</h2>
         <div className='text-sm'>

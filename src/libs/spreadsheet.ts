@@ -1,4 +1,4 @@
-import {Sponsor} from "@/types/sponsor";
+import {SpecialSponsor, Sponsor} from "@/types/sponsor";
 import {google} from "googleapis";
 import {Member, RawMember} from "@/types/member";
 
@@ -133,4 +133,34 @@ export async function getMembers(): Promise<Member[]> {
 
 export async function getMember(path: string): Promise<Member | undefined> {
   return (await getMembers()).find(member => member.path === path);
+}
+
+export async function getSpecialSponsors(): Promise<SpecialSponsor[]> {
+  if (!process.env.SPONSOR_SPREADSHEET_ID) {
+    return [];
+  }
+
+  if (cache.has('special_sponsors')) {
+    return cache.get('special_sponsors') as Promise<SpecialSponsor[]>;
+  }
+
+  const sponsorPromise = (async () => {
+    return await fetchSheet<SpecialSponsor>(
+      process.env.SPONSOR_SPREADSHEET_ID || '',
+      '特別スポンサー_Webサイト掲載用!A2:I100',
+      [
+        'name_ja',
+        'name_en',
+        'url_ja',
+        'url_en',
+        'title_ja',
+        'title_en',
+        'logo_image',
+        'plan',
+      ]
+    );
+  })();
+
+  cache.set('special_sponsors', sponsorPromise);
+  return sponsorPromise;
 }
