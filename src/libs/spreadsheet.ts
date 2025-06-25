@@ -1,4 +1,4 @@
-import { Sponsor } from "@/types/sponsor";
+import { SpecialSponsor, Sponsor } from "@/types/sponsor";
 import { google } from "googleapis";
 
 const auth = new google.auth.JWT(
@@ -51,4 +51,25 @@ export async function getSponsors(): Promise<Sponsor[]> {
     ]
   );
   return sponsors;
+}
+
+export async function getSpecialSponsors(): Promise<SpecialSponsor[]> {
+  if (!process.env.SPONSOR_SPREADSHEET_ID) {
+    return [];
+  }
+  const specialsponsors: SpecialSponsor[] = await fetchSheet<SpecialSponsor>(
+    process.env.SPONSOR_SPREADSHEET_ID || '',
+    '特別スポンサー_Webサイト掲載用!A2:I100',
+    [
+      'name_ja',
+      'name_en',
+      'url_ja',
+      'url_en',
+      'title_ja',
+      'title_en',
+      'logo_image',
+      'plan',
+    ]
+  );
+  return specialsponsors;
 }
