@@ -22,6 +22,8 @@ export default function KeynotesSection({lang, ...props}: Props) {
               <div className='text-xl font-semibold mt-5'>100日チャレンジ</div>
               <div className='font-semibold mt-0.5'>著者</div>
             </div>
+            <Image src='/common/keynote/book.jpg' alt='Keynote 2025 1 Book' width={283} height={360} className='h-auto lg:w-24 w-18
+             border-gray-200 border-2'/>
           </div>
           <div className='mt-11'>
             <KeynoteContent1 />
