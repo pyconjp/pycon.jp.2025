@@ -23,6 +23,9 @@ export type Dictionary = {
     members: string,
     sponsors: string,
     coming_soon: string,
+    cfs: string,
+    cfp: string,
+    buy_ticket: string,
   },
   NavBar_About: {
     venue: string,

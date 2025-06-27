@@ -1,1 +1,0 @@
-export type ActiveHeader = 'home' | 'about' | 'timetable' | 'speakers' | 'map';

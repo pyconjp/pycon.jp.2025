@@ -23,6 +23,9 @@ const En: Dictionary = {
     members: 'Members',
     sponsors: 'Sponsors',
     coming_soon: "Coming Soon",
+    cfs: 'Call for Sponsors',
+    cfp: 'Call for Proposals',
+    buy_ticket: 'Buy Ticket',
   },
   'NavBar_About': {
     venue: 'Venue',
