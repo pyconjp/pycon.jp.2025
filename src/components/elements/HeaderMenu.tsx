@@ -1,38 +1,13 @@
-import {ActiveHeader} from "@/types/header";
 import clsx from "clsx";
 import {Lang} from "@/types/lang";
 import {dictionary} from "@/lang";
 import Link from "next/link";
-import Tooltip from 'rc-tooltip';
-
-const menu: { key: ActiveHeader, href: string, isComingSoon?: boolean }[] = [
-  {
-    'key': 'home',
-    'href': '/',
-  },
-  {
-    'key': 'about',
-    'href': '/coc',
-  },
-  {
-    'key': 'timetable',
-    'href': '/timetable',
-    'isComingSoon': true,
-  },
-  {
-    'key': 'speakers',
-    'href': '/speakers',
-    'isComingSoon': true,
-  },
-  {
-    'key': 'map',
-    'href': '/map',
-    'isComingSoon': true,
-  }
-];
+import {MenuKey} from "@/types/menu";
+import {menu} from "@/data/menu";
+import Tooltip from "rc-tooltip";
 
 export default function HeaderMenu({active, lang, isTop, ...props}: {
-  active?: ActiveHeader,
+  active?: MenuKey,
   lang: Lang
   isTop?: boolean
 } & React.HTMLAttributes<HTMLElement>) {

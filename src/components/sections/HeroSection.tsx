@@ -71,7 +71,7 @@ export default function HeroSection({lang}: {lang: Lang}) {
         <div
           className='absolute bg-white w-[120%] aspect-[16_/_3] rounded-t-[100%] lg:top-[85dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0'/>
       </div>
-      <div className='lg:w-5/8 w-10/12 mx-auto mt-[-15dvh] lg:mt-[-30dvh] z-10 font-jost'>
+      <div className='lg:w-5/8 w-10/12 mx-auto mt-[-15dvh] lg:-mt-72 z-10 font-jost'>
         <div className='flex flex-col w-80 font-semibold ml-auto mx-auto lg:mr-0'>
           <div className='flex flex-row lg:h-60 h-40'>
             <DateArea day='DAY 1' month='09' date='26' weekday='FRI' className='bg-secondary text-black'/>
@@ -94,7 +94,7 @@ export default function HeroSection({lang}: {lang: Lang}) {
       <div
         className='relative lg:w-5/8 w-10/12 h-auto mx-auto flex flex-col lg:flex-row gap-12 bg-transparent lg:-mt-24 lg:items-end'>
         <div className='flex-1'>
-          <div className='relative after:bg-white after:absolute after:w-full after:h-full after:-z-10 after:top-0 after:left-0 after:rounded-2xl w-4/6 max-w-72 mx-auto'>
+          <div className='relative w-4/6 max-w-72 mx-auto'>
             <Image src='/common/hero/theme.png' alt='あつまれPythonのピース' width={1120} height={1120} className='z-10'/>
           </div>
           <div className='text-sm lg:text-base mb-4'>

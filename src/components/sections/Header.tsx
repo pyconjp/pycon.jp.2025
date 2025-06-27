@@ -1,4 +1,3 @@
-import {ActiveHeader} from "@/types/header";
 import Image from "next/image";
 import HeaderMenu from "@/components/elements/HeaderMenu";
 import {Lang} from "@/types/lang";
@@ -6,9 +5,10 @@ import LangButton from "@/components/elements/LangButton";
 import clsx from "clsx";
 import Link from "next/link";
 import {dictionary} from "@/lang";
+import {MenuKey} from "@/types/menu";
 
 type Props = {
-  active?: ActiveHeader;
+  active?: MenuKey;
   lang: Lang;
   isTop?: boolean;
 } & React.HTMLAttributes<HTMLElement>;
