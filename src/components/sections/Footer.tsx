@@ -99,9 +99,8 @@ export default function Footer({lang}: { lang: Lang }) {
             />
           </Link>
           <div>
-            <div className="text-black">
-              主催: 一般社団法人PyCon JP Association PyCon JP 2025 is a production
-              of the PyCon JP Association
+            <div className="text-black text-sm lg:text-nowrap">
+              主催: 一般社団法人PyCon JP Association<br/>PyCon JP 2025 is a production of the PyCon JP Association
             </div>
             <Link href='https://www.pycon.jp/policies/privacy-policy.html' target='_blank' rel='noopener noreferrer'
                   className='text-primary-300 underline text-sm hover:opacity-80'>
