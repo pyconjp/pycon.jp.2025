@@ -78,7 +78,7 @@ export default function MemberSection({lang, member, ...props}: Props) {
           {member.twitter && (
             <div className='flex gap-4 font-semibold border-b-2 border-gray-200 py-4'>
               <h2 className='w-1/4 lg:w-1/5'>
-                Twitter
+                X
               </h2>
               <ExternalLink href={`https://twitter.com/${member.twitter}`} className='hover:opacity-50'>
                 @{member.twitter}
