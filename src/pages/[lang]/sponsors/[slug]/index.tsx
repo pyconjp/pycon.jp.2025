@@ -102,7 +102,7 @@ function SponsorPage({ sponsors, lang }: Props) {
                       width={480}
                       height={210}
                       className="w-92 h-42 p-2 lg:p-5 object-contain"
-                      fallback={'/common/logo_pc.png'}
+                      fallback={'/common/no_image_sponsor.png'}
                     />
                   </div>
                   <div className="rounded-xl border border-[#0000001A] w-[85px] h-[115px] lg:w-[160px] lg:h-[175px] flex justify-center items-center">
