@@ -26,7 +26,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
               <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
                 <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                   <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
-                    fallback={`/common/no_image.jpg`}
+                    fallback={`/common/no_image_sponsor.png`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -57,7 +57,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                     width={480}
                     height={210}
                     className="w-72 h-42 object-contain p-7"
-                    fallback={'/common/logo_pc.png'}
+                    fallback={'/common/no_image_sponsor.png'}
                   />
                 </div>
                 <div className="flex flex-col my-4">
@@ -84,7 +84,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                   width={480}
                   height={210}
                   className="w-[220px] h-[130px] p-4 object-contain"
-                  fallback={'/common/logo_pc.png'}
+                  fallback={'/common/no_image_sponsor.png'}
                 />
               </div>
               <div className="flex flex-col my-4">
@@ -110,7 +110,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                   width={480}
                   height={210}
                   className="w-[180px] h-[105px] object-contain p-4"
-                  fallback={'/common/logo_pc.png'}
+                  fallback={'/common/no_image_sponsor.png'}
                 />
               </div>
               <div className="flex flex-col py-4">
@@ -133,7 +133,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                   width={480}
                   height={210}
                   className="w-[180px] h-[105px] object-contain p-4"
-                  fallback={'/common/logo_pc.png'}
+                  fallback={'/common/no_image_sponsor.png'}
                 />
               </div>
               <div className="flex flex-col py-4">
