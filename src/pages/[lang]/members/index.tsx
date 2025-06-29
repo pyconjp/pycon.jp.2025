@@ -20,7 +20,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   const lang = params?.lang || 'ja';
-  const members = await getMembers();
+  const members = (await getMembers()).filter((member: Member) => member.name_ja !== '' || member.name_en !== '');
   return {
     props: {
       lang,

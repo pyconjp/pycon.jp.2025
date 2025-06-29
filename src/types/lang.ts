@@ -23,6 +23,9 @@ export type Dictionary = {
     members: string,
     sponsors: string,
     coming_soon: string,
+    cfs: string,
+    cfp: string,
+    buy_ticket: string,
   },
   NavBar_About: {
     venue: string,
@@ -48,6 +51,11 @@ export type Dictionary = {
       attendee: string,
     },
     role: string,
+    roles: {
+      1: string,
+      2: string,
+      99: string,
+    }
   },
   button: {
     buy_ticket: string,

@@ -14,25 +14,33 @@ export default function RecruitmentSection({lang, ...props}: Props) {
 
   return (
     <section {...props}
-             className={clsx('flex lg:flex-row flex-col p-6 lg:p-16 gap-10 bg-gray-100 border-2 border-gray-300 rounded-xl mb-15', props.className)}>
-      <div className='flex-1 lg:space-y-12 space-y-6'>
-        <h2 className='text-4xl font-semibold'>{dict.top.speaker_recruitment}</h2>
-        <div className='text-sm'>
-          <RecruitmentProposal/>
+             className={clsx('flex lg:flex-row flex-col items-stretch p-6 lg:p-16 gap-10 bg-gray-100 border-2 border-gray-300 rounded-xl mb-15', props.className)}>
+      <div className='flex-1 flex flex-col justify-between gap-6'>
+        <div>
+          <h2 className='text-4xl font-semibold'>{dict.top.speaker_recruitment}</h2>
+          <div className='text-sm lg:mt-8 mt-6'>
+            <RecruitmentProposal/>
+          </div>
         </div>
-        <LinkButton href='https://pretalx.com/pycon-jp-2025/cfp'>
-          {dict.top.speaker_registration}
-        </LinkButton>
+        <div className='mt-auto'>
+          <LinkButton href='https://pretalx.com/pycon-jp-2025/cfp'>
+            {dict.top.speaker_registration}
+          </LinkButton>
+        </div>
       </div>
-      <div className='flex-1 space-y-12'>
-        <h2 className='text-4xl font-semibold'>{dict.top.sponsor_recruitment}</h2>
-        <div className='text-sm'>
-          <RecruitmentSponsor/>
+      <div className='flex-1 flex flex-col justify-between gap-6'>
+        <div>
+          <h2 className='text-4xl font-semibold'>{dict.top.sponsor_recruitment}</h2>
+          <div className='text-sm lg:mt-8 mt-6'>
+            <RecruitmentSponsor/>
+          </div>
         </div>
-        <LinkButton
-          href='https://docs.google.com/forms/d/e/1FAIpQLSfCVLHY3zMR1z7YGy8aRyJiSa64pnVpById6UjNDiwD5K0VmQ/viewform'>
-          {dict.top.sponsor_registration}
-        </LinkButton>
+        <div className='mt-auto'>
+          <LinkButton
+            href='https://docs.google.com/forms/d/e/1FAIpQLSfCVLHY3zMR1z7YGy8aRyJiSa64pnVpById6UjNDiwD5K0VmQ/viewform'>
+            {dict.top.sponsor_registration}
+          </LinkButton>
+        </div>
       </div>
     </section>
   )

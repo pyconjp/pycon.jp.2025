@@ -22,7 +22,10 @@ const Ja: Dictionary = {
     coc: '行動規範',
     members: 'メンバー',
     sponsors: 'スポンサー',
-    coming_soon: "(準備中)",
+    coming_soon: "準備中",
+    cfs: 'スポンサー受付',
+    cfp: 'スピーカー受付',
+    buy_ticket: '参加申し込み',
   },
   'NavBar_About': {
     venue: '会場案内',
@@ -48,6 +51,11 @@ const Ja: Dictionary = {
       attendee: '参加者管理チーム',
     },
     role: '役割',
+    roles: {
+      1: 'PyCon JP 2025 座長',
+      2: 'PyCon JP 2025 副座長',
+      99: '',
+    }
   },
   'button': {
     buy_ticket: 'チケットを購入',

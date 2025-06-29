@@ -13,7 +13,7 @@ export default function FixedMenu({lang}: {lang: Lang}) {
       </div>
       <div className="z-20 fixed max-lg:right-0 max-lg:left-0 max-lg:mx-2 lg:right-4 bottom-2 lg:bottom-6 flex space-x-6 lg:space-x-4 p-2 lg:px-4 backdrop-blur-md bg-white rounded-full items-center justify-center">
         <XButton/>
-        <GradationButton label={dict.button.buy_ticket} link={"#"} />
+        <GradationButton label={dict.button.buy_ticket} link="https://pyconjp.connpass.com/event/359523/" />
       </div>
     </>
   )

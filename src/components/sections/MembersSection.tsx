@@ -3,6 +3,7 @@ import {Member} from "@/types/member";
 import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import {dictionary} from "@/lang";
 import Link from "next/link";
+import Image from "next/image";
 
 type Props = {
   members: Member[];
@@ -19,18 +20,27 @@ export default function MembersSection({members, lang, ...props}: Props) {
         <span className='my-auto text-base'>主催メンバー</span>
       </h1>
       <div className='grid lg:grid-cols-2 grid-rows-1 lg:gap-10 gap-6'>
-        {members.map((member, index) => (
-          <Link key={index} href={`/members/${member.path}`}>
+        {members.sort((a, b) => a.role_id - b.role_id).map((member, index) => (
+          <Link key={index} href={`/${lang}/members/${member.path}`}>
             <div className='flex items-row gap-5 p-5 border-gray-200 border-2 rounded-xl'>
-              <ImageWithFallback src={`/common/members/${member.image}`}
-                                 alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
-                                 width={110} height={110}
-                                 className='aspect-square w-24 rounded-sm'/>
+              {member.image ? (
+                <ImageWithFallback src={`/common/members/${member.image}`}
+                                   alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
+                                   width={110} height={110}
+                                   className='aspect-square w-24 rounded-sm object-cover'/>
+              ) : (
+                <Image src='/common/no_image.jpg'
+                       alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
+                       width={110} height={110}
+                       className='aspect-square w-24 rounded-sm object-cover'/>
+              )}
               <div className='flex flex-col justify-between flex-1'>
                 <h3 className='text-lg font-semibold'>
                   {lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
                 </h3>
-                {member.team && <span className='text-gray-700 text-sm'>{dict.members.team[member.team]}</span>}
+                {member.team && <span className='text-gray-700 text-sm'>
+                  {dict.members.roles[member.role_id] || dict.members.team[member.team]}
+                </span>}
               </div>
             </div>
           </Link>
