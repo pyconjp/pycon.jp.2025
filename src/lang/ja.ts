@@ -23,6 +23,7 @@ const Ja: Dictionary = {
     members: 'メンバー',
     sponsors: 'スポンサー',
     coming_soon: "準備中",
+    ended: "終了しました",
     cfs: 'スポンサー受付',
     cfp: 'スピーカー受付',
     buy_ticket: '参加申し込み',

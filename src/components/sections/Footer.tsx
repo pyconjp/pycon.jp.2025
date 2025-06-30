@@ -57,9 +57,9 @@ export default function Footer({lang}: { lang: Lang }) {
                     </ExternalLink>
                   )
                   : (
-                    <Tooltip overlay={<span>{dict.menu.coming_soon}</span>} trigger={['hover', 'click']}
-                             placement='bottom'>
-                      <span className='font-bold cursor-pointer'>
+                    <Tooltip overlay={<span>{dict.menu.ended}</span>} trigger={['hover', 'click']}
+                             placement='right'>
+                      <span className='font-bold cursor-not-allowed opacity-50'>
                         {dict.menu[menuItem.key]}
                       </span>
                     </Tooltip>
