@@ -23,8 +23,8 @@ export default function RecruitmentSection({lang, ...props}: Props) {
           </div>
         </div>
         <div className='mt-auto'>
-          <LinkButton href='https://pretalx.com/pycon-jp-2025/cfp'>
-            {dict.top.speaker_registration}
+          <LinkButton href='https://pretalx.com/pycon-jp-2025/cfp' disabled={true}>
+            {dict.menu.ended}
           </LinkButton>
         </div>
       </div>

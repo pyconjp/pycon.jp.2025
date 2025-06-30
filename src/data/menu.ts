@@ -30,6 +30,7 @@ export const footerMenu: { key: 'cfp' | 'cfs' | 'buy_ticket', href: string, isCl
   {
     'key': 'cfp',
     'href': 'https://pretalx.com/pycon-jp-2025/cfp',
+    'isClosed': true,
   },
   {
     'key': 'cfs',
