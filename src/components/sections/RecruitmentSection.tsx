@@ -3,6 +3,8 @@ import dynamic from "next/dynamic";
 import clsx from "clsx";
 import LinkButton from "@/components/elements/LinkButton";
 import {dictionary} from "@/lang";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 type Props = { lang: Lang } & React.HTMLAttributes<HTMLElement>;
 
@@ -23,8 +25,8 @@ export default function RecruitmentSection({lang, ...props}: Props) {
           </div>
         </div>
         <div className='mt-auto'>
-          <LinkButton href='https://pretalx.com/pycon-jp-2025/cfp'>
-            {dict.top.speaker_registration}
+          <LinkButton href='https://pretalx.com/pycon-jp-2025/cfp' disabled={true}>
+            {dict.menu.ended}
           </LinkButton>
         </div>
       </div>
