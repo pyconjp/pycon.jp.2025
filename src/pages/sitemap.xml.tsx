@@ -74,4 +74,4 @@ export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => 
 const Page = () => null;
 export default Page;
 
-export const runtime = 'edge';
+export const runtime = 'experimental-edge';
