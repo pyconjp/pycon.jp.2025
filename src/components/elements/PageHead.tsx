@@ -8,7 +8,7 @@ type Props = {
   lang: 'ja' | 'en';
 }
 
-export default function PageHead({title, description, pagePath, imagePath = '/common/ogp/default.jpg', lang}: Props) {
+export default function PageHead({title, description, pagePath, imagePath = '/common/ogp/default.png', lang}: Props) {
   const baseUrl = process.env.NEXT_PUBLIC_PRODUCTION_URL || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
   return (
