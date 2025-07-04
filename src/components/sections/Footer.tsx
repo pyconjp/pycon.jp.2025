@@ -75,7 +75,7 @@ export default function Footer({lang}: { lang: Lang }) {
           </ul>
         </nav>
       </div>
-      <div className='w-10/12 lg:max-w-[1000px] mx-auto py-16 flex flex-col lg:flex-row lg:gap-6 gap-4'>
+      <div className='w-10/12 lg:max-w-[1000px] mx-auto py-16 flex flex-col lg:flex-row lg:items-center lg:gap-6 gap-4'>
         <LinkButton href={'https://pyconjp.atlassian.net/servicedesk/customer/portal/5'} className='w-full flex-1'>
           <span className='flex flex-col'>
             <span className='font-semibold'>{dict.footer.contact_us}</span>
