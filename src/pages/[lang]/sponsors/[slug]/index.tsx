@@ -9,6 +9,7 @@ import Image from "next/image";
 import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import SponsorLinkButton from "@/components/elements/SponsorLinkButton";
 import Link from "next/link";
+import KeynotesSection from "@/components/sections/KeynotesSection";
 
 type SponsorPlan = 'platinum' | 'gold' | 'silver' | 'psf';
 const sponsorLabel_en: Record<SponsorPlan, string> = {
@@ -82,7 +83,7 @@ function SponsorPage({ sponsors, lang }: Props) {
         <main className="relative flex justify-center !bg-[#FAFAFA] w-full min-h-screen">
           <div className="relative before:absolute before:left-[-12] lg:before:left-[-26] before:top-12 lg:before:top-6 before:h-[79px] before:w-[128px] lg:before:w-[250px] lg:before:h-[150px] before:bg-[url('/common/pink_snake.png')] before:bg-contain before:bg-no-repeat"></div>
           <Link href="/sponsors">
-            <div className='relative before:absolute before:left-[305] before:top-14 lg:before:left-[620] lg:before:top-12 before:h-12 before:w-12 before:rounded-full before:bg-black before:content-["×"] before:text-white before:flex before:justify-center before:items-center before:font-bold before:text-2xl'/>
+            <div className='relative before:absolute before:left-[305] before:top-14 lg:before:left-[620] lg:before:top-12 before:h-12 before:w-12 before:rounded-full before:bg-black before:content-["×"] before:text-white before:flex before:justify-center before:items-center before:font-bold before:text-2xl' />
           </Link>
           <div className="flex flex-col">
             <div className="bg-white rounded-3xl border border-[#0000001A] my-20 pt-20 p-8 lg:p-20 lg:max-w-[640px] max-w-[335px]">
@@ -130,6 +131,9 @@ function SponsorPage({ sponsors, lang }: Props) {
             </div>
           </div>
         </main>
+        <div className="bg-[#FAFAFA]">
+          <KeynotesSection className='mx-auto lg:w-5/8 w-10/12 pb-20' lang={lang} />
+        </div>
       </div>
     </DefaultLayout>
   );

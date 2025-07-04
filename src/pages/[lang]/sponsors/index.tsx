@@ -1,6 +1,7 @@
 import Navi_about from "@/components/elements/Navi_about";
 import PageHead from "@/components/elements/PageHead";
 import DefaultLayout from "@/components/layout/DefaultLayout";
+import RecruitmentSection from "@/components/sections/RecruitmentSection";
 import Sponsor from "@/components/sections/Sponsor";
 import { getSpecialSponsors, getSponsors } from "@/libs/spreadsheet";
 import { Lang } from "@/types/lang";
@@ -43,6 +44,7 @@ function SponsorPage({ lang, sponsors, special_Sponsors }: { lang: Lang, sponsor
       />
       <div className="bg-[#FAFAFA] py-2 pb-10">
         <Sponsor className="mx-auto lg:w-5/8 w-10/12" sponsors={sponsors} lang={lang} specialSponsors={special_Sponsors} />
+        <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 my-20'/>
       </div>
     </DefaultLayout>
   )
