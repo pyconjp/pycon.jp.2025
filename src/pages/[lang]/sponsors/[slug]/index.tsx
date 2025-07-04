@@ -9,6 +9,7 @@ import Image from "next/image";
 import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import SponsorLinkButton from "@/components/elements/SponsorLinkButton";
 import Link from "next/link";
+import KeynotesSection from "@/components/sections/KeynotesSection";
 
 type SponsorPlan = 'platinum' | 'gold' | 'silver' | 'psf';
 const sponsorLabel_en: Record<SponsorPlan, string> = {
@@ -131,6 +132,7 @@ function SponsorPage({ sponsors, lang }: Props) {
           </div>
         </main>
       </div>
+      <KeynotesSection className='mx-auto lg:w-5/8 w-10/12 mt-20' lang={lang}/>
     </DefaultLayout>
   );
 }
