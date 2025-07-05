@@ -5,7 +5,7 @@ import {getMembers} from "@/libs/spreadsheet";
 import {Lang} from "@/types/lang";
 import {GetStaticProps} from "next";
 import {Member} from "@/types/member";
-import MemberHeader from "@/components/sections/MemberHeader";
+import ContentsHeader from "@/components/sections/ContentsHeader";
 import MembersSection from "@/components/sections/MembersSection";
 
 export const getStaticPaths = async () => {
@@ -40,8 +40,9 @@ function MembersPage({lang, members}: { lang: Lang, members: Member[] }) {
         lang={lang}
         pagePath='/members'
       />
-      <div className="pt-2 pb-36">
-        <MemberHeader/>
+      <div className="pb-36">
+        <ContentsHeader grayscale title="Members" subtitle="メンバー"
+                        images={['/common/member_header_1.jpg', '/common/member_header_2.jpg']}/>
         <MembersSection members={members} lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20'/>
       </div>
     </DefaultLayout>
