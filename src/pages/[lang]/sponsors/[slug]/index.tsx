@@ -97,12 +97,13 @@ function SponsorPage({ sponsors, lang }: Props) {
                   </h3>
                 </div>
                 <div className="flex justify-center items-center gap-4">
-                  <div className="rounded-xl border border-[#0000001A] w-[195px] h-[115px] lg:w-[400px] lg:h-[175px] flex justify-center items-center">
-                    <ImageWithFallback src={`/common/sponsor/${currentSponsor.logo_image}`}
+                  <div className="rounded-xl border border-[#0000001A] w-[195px] h-[115px] lg:w-[400px] lg:h-[175px] flex justify-center items-center overflow-hidden">
+                    <ImageWithFallback
+                      src={`/common/sponsor/${currentSponsor.logo_image}`}
                       alt={lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
                       width={480}
                       height={210}
-                      className="w-92 h-42 p-2 lg:p-5 object-contain"
+                      className="w-full h-full p-2 lg:p-5 object-contain"
                       fallback={'/common/no_image_sponsor.png'}
                     />
                   </div>
