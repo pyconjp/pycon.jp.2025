@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       name_ja: acc.name_ja,
       name_en: acc.name_en,
       url_ja: acc.url_ja,
-      url_en: acc.name_en,
+      url_en: acc.url_en,
       title_ja: acc.title_ja + '・' + current.title_ja,
       title_en: acc.title_en + ' / ' + current.title_en,
       logo_image: acc.logo_image,
