@@ -1,4 +1,3 @@
-import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import Navi_about from "@/components/elements/Navi_about";
 import PageHead from "@/components/elements/PageHead";
 import SponsorLinkButton from "@/components/elements/SponsorLinkButton";
@@ -8,7 +7,6 @@ import { Lang } from "@/types/lang";
 import { SpecialSponsor } from "@/types/sponsor";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
-import Image from "next/image";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const specialSponsors = await getSpecialSponsors();
