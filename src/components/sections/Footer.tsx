@@ -6,6 +6,8 @@ import ExternalLink from "@/components/elements/ExternalLink";
 import {footerMenu, menu} from "@/data/menu";
 import Tooltip from "rc-tooltip";
 import LinkButton from "@/components/elements/LinkButton";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Footer({lang}: { lang: Lang }) {
   const dict = dictionary[lang];
@@ -76,12 +78,13 @@ export default function Footer({lang}: { lang: Lang }) {
         </nav>
       </div>
       <div className='w-10/12 lg:max-w-[1000px] mx-auto py-16 flex flex-col lg:flex-row lg:items-center lg:gap-6 gap-4'>
-        <LinkButton href={'https://pyconjp.atlassian.net/servicedesk/customer/portal/5'} className='w-full flex-1'>
+        <ExternalLink href={'https://pyconjp.atlassian.net/servicedesk/customer/portal/5'} className='w-full border-gray-300 border flex justify-between items-center p-4 lg:p-6 rounded-lg lg:rounded-xl text-sm lg:text-base font-semibold w-full flex-1'>
           <span className='flex flex-col'>
             <span className='font-semibold'>{dict.footer.contact_us}</span>
             <span className='text-gray-500 font-semibold text-sm'>PyCon JP 2025 Inquiries Form</span>
           </span>
-        </LinkButton>
+          <FontAwesomeIcon icon={faArrowRight}/>
+        </ExternalLink>
         <div className='flex-1'>
           {dict.footer.description}
         </div>
