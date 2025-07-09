@@ -5,7 +5,6 @@ import {dictionary} from "@/lang";
 import ExternalLink from "@/components/elements/ExternalLink";
 import {footerMenu, menu} from "@/data/menu";
 import Tooltip from "rc-tooltip";
-import LinkButton from "@/components/elements/LinkButton";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
