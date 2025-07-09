@@ -170,6 +170,7 @@ export async function getSpecialSponsors(): Promise<SpecialSponsor[]> {
         'title_en',
         'logo_image',
         'plan',
+        'path',
       ]
     );
   })();
