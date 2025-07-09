@@ -126,7 +126,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 gap-y-12 lg:gap-y-10 place-items-center">
           {specialSponsors.filter(sponsor => sponsor.plan === 'special').map((sponsor, index) => (
-            <span key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
+            <Link href={`/${lang}/sponsors/special/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
                 <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
@@ -140,7 +140,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                 <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
                 <p className="text-[#808080]">{lang === 'ja' ? sponsor.title_ja : sponsor.title_en}</p>
               </div>
-            </span>
+            </Link>
           ))}
         </div>
       </div>
