@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "echo NEXT_PUBLIC_BASE_URL=$CF_PAGES_URL > .env.production && next build",
+    "build": "echo NEXT_PUBLIC_BASE_URL=$CF_PAGES_URL > .env.production && next build & next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -21,6 +21,7 @@
     "clsx": "^2.1.1",
     "googleapis": "^150.0.1",
     "next": "15.3.2",
+    "next-sitemap": "^4.2.3",
     "rc-tooltip": "^6.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

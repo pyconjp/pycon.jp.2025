@@ -42,3 +42,7 @@ next-env.d.ts
 pnpm-lock.yaml
 
 .idea
+
+public/robots.txt
+public/sitemap.xml
+public/sitemap-*.xml
