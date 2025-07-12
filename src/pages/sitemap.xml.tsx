@@ -1,7 +1,7 @@
 // pages/sitemap.xml.ts
 
 export const config = {
-  runtime: 'edge', // Cloudflareで動作させるには必要
+  runtime: 'experimental-edge', // Cloudflareで動作させるには必要
 };
 
 export default async function handler() {
