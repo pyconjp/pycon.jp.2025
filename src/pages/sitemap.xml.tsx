@@ -1,23 +1,28 @@
-// pages/sitemap.xml.tsx
-import { GetServerSideProps } from 'next'
+// pages/sitemap.xml.ts
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-  <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <sitemap>
-      <loc>https://example.com/sitemap1.xml</loc>
-    </sitemap>
-  </sitemapindex>`
+export const config = {
+  runtime: 'edge', // Cloudflareで動作させるには必要
+};
 
-  res.setHeader('Content-Type', 'application/xml')
-  res.write(xml)
-  res.end()
+export default async function handler() {
+  const urls = [
+    { loc: 'https://example.com/', lastmod: '2024-07-01' },
+    { loc: 'https://example.com/about', lastmod: '2024-07-10' },
+  ];
 
-  return {
-    props: {},
-  }
-}
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls
+  .map(
+    (url) => `<url><loc>${url.loc}</loc><lastmod>${url.lastmod}</lastmod></url>`
+  )
+  .join('\n')}
+</urlset>`;
 
-export default function SiteMap() {
-  return null // レンダリングしない
+  return new Response(sitemap, {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/xml',
+    },
+  });
 }
