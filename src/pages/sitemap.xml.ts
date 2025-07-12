@@ -1,26 +1,21 @@
-export const config = {
-  runtime: 'experimental-edge', // Cloudflareで動作させるには必要
-};
+// pages/sitemap.xml.ts
 
-export default async function handler() {
-  const urls = [
-    { loc: 'https://example.com/', lastmod: '2024-07-01' },
-    { loc: 'https://example.com/about', lastmod: '2024-07-10' },
-  ];
+import { GetServerSideProps } from 'next';
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-  .map(
-    (url) => `<url><loc>${url.loc}</loc><lastmod>${url.lastmod}</lastmod></url>`
-  )
-  .join('\n')}
+  <url><loc>https://example.com/</loc><lastmod>2024-07-01</lastmod></url>
 </urlset>`;
 
-  return new Response(sitemap, {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/xml',
-    },
-  });
+  res.setHeader('Content-Type', 'application/xml');
+  res.write(xml);
+  res.end();
+
+  return { props: {} }; // 返しても実質使われない
+};
+
+export default function Sitemap() {
+  // ページ自体は描画されない
+  return null;
 }
