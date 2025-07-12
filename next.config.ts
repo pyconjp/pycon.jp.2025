@@ -27,19 +27,19 @@ const nextConfig: NextConfig = {
 
       // サブパスへのアクセス：cookie.lang に応じてパスを変換
       {
-        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap\.xml$).+)',
+        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap.*\.xml|robots.txt$).+)',
         has: [{ type: 'cookie', key: 'lang', value: 'en' }],
         destination: '/en/:path',
         permanent: false,
       },
       {
-        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap\.xml$).+)',
+        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap.*\.xml|robots.txt$).+)',
         has: [{ type: 'cookie', key: 'lang', value: 'ja' }],
         destination: '/ja/:path',
         permanent: false,
       },
       {
-        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap\.xml$).+)',
+        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap.*\.xml|robots.txt$).+)',
         missing: [{ type: 'cookie', key: 'lang' }],
         destination: '/ja/:path',
         permanent: false,
