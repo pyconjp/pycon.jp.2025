@@ -1,5 +1,3 @@
-// pages/sitemap.xml.ts
-
 import { GetServerSideProps } from 'next';
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
@@ -19,3 +17,7 @@ export default function Sitemap() {
   // ページ自体は描画されない
   return null;
 }
+
+export const config = {
+  runtime: 'experimental-edge', // Cloudflareで動作させるには必要
+};
