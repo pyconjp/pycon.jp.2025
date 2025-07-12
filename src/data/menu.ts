@@ -7,7 +7,7 @@ export const menu: Menu[] = [
   },
   {
     'key': 'about',
-    'href': '/coc',
+    'href': '/venue',
   },
   {
     'key': 'timetable',
