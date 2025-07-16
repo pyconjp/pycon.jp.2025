@@ -29,7 +29,7 @@ export default function Header({active, lang, isTop, ...props}: Props) {
       })}>
         <div className={clsx({'lg:w-60': !isTop, 'lg:w-96 pt-3': isTop})}>
           <Link href={`/${lang}`}>
-            <Image src='/common/logo_pc.png' alt='PyCon JP 2025 Logo' width={243} height={57}
+            <Image src='/common/logo_pc.svg' alt='PyCon JP 2025 Logo' width={243} height={57}
                    className={clsx('hidden', {'lg:block': !isTop})}/>
             <Image src='/common/logo_sp.png' alt='PyCon JP 2025 Logo' width={112.44} height={38.29}
                    className='lg:hidden'/>
