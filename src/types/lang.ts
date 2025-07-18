@@ -78,8 +78,6 @@ export type Dictionary = {
     place_name: string,
     expected_attendees: string,
     expected_attendees_number: string,
-    committee_members: string,
-    committee_members_number: string,
     holding_date_title: string,
     holding_date: string,
     address: string,
