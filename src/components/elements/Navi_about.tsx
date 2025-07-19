@@ -12,7 +12,7 @@ interface Navi_aboutProps {
 }
 
 const navItems: { key: Position, href: string, isComingSoon?: boolean }[] = [
-  {key: "venue", href: "/venue", isComingSoon: true},
+  {key: "venue", href: "/venue"},
   {key: "coc", href: "/coc"},
   {key: "sponsor", href: "/sponsors"},
   {key: "member", href: "/members"},

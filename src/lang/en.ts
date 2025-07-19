@@ -60,6 +60,33 @@ const En: Dictionary = {
   },
   'button': {
     buy_ticket: 'Buy Ticket',
+  },
+  'venue': {
+    title: "Venue",
+    title_ja: "Event Overview",
+    this_year_place: "This year's venue is the Hiroshima International Conference Center.",
+    access_map: "Access Map",
+    access_map_title: "Access Map",
+    access_map_ja: "Access Map",
+    hall_map: "Hall Map",
+    hall_map_title: "Hall Map",
+    hall_map_ja: "会場内地図",
+    overview: "Overview",
+    overview_ja: "概要",
+    conference_name: "Conference Name",
+    place: "Venue",
+    place_name: "Hiroshima International Conference Center",
+    expected_attendees: "Expected Number of Attendees",
+    expected_attendees_number: "800 people",
+    holding_date_title: "Dates",
+    holding_date: "September 26 (Fri) - September 27 (Sat), 2025",
+    address: "Venue Address",
+    hall_address: "1-5 Nakajima-cho, Naka-ku, Hiroshima, 730-0811, Japan",
+    committee: "Organizing Members",
+    commitee_name: "PyCon JP 2025 Organizing Members",
+    head: "Chair (2025)",
+    head_name: "Takuya Nishimoto",
+    see_on_google_map: "See on Google Maps",
   }
 }
 
