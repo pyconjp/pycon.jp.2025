@@ -1,4 +1,4 @@
-import {Dictionary} from "@/types/lang";
+import { Dictionary } from "@/types/lang";
 
 const Ja: Dictionary = {
   'top': {
@@ -60,7 +60,34 @@ const Ja: Dictionary = {
   },
   'button': {
     buy_ticket: 'チケットを購入',
-  }
+  },
+  'venue': {
+    title: "Venue",
+    title_ja: "開催概要",
+    this_year_place: "今年の会場は、広島国際会議場",
+    access_map: "Access Map",
+    access_map_title: "アクセスマップ",
+    access_map_ja: "アクセスマップ",
+    hall_map: "Hall Map",
+    hall_map_title: "会場内マップ",
+    hall_map_ja: "会場内マップ",
+    overview: "Overview",
+    overview_ja: "概要",
+    conference_name: "カンファレンス名",
+    place: "会場",
+    place_name: "広島国際会議場",
+    expected_attendees: "来場予定数",
+    expected_attendees_number: "800人",
+    holding_date_title: "開催期間",
+    holding_date: "2025年9月26日(金)-2025年9月27日(土)",
+    address: "会場住所",
+    hall_address: "〒730-0811 広島県広島市中区中島町1-5",
+    committee: "主催メンバー",
+    commitee_name: "PyCon JP 2025 主催メンバー",
+    head: "座長(2025)",
+    head_name: "西本 卓也",
+    see_on_google_map: "Googleマップで見る", 
+  },
 }
 
 export default Ja;
