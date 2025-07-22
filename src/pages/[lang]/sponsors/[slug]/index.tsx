@@ -11,18 +11,19 @@ import SponsorLinkButton from "@/components/elements/SponsorLinkButton";
 import Link from "next/link";
 import KeynotesSection from "@/components/sections/KeynotesSection";
 
-type SponsorPlan = 'platinum' | 'gold' | 'silver' | 'psf';
-const sponsorLabel_en: Record<SponsorPlan, string> = {
+const sponsorLabel_en: Record<Sponsor['plan'], string> = {
   platinum: 'Platinum Sponsor',
   gold: 'Gold Sponsor',
   silver: 'Silver Sponsor',
+  flower: 'Flower Sponsor',
   psf: 'PSF Sponsor',
 };
 
-const sponsorLabel_ja: Record<SponsorPlan, string> = {
+const sponsorLabel_ja: Record<Sponsor['plan'], string> = {
   platinum: 'プラチナスポンサー',
   gold: 'ゴールドスポンサー',
   silver: 'シルバースポンサー',
+  flower: 'フラワースポンサー',
   psf: 'PSF',
 };
 
