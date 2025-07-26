@@ -31,6 +31,7 @@ const En: Dictionary = {
   'NavBar_About': {
     venue: 'Venue',
     coc: 'Code of Conduct',
+    nursery: 'Nursery',
     member: 'Members',
     sponsor: 'Sponsors',
   },

@@ -1,0 +1,49 @@
+import PageHead from "@/components/elements/PageHead";
+import {GetStaticProps} from "next";
+import {Lang} from "@/types/lang";
+import dynamic from "next/dynamic";
+import Navi_about from "@/components/elements/Navi_about";
+import DefaultLayout from "@/components/layout/DefaultLayout";
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [
+      {params: {lang: 'ja'}},
+      {params: {lang: 'en'}},
+    ],
+    fallback: false,
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  const lang = params?.lang || 'ja';
+  return {
+    props: {
+      lang,
+    },
+  };
+};
+
+function Nursery({lang}: { lang: Lang }) {
+  const NurseryContent = dynamic(() => import(`@/components/markdown/${lang}/nursery.mdx`), {ssr: true});
+  return (
+    <DefaultLayout lang={lang} activeHeader="about">
+      <PageHead
+        title={lang === "ja" ? '託児所' : 'Nursery'}
+        description={lang === "ja" ? 'PyCon JP 2025の託児所ページです' : 'This is the Nursery page of PyCon JP 2025'}
+        lang={lang}
+        pagePath='/nursery'
+      />
+      <div>
+        <Navi_about position="nursery" lang={lang}/>
+        <main className="flex justify-center items-center">
+          <div className=' m-4 mx-12 lg:mx-4 my-10 prose-h2:scroll-mt-20 prose-h3:scroll-mt-20 lg:max-w-[640px] max-w-11/12 prose-a:text-blue-600'>
+            <NurseryContent/>
+          </div>
+        </main>
+      </div>
+    </DefaultLayout>
+  );
+}
+
+export default Nursery; 

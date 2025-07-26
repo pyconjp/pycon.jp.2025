@@ -4,7 +4,7 @@ import {dictionary} from "@/lang";
 import clsx from "clsx";
 import Tooltip from "rc-tooltip";
 
-type Position = "venue" | "coc" | "sponsor" | "member";
+type Position = "venue" | "coc" | "sponsor" | "member" | "nursery";
 
 interface Navi_aboutProps {
   position: Position;
@@ -16,6 +16,7 @@ const navItems: { key: Position, href: string, isComingSoon?: boolean }[] = [
   {key: "coc", href: "/coc"},
   {key: "sponsor", href: "/sponsors"},
   {key: "member", href: "/members"},
+  {key: "nursery", href: "/nursery"},
 ];
 
 export default function Navi_about({position, lang}: Navi_aboutProps) {
