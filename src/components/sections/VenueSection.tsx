@@ -29,9 +29,9 @@ export default function VenueSection({ lang, ...props }: Props) {
             )}>
               {dict.venue.this_year_place}
             </h3>
-            <p className="text-justify h-full">
+            <div className="text-justify h-full">
               <Description />
-            </p>
+            </div>
             <div className={clsx("flex flex-col gap-4", lang === "ja" && "mt-4")}>
               <Link href="#access" className="flex justify-between items-center border-b border-gray-300 py-3 pr-2 no-underline">
                 <span className="font-bold">{dict.venue.access_map_title}</span>
