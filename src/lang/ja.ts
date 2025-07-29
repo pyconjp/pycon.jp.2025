@@ -60,6 +60,20 @@ const Ja: Dictionary = {
   },
   'button': {
     buy_ticket: 'チケットを購入',
+  },
+  'timetable': {
+    track: {
+      'ai': 'データサイエンス、AI',
+      'practice': 'Pythonを用いた開発のプラクティス',
+      'edu': 'コミュニティ、教育',
+      'devops': 'DevOps、テスト、ドキュメンテーション、パッケージ',
+      'web': 'Webアプリケーション',
+      'libs': 'ライブラリやサービスを作ってみた',
+      'core': 'Python自体の機能、開発',
+      'other': 'その他',
+      'media': '映像、音楽、ゲーム、イラスト',
+      'iot': 'IoT、ハードウェア、ネットワーク',
+    }
   }
 }
 

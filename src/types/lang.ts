@@ -60,5 +60,19 @@ export type Dictionary = {
   },
   button: {
     buy_ticket: string,
+  },
+  timetable: {
+    track: {
+      'ai': string,
+      'practice': string,
+      'edu': string,
+      'devops': string,
+      'web': string,
+      'libs': string,
+      'core': string,
+      'other': string,
+      'media': string,
+      'iot': string,
+    }
   }
 };

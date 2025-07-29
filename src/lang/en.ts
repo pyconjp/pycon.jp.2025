@@ -60,6 +60,20 @@ const En: Dictionary = {
   },
   'button': {
     buy_ticket: 'Buy Ticket',
+  },
+  'timetable': {
+    track: {
+      'ai': 'Data Science, AI',
+      'practice': 'Python Development Practices',
+      'edu': 'Community, Education',
+      'devops': 'DevOps, Testing, Documentation, Packaging',
+      'web': 'Web Applications',
+      'libs': 'Libraries and Services',
+      'core': 'Python Features, Development',
+      'other': 'Other',
+      'media': 'Video, Music, Games, Illustrations',
+      'iot': 'IoT, Hardware, Networking',
+    }
   }
 }
 
