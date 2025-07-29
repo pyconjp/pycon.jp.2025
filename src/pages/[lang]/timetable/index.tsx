@@ -4,6 +4,7 @@ import DefaultLayout from "@/components/layout/DefaultLayout";
 import Navi_about from "@/components/elements/Navi_about";
 import PageHead from "@/components/elements/PageHead";
 import { fetchTalks } from "@/libs/pretalx";
+import { Talk } from "@/types/pretalx";
 
 export const getStaticPaths = async () => {
   return {
@@ -27,7 +28,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   };
 };
 
-function TimetablePage({lang, talks}: { lang: Lang, talks: any }) {
+function TimetablePage({lang, talks}: { lang: Lang, talks: Talk[] }) {
   return (
     <DefaultLayout lang={lang} activeHeader="about">
       <Navi_about position="member" lang={lang}/>
