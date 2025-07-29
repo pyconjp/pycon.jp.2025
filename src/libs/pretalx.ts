@@ -24,7 +24,7 @@ const LANG_LABEL = {
 
 export const fetchTalks = async (): Promise<Talk[]> => {
   const params = {
-    // state: 'confirmed',
+    state: 'confirmed',
     expand: [
       'answers',
       'answers.question',
