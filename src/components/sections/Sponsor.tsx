@@ -17,7 +17,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
   return (
     <section {...props}>
       {sponsors.filter(sponsor => sponsor.plan === 'platinum').length > 0 && 
-        <div className="relative py-2">
+        <div className="relative py-2 mb-12">
           <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
             <span className="text-5xl font-bold font-jost">Platinum Sponsors</span><span className="lg:mx-24 text-[##808080]">プラチナスポンサー</span>
           </h2>
@@ -97,6 +97,34 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
           ))}
         </div>
       </div>
+      {sponsors.filter(sponsor => sponsor.plan === 'flower').length > 0 && 
+        <div className="relative py-2">
+          <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
+            <span className="text-5xl font-bold font-jost">Flower Sponsors</span><span className="lg:mx-24 text-[##808080]">フラワースポンサー</span>
+          </h2>
+          <div className="grid lg:grid-cols-4 gap-6 gap-y-24 justify-center items-center">
+            {sponsors.filter(sponsor => sponsor.plan === 'flower').map((sponsor, index) => (
+              <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
+                <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
+                  <ImageWithFallback src={`/common/sponsor/${sponsor.logo_image}`}
+                    alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
+                    width={480}
+                    height={210}
+                    className="w-[220px] h-[130px] p-4 object-contain"
+                    fallback={'/common/no_image_sponsor.png'}
+                  />
+                </div>
+                <div className="flex flex-col my-4">
+                  <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
+                  <p className="lg:max-w-[230px] pt-2">
+                    {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, gold_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, gold_len) + "..." : ""}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      }
       <div className="relative py-2">
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
           <span className="text-5xl font-bold font-jost">Silver Sponsors</span><span className="lg:mx-24 text-[##808080]">シルバースポンサー</span>

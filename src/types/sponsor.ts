@@ -6,7 +6,7 @@ export type Sponsor = {
   pr_ja: string;
   pr_en: string;
   logo_image: string;
-  plan: 'platinum' | 'gold' | 'silver' | 'psf';
+  plan: 'platinum' | 'gold' | 'silver' | 'flower' | 'psf';
   path: string;
 }
 
