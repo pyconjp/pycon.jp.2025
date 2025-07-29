@@ -3,7 +3,6 @@ import {GetStaticProps} from "next";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Navi_about from "@/components/elements/Navi_about";
 import PageHead from "@/components/elements/PageHead";
-import {Member} from "@/types/member";
 import { fetchTalks } from "@/libs/pretalx";
 
 export const getStaticPaths = async () => {
