@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 
 export interface CloudflareImagesConfig {
   accountId: string;
+  accountHash?: string;
   apiToken: string;
 }
 
@@ -46,11 +47,13 @@ export interface CloudflareListImagesResponse {
 
 export class CloudflareImagesUploader {
   private accountId: string;
+  private accountHash: string;
   private apiToken: string;
   private baseUrl: string;
 
   constructor(config: CloudflareImagesConfig) {
     this.accountId = config.accountId;
+    this.accountHash = config.accountHash || config.accountId; // Fallback to accountId if hash not provided
     this.apiToken = config.apiToken;
     this.baseUrl = `https://api.cloudflare.com/client/v4/accounts/${this.accountId}/images/v1`;
   }
@@ -219,6 +222,6 @@ export class CloudflareImagesUploader {
    * Get the public URL for an image
    */
   getImageUrl(imageId: string, variant: string = 'public'): string {
-    return `https://imagedelivery.net/${this.accountId}/${imageId}/${variant}`;
+    return `https://imagedelivery.net/${this.accountHash}/${imageId}/${variant}`;
   }
 }

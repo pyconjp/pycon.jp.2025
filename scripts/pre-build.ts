@@ -108,6 +108,7 @@ async function syncImagesToCloudflare() {
     // Initialize Cloudflare Images uploader
     const cloudflareUploader = new CloudflareImagesUploader({
       accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+      accountHash: process.env.CLOUDFLARE_ACCOUNT_HASH,
       apiToken: process.env.CLOUDFLARE_API_TOKEN!,
     });
 
