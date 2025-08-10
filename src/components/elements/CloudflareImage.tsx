@@ -23,12 +23,12 @@ export default function CloudflareImage({
 }: CloudflareImageProps) {
   const [imgSrc, setImgSrc] = useState(() => {
     if (!fileName) return fallbackSrc;
-    const baseUrl = getCloudflareImageUrl(category, fileName);
-    if (!baseUrl) return fallbackSrc;
+    const url = getCloudflareImageUrl(category, fileName);
+    if (!url) return fallbackSrc;
     
     // Cloudflare Imagesの Flexible Variants を使用
     // w=幅, h=高さ, fit=scale-down で画像をリサイズ
-    return baseUrl.replace('/public', `/w=${width},h=${height},fit=scale-down`);
+    return url;
   });
 
   // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
