@@ -38,7 +38,7 @@ interface DriveFileListParams {
 export class GoogleDriveDownloader {
   private drive;
   private readonly auth: JWT;
-  private teamDriveId?: string;
+  private readonly teamDriveId?: string;
 
   constructor(credentials: ServiceAccountCredentials, teamDriveId?: string) {
     // Create a JWT client for service account authentication

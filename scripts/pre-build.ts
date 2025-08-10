@@ -7,7 +7,7 @@
  */
 
 import {GoogleDriveDownloader} from './google-drive-downloader';
-import {CloudflareImagesUploader} from './cloudflare-images-uploader';
+import {CloudflareImagesUploader, CloudflareImageUploadResponse} from './cloudflare-images-uploader';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -118,41 +118,77 @@ async function syncImagesToCloudflare() {
       console.log(`\n📂 Processing ${folderConfig.category} folder (${folderConfig.id})...`);
 
       try {
-        // Download images from this folder
-        const images = await driveDownloader.downloadAllImagesFromFolder(folderConfig.id);
+        // First, list all images in the folder without downloading
+        console.log(`🔍 Fetching image list from ${folderConfig.category} folder...`);
+        const fileList = await driveDownloader.listFilesInFolder(folderConfig.id);
 
-        if (images.size === 0) {
+        if (fileList.length === 0) {
           console.log(`📭 No images found in ${folderConfig.category} folder`);
           continue;
         }
 
-        console.log(`📦 Downloaded ${images.size} images from ${folderConfig.category} folder`);
+        console.log(`📋 Found ${fileList.length} images in ${folderConfig.category} folder`);
 
-        // Upload images to Cloudflare Images with category prefix
-        console.log(`☁️  Uploading ${folderConfig.category} images to Cloudflare Images...`);
+        // Check which images need to be uploaded
         const overwrite = process.env.CLOUDFLARE_IMAGES_OVERWRITE === 'true';
+        const imagesToDownload: typeof fileList = [];
+        const existingImages: Map<string, string> = new Map();
 
-        // Add category prefix to image IDs for better organization
-        const categorizedImages = new Map<string, Buffer>();
-        for (const [fileName, buffer] of images) {
-          const categorizedFileName = `${folderConfig.category}_${fileName}`;
-          categorizedImages.set(categorizedFileName, buffer);
+        for (const file of fileList) {
+          const categorizedFileName = `${folderConfig.category}_${file.fileName}`;
+          const customId = categorizedFileName
+            .replace(/\.[^/.]+$/, '') // Remove extension
+            .replace(/[^a-zA-Z0-9-_]/g, '_') // Replace special chars
+            .toLowerCase();
+
+          if (!overwrite && await cloudflareUploader.imageExists(customId)) {
+            console.log(`⏭️  Skipping ${file.fileName} (already exists in Cloudflare)`);
+            existingImages.set(file.fileName, cloudflareUploader.getImageUrl(customId));
+          } else {
+            imagesToDownload.push(file);
+          }
         }
 
-        const results = await cloudflareUploader.uploadMultipleImages(categorizedImages, overwrite);
+        console.log(`📥 Need to download ${imagesToDownload.length} new/updated images`);
 
-        // Generate mapping for this category
+        // Download only the necessary images
+        const downloadedImages = new Map<string, Buffer>();
+        if (imagesToDownload.length > 0) {
+          const downloads = await driveDownloader.downloadMultipleFiles(imagesToDownload);
+          
+          // Add category prefix to downloaded images
+          for (const [fileName, buffer] of downloads) {
+            const categorizedFileName = `${folderConfig.category}_${fileName}`;
+            downloadedImages.set(categorizedFileName, buffer);
+          }
+        }
+
+        // Upload the downloaded images to Cloudflare
+        let uploadResults = new Map<string, CloudflareImageUploadResponse>();
+        if (downloadedImages.size > 0) {
+          console.log(`☁️  Uploading ${downloadedImages.size} images to Cloudflare Images...`);
+          uploadResults = await cloudflareUploader.uploadMultipleImages(downloadedImages, overwrite);
+        }
+
+        // Generate mapping for this category (including existing images)
         imageMapping[folderConfig.category] = {};
-        for (const [fileName, result] of results) {
+        
+        // Add existing images to mapping
+        for (const [fileName, url] of existingImages) {
+          imageMapping[folderConfig.category][fileName] = url;
+        }
+        
+        // Add newly uploaded images to mapping
+        for (const [fileName, result] of uploadResults) {
           if (result.success && result.result) {
-            // Remove the category prefix from the mapping key
             const originalFileName = fileName.replace(`${folderConfig.category}_`, '');
             imageMapping[folderConfig.category][originalFileName] = cloudflareUploader.getImageUrl(result.result.id);
           }
         }
 
-        totalImagesProcessed += results.size;
-        console.log(`✅ Processed ${results.size} images from ${folderConfig.category} folder`);
+        const totalProcessed = existingImages.size + uploadResults.size;
+        totalImagesProcessed += totalProcessed;
+        console.log(`✅ Processed ${totalProcessed} images from ${folderConfig.category} folder (${existingImages.size} existing, ${uploadResults.size} new/updated)`);
       } catch (error) {
         console.error(`❌ Failed to process ${folderConfig.category} folder:`, error);
         // Continue with other folders even if one fails
@@ -174,17 +210,6 @@ async function syncImagesToCloudflare() {
 
 async function preBuild() {
   console.log('🚀 Running pre-build script...');
-
-  // Validate other environment variables
-  const otherEnvVars = [
-    'NEXT_PUBLIC_GA_ID',
-  ];
-
-  const missingOtherVars = otherEnvVars.filter(varName => !process.env[varName]);
-
-  if (missingOtherVars.length > 0) {
-    console.warn(`⚠️  Warning: Missing environment variables: ${missingOtherVars.join(', ')}`);
-  }
 
   // Generate build metadata
   const buildInfo = {
