@@ -3,6 +3,17 @@ import createMDX from '@next/mdx'
 
 const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'imagedelivery.net',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+    unoptimized: false,
+  },
   async redirects() {
     return [
       // ルートへのアクセス：cookie.lang に応じてリダイレクト

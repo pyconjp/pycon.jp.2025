@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { getCloudflareImageUrl } from '@/libs/cloudflare-images';
-import { useState } from 'react';
+import {getCloudflareImageUrl} from '@/libs/cloudflare-images';
+import {useState} from 'react';
 
 interface CloudflareImageProps {
   category: string;
@@ -23,8 +23,12 @@ export default function CloudflareImage({
 }: CloudflareImageProps) {
   const [imgSrc, setImgSrc] = useState(() => {
     if (!fileName) return fallbackSrc;
-    const cloudflareUrl = getCloudflareImageUrl(category, fileName);
-    return cloudflareUrl || fallbackSrc;
+    const baseUrl = getCloudflareImageUrl(category, fileName);
+    if (!baseUrl) return fallbackSrc;
+    
+    // Cloudflare Imagesの Flexible Variants を使用
+    // w=幅, h=高さ, fit=scale-down で画像をリサイズ
+    return baseUrl.replace('/public', `/w=${width},h=${height},fit=scale-down`);
   });
 
   // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
