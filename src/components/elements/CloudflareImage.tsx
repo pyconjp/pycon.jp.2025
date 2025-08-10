@@ -27,6 +27,24 @@ export default function CloudflareImage({
     return cloudflareUrl || fallbackSrc;
   });
 
+  // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
+  const isCloudflareUrl = imgSrc.includes('imagedelivery.net');
+
+  if (isCloudflareUrl) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={imgSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        onError={() => setImgSrc(fallbackSrc)}
+      />
+    );
+  }
+
+  // フォールバック画像の場合はNext.js Imageコンポーネントを使用
   return (
     <Image
       src={imgSrc}
