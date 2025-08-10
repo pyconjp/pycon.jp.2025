@@ -155,7 +155,7 @@ async function syncImagesToCloudflare() {
         const downloadedImages = new Map<string, Buffer>();
         if (imagesToDownload.length > 0) {
           const downloads = await driveDownloader.downloadMultipleFiles(imagesToDownload);
-          
+
           // Add category prefix to downloaded images
           for (const [fileName, buffer] of downloads) {
             const categorizedFileName = `${folderConfig.category}_${fileName}`;
@@ -172,12 +172,12 @@ async function syncImagesToCloudflare() {
 
         // Generate mapping for this category (including existing images)
         imageMapping[folderConfig.category] = {};
-        
+
         // Add existing images to mapping
         for (const [fileName, url] of existingImages) {
           imageMapping[folderConfig.category][fileName] = url;
         }
-        
+
         // Add newly uploaded images to mapping
         for (const [fileName, result] of uploadResults) {
           if (result.success && result.result) {
