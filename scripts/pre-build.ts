@@ -94,7 +94,13 @@ async function syncImagesToCloudflare() {
       private_key: process.env.GOOGLE_PRIVATE_KEY!.replace(/\\n/g, '\n'),
     };
 
-    const driveDownloader = new GoogleDriveDownloader(serviceAccountCredentials);
+    // Get Team Drive ID if configured
+    const teamDriveId = process.env.GOOGLE_TEAM_DRIVE_ID;
+    if (teamDriveId) {
+      console.log(`🏢 Using Team Drive: ${teamDriveId}`);
+    }
+
+    const driveDownloader = new GoogleDriveDownloader(serviceAccountCredentials, teamDriveId);
 
     // Authorize the service account
     await driveDownloader.authorize();

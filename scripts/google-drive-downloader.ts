@@ -16,9 +16,10 @@ export interface ServiceAccountCredentials {
 export class GoogleDriveDownloader {
   private drive;
   private readonly auth: JWT;
+  private teamDriveId?: string;
 
-  constructor(credentials: ServiceAccountCredentials) {
-    // Create JWT client for service account authentication
+  constructor(credentials: ServiceAccountCredentials, teamDriveId?: string) {
+    // Create a JWT client for service account authentication
     this.auth = new JWT({
       email: credentials.client_email,
       key: credentials.private_key,
@@ -26,6 +27,7 @@ export class GoogleDriveDownloader {
     });
 
     this.drive = google.drive({ version: 'v3', auth: this.auth });
+    this.teamDriveId = teamDriveId;
   }
 
   /**
@@ -46,11 +48,18 @@ export class GoogleDriveDownloader {
    */
   async downloadFile(fileId: string, fileName: string): Promise<Buffer> {
     try {
+      const params: any = {
+        fileId: fileId,
+        alt: 'media',
+      };
+
+      // Add Team Drive support
+      if (this.teamDriveId) {
+        params.supportsAllDrives = true;
+      }
+
       const response = await this.drive.files.get(
-        {
-          fileId: fileId,
-          alt: 'media',
-        },
+        params,
         {
           responseType: 'stream',
         }
@@ -75,10 +84,17 @@ export class GoogleDriveDownloader {
    */
   async getFileMetadata(fileId: string) {
     try {
-      const response = await this.drive.files.get({
+      const params: any = {
         fileId: fileId,
         fields: 'id, name, mimeType, size',
-      });
+      };
+
+      // Add Team Drive support
+      if (this.teamDriveId) {
+        params.supportsAllDrives = true;
+      }
+
+      const response = await this.drive.files.get(params);
       return response.data;
     } catch (error) {
       console.error(`Failed to get metadata for file ${fileId}:`, error);
@@ -91,11 +107,21 @@ export class GoogleDriveDownloader {
    */
   async listFilesInFolder(folderId: string): Promise<GoogleDriveImage[]> {
     try {
-      const response = await this.drive.files.list({
+      const params: any = {
         q: `'${folderId}' in parents and mimeType contains 'image/'`,
         fields: 'files(id, name, mimeType)',
         pageSize: 1000,
-      });
+      };
+
+      // Add Team Drive support
+      if (this.teamDriveId) {
+        params.supportsAllDrives = true;
+        params.includeItemsFromAllDrives = true;
+        params.corpora = 'drive';
+        params.driveId = this.teamDriveId;
+      }
+
+      const response = await this.drive.files.list(params);
 
       return (response.data.files || []).map(file => ({
         fileId: file.id as string,
