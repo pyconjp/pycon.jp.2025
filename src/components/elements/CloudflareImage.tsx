@@ -24,11 +24,7 @@ export default function CloudflareImage({
   const [imgSrc, setImgSrc] = useState(() => {
     if (!fileName) return fallbackSrc;
     const url = getCloudflareImageUrl(category, fileName);
-    if (!url) return fallbackSrc;
-    
-    // Cloudflare Imagesの Flexible Variants を使用
-    // w=幅, h=高さ, fit=scale-down で画像をリサイズ
-    return url;
+    return url ?? fallbackSrc;
   });
 
   // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
