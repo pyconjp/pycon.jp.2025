@@ -13,6 +13,28 @@ export interface ServiceAccountCredentials {
   private_key: string;
 }
 
+interface DriveFileGetParams {
+  fileId: string;
+  alt?: string;
+  supportsAllDrives?: boolean;
+}
+
+interface DriveFileMetadataParams {
+  fileId: string;
+  fields?: string;
+  supportsAllDrives?: boolean;
+}
+
+interface DriveFileListParams {
+  q?: string;
+  fields?: string;
+  pageSize?: number;
+  supportsAllDrives?: boolean;
+  includeItemsFromAllDrives?: boolean;
+  corpora?: string;
+  driveId?: string;
+}
+
 export class GoogleDriveDownloader {
   private drive;
   private readonly auth: JWT;
@@ -48,7 +70,7 @@ export class GoogleDriveDownloader {
    */
   async downloadFile(fileId: string, fileName: string): Promise<Buffer> {
     try {
-      const params: any = {
+      const params: DriveFileGetParams = {
         fileId: fileId,
         alt: 'media',
       };
@@ -84,7 +106,7 @@ export class GoogleDriveDownloader {
    */
   async getFileMetadata(fileId: string) {
     try {
-      const params: any = {
+      const params: DriveFileMetadataParams = {
         fileId: fileId,
         fields: 'id, name, mimeType, size',
       };
@@ -107,7 +129,7 @@ export class GoogleDriveDownloader {
    */
   async listFilesInFolder(folderId: string): Promise<GoogleDriveImage[]> {
     try {
-      const params: any = {
+      const params: DriveFileListParams = {
         q: `'${folderId}' in parents and mimeType contains 'image/'`,
         fields: 'files(id, name, mimeType)',
         pageSize: 1000,
