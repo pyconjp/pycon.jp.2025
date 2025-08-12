@@ -1,7 +1,7 @@
 import {Lang} from "@/types/lang";
 import {Member} from "@/types/member";
 import Image from "next/image";
-import ImageWithFallback from "@/components/elements/ImageWithFallback";
+import CloudflareImage from "@/components/elements/CloudflareImage";
 import clsx from "clsx";
 import {dictionary} from "@/lang";
 import ExternalLink from "@/components/elements/ExternalLink";
@@ -22,21 +22,15 @@ export default function MemberSection({lang, member, ...props}: Props) {
       <div className='relative'>
         <Image src={`/common/member_cover.jpg`} alt='Cover Image' width={400} height={400}
                className='w-full aspect-[8_/_3] object-cover rounded-t-lg'/>
-        {
-          member.image
-            ? (
-              <ImageWithFallback src={`/common/members/${member.image}`}
-                                 alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
-                                 width={110} height={110}
-                                 className='aspect-square w-24 absolute left-1/2 -translate-x-1/2 -bottom-12 rounded-sm object-cover'/>
-            )
-            : (
-              <Image src='/common/no_image.jpg'
-                     alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
-                     width={110} height={110}
-                     className='aspect-square w-24 absolute left-1/2 -translate-x-1/2 -bottom-12 rounded-sm object-cover'/>
-            )
-        }
+        <CloudflareImage
+          category="members"
+          fileName={member.image}
+          fallbackSrc="/common/no_image.jpg"
+          alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
+          width={110}
+          height={110}
+          className='aspect-square w-24 absolute left-1/2 -translate-x-1/2 -bottom-12 rounded-sm object-cover'
+        />
         <Link href={`/${lang}/members`}
               className='absolute bg-black rounded-full text-white w-10 h-10 -top-5 -right-5 flex items-center justify-center'>
           <FontAwesomeIcon icon={faTimes}/>
