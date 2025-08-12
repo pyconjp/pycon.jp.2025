@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "echo NEXT_PUBLIC_BASE_URL=$CF_PAGES_URL > .env.production && next build && next-sitemap",
+    "pre-build": "tsx scripts/pre-build.ts",
+    "build": "npm run pre-build && echo NEXT_PUBLIC_BASE_URL=$CF_PAGES_URL > .env.production && next build && next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -31,14 +32,20 @@
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.12",
     "@eslint/eslintrc": "^3",
+    "@google-cloud/local-auth": "^3.0.1",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
+    "@types/node-fetch": "^2.6.13",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
+    "form-data": "^4.0.4",
+    "google-auth-library": "^10.2.1",
+    "node-fetch": "^2.7.0",
     "tailwindcss": "^4",
+    "tsx": "^4.20.3",
     "typescript": "^5"
   }
 }
