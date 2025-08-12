@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { OriginalTalk, Talk } from '../types/pretalx';
+import { OriginalTalk, Talk } from '@/types/pretalx';
 
 const EVENT_ID = 'pycon-jp-2025';
 
