@@ -31,6 +31,7 @@ export type Dictionary = {
   NavBar_About: {
     venue: string,
     coc: string,
+    nursery: string,
     member: string,
     sponsor: string,
   },
@@ -85,7 +86,7 @@ export type Dictionary = {
     committee: string,
     commitee_name: string,
     head: string,
-    head_name: string
+    head_name: string,
     see_on_google_map: string,
   },
   timetable: {

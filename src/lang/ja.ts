@@ -31,6 +31,7 @@ const Ja: Dictionary = {
   'NavBar_About': {
     venue: '会場案内',
     coc: '行動規範',
+    nursery: '託児所',
     member: 'メンバー',
     sponsor: 'スポンサー',
   },

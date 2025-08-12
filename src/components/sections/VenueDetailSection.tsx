@@ -3,6 +3,7 @@ import { Lang } from "@/types/lang";
 import ExternalLink from "../elements/ExternalLink";
 import RecruitmentSection from "./RecruitmentSection";
 import { dictionary } from "@/lang";
+import Link from "next/link";
 
 type Props = { lang: Lang } & React.HTMLAttributes<HTMLElement>;
 
@@ -57,13 +58,15 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
           </h2>
           <p className="lg:mx-24 text-[#808080]">アクセスマップ</p>
         </div>
-        <div className="w-full h-[520px] bg-[#FAFAFA] rounded-2xl border border-[#808080]">
-          <Image
-            src="/common/access_map.png"
-            alt="Access Map"
-            width={1000}
-            height={516}
-            className="w-full h-full object-cover object-[25%_75%] md:object-center rounded-2xl" />
+        <div className="w-full h-[520px] bg-white rounded-2xl border border-[#808080]">
+          <Link href="/common/access_map.png" target="_blank">
+            <Image
+              src="/common/access_map.png"
+              alt="Access Map"
+              width={1000}
+              height={516}
+              className="w-full h-full object-contain rounded-2xl" />
+          </Link>
         </div>
         <ExternalLink href="https://maps.app.goo.gl/ndM9jNDJ2zoQKKr68">
           <p className="my-2 underline p-1">{dict.venue.see_on_google_map}</p>
