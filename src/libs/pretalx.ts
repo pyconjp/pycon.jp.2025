@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { OriginalTalk, Talk } from '@/types/pretalx';
+import {OriginalTalk, Talk} from '@/types/pretalx';
 
 const EVENT_ID = 'pycon-jp-2025';
 
@@ -48,7 +48,7 @@ export const fetchTalks = async (): Promise<Talk[]> => {
     }
   ).then(res => {
     const originalTalks = res.data.results;
-    const talks = originalTalks.map((originalTalk: OriginalTalk) => ({
+    return originalTalks.map((originalTalk: OriginalTalk) => ({
       code: originalTalk.code,
       title: originalTalk.title,
       speakers: originalTalk.speakers.map(speaker => ({
@@ -74,6 +74,5 @@ export const fetchTalks = async (): Promise<Talk[]> => {
         end: originalTalk.slots[0].end,
       } : null,
     }));
-    return talks;
   });
 }
