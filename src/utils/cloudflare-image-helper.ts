@@ -28,8 +28,9 @@ export function getCloudflareImageUrl(
   category: string,
   variant: string = 'public'
 ): string {
-  const accountHash = process.env.CLOUDFLARE_ACCOUNT_HASH;
+  const accountHash = process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH;
   if (!accountHash) {
+    console.warn('Cloudflare account hash not configured');
     return '';
   }
   
