@@ -8,18 +8,11 @@
 
 import {GoogleDriveDownloader} from './google-drive-downloader';
 import {CloudflareImagesUploader, CloudflareImageUploadResponse} from './cloudflare-images-uploader';
-import * as fs from 'fs';
-import * as path from 'path';
+import {generateCloudflareImageId} from './cloudflare-image-helper';
 
 interface FolderConfig {
   id: string;
   category: string;
-}
-
-interface ImageMappingData {
-  [category: string]: {
-    [fileName: string]: string;
-  };
 }
 
 /**
@@ -45,10 +38,6 @@ function parseFolderConfiguration(): FolderConfig[] {
 }
 
 async function syncImagesToCloudflare() {
-  // Initialize empty mapping
-  const imageMapping: ImageMappingData = {};
-  const mappingPath = path.join(process.cwd(), 'src', 'data', 'cloudflare-images.json');
-
   // Parse folder configuration
   const folderConfigs = parseFolderConfiguration();
 
@@ -56,10 +45,6 @@ async function syncImagesToCloudflare() {
     console.warn('⚠️  No Google Drive folders configured for image sync');
     console.log('   Set GOOGLE_DRIVE_FOLDERS environment variable:');
     console.log('   Example: GOOGLE_DRIVE_FOLDERS="members:folder_id1,sponsors:folder_id2"');
-    // Write empty mapping file to prevent errors
-    fs.mkdirSync(path.dirname(mappingPath), {recursive: true});
-    fs.writeFileSync(mappingPath, JSON.stringify({members: {}, sponsors: {}}, null, 2));
-    console.log('💾 Created empty image mapping file');
     return;
   }
 
@@ -76,10 +61,6 @@ async function syncImagesToCloudflare() {
   if (missingVars.length > 0) {
     console.warn(`⚠️  Skipping image sync - Missing environment variables: ${missingVars.join(', ')}`);
     console.log('   To enable image sync, please set all required environment variables.');
-    // Write empty mapping file to prevent errors
-    fs.mkdirSync(path.dirname(mappingPath), {recursive: true});
-    fs.writeFileSync(mappingPath, JSON.stringify({members: {}, sponsors: {}}, null, 2));
-    console.log('💾 Created empty image mapping file');
     return;
   }
 
@@ -136,11 +117,7 @@ async function syncImagesToCloudflare() {
         const existingImages: Map<string, string> = new Map();
 
         for (const file of fileList) {
-          const categorizedFileName = `${folderConfig.category}_${file.fileName}`;
-          const customId = categorizedFileName
-            .replace(/\.[^/.]+$/, '') // Remove extension
-            .replace(/[^a-zA-Z0-9-_]/g, '_') // Replace special chars
-            .toLowerCase();
+          const customId = generateCloudflareImageId(file.fileName, folderConfig.category);
 
           if (!overwrite && await cloudflareUploader.imageExists(customId)) {
             console.log(`⏭️  Skipping ${file.fileName} (already exists in Cloudflare)`);
@@ -171,22 +148,6 @@ async function syncImagesToCloudflare() {
           uploadResults = await cloudflareUploader.uploadMultipleImages(downloadedImages, overwrite);
         }
 
-        // Generate mapping for this category (including existing images)
-        imageMapping[folderConfig.category] = {};
-
-        // Add existing images to mapping
-        for (const [fileName, url] of existingImages) {
-          imageMapping[folderConfig.category][fileName] = url;
-        }
-
-        // Add newly uploaded images to mapping
-        for (const [fileName, result] of uploadResults) {
-          if (result.success && result.result) {
-            const originalFileName = fileName.replace(`${folderConfig.category}_`, '');
-            imageMapping[folderConfig.category][originalFileName] = cloudflareUploader.getImageUrl(result.result.id);
-          }
-        }
-
         const totalProcessed = existingImages.size + uploadResults.size;
         totalImagesProcessed += totalProcessed;
         console.log(`✅ Processed ${totalProcessed} images from ${folderConfig.category} folder (${existingImages.size} existing, ${uploadResults.size} new/updated)`);
@@ -196,14 +157,6 @@ async function syncImagesToCloudflare() {
       }
     }
 
-    // Save the mapping to a JSON file for use in the application
-    fs.mkdirSync(path.dirname(mappingPath), {recursive: true});
-    fs.writeFileSync(mappingPath, JSON.stringify(imageMapping, null, 2));
-    console.log('===========image mapping==========');
-    console.log(JSON.stringify(imageMapping, null, 2));
-    console.log('===========image mapping==========');
-
-    console.log(`\n💾 Saved image mapping to ${mappingPath}`);
     console.log(`✅ Successfully synced ${totalImagesProcessed} images across ${folderConfigs.length} folders`);
   } catch (error) {
     console.error('❌ Image sync failed:', error);
