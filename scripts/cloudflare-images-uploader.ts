@@ -1,5 +1,6 @@
 import FormData from 'form-data';
 import fetch from 'node-fetch';
+import { generateCloudflareImageId } from './cloudflare-image-helper';
 
 export interface CloudflareImagesConfig {
   accountId: string;
@@ -170,17 +171,18 @@ export class CloudflareImagesUploader {
     const results = new Map<string, CloudflareImageUploadResponse>();
 
     for (const [fileName, buffer] of images) {
-      // Generate a clean ID from the filename (remove extension, replace spaces)
-      const customId = fileName
-        .replace(/\.[^/.]+$/, '') // Remove extension
-        .replace(/[^a-zA-Z0-9-_]/g, '_') // Replace special chars with underscore
-        .toLowerCase();
+      // Generate a clean ID from the filename
+      // Extract category from the categorized filename (e.g., "members_file.jpg" -> "members")
+      const categoryMatch = fileName.match(/^([^_]+)_/);
+      const category = categoryMatch ? categoryMatch[1] : '';
+      const originalFileName = category ? fileName.replace(`${category}_`, '') : fileName;
+      const customId = generateCloudflareImageId(originalFileName, category);
 
       try {
-        // Check if image exists
+        // Check if the image exists
         if (!overwrite && await this.imageExists(customId)) {
           console.log(`⏭️  Skipping ${fileName} (already exists)`);
-          // Add existing image to results with a mock successful response
+          // Add an existing image to results with a mock successful response
           results.set(fileName, {
             success: true,
             errors: [],
