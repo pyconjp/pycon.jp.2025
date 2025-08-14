@@ -200,7 +200,7 @@ async function syncImagesToCloudflare() {
     fs.mkdirSync(path.dirname(mappingPath), {recursive: true});
     fs.writeFileSync(mappingPath, JSON.stringify(imageMapping, null, 2));
     console.log('===========image mapping==========');
-    console.log(mappingPath);
+    console.log(JSON.stringify(imageMapping, null, 2));
     console.log('===========image mapping==========');
 
     console.log(`\n💾 Saved image mapping to ${mappingPath}`);
