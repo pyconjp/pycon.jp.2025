@@ -22,20 +22,32 @@ const LANG_LABEL = {
   'Japanese': 'ja',
 }
 
+const TRACK_ID_MAP: { [key: number]: string } = {
+  5833: 'practice',  // Pythonを用いた開発のプラクティス
+  5834: 'web',       // Webアプリケーション
+  5835: 'ai',        // データサイエンス、AI
+  5836: 'libs',      // ライブラリやサービスを作ってみた
+  5837: 'devops',    // DevOps、テスト、ドキュメンテーション、パッケージ
+  5838: 'core',      // Python自体の機能、開発
+  5839: 'iot',       // IoT、ハードウェア、ネットワーク
+  5840: 'media',     // 映像、音楽、ゲーム、イラスト
+  5841: 'edu',       // コミュニティ、教育
+  5842: 'other',     // その他
+}
+
 export const fetchTalks = async (): Promise<Talk[]> => {
   const params = {
     state: 'confirmed',
+    submission_type: 5948, // トーク
     expand: [
       'answers',
       'answers.question',
       'resources',
-      'slots',
       'slots.room',
-      'speakers',
       'speakers.answers',
       'submission_type',
       'tags',
-      'track',
+      'tracks',
     ].join(','),
   };
   return axios.get(
@@ -57,7 +69,7 @@ export const fetchTalks = async (): Promise<Talk[]> => {
         biography: speaker.biography,
         avatar_url: speaker.avatar_url,
       })),
-      track: originalTalk.track,
+      track: TRACK_ID_MAP[originalTalk.track] || 'other',
       abstract: originalTalk.abstract,
       description: originalTalk.description,
       duration: originalTalk.duration,

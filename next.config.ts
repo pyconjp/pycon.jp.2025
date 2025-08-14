@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'pretalx.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
     unoptimized: false,
   },

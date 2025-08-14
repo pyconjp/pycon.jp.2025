@@ -58,16 +58,7 @@ export type OriginalTalk = {
     deadline: null,
     requires_access_code: boolean,
   },
-  track: {
-    id: number,
-    name: {
-      en: string,
-      "ja-jp": string,
-    },
-    color: string,
-    position: number,
-    requires_access_code: boolean,
-  },
+  track: number,
   tags: [],
   state: string,
   abstract: string,
