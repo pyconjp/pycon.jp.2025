@@ -37,7 +37,10 @@ const TRACK_ID_MAP: { [key: number]: string } = {
 
 export const fetchTalks = async (): Promise<Talk[]> => {
   const params = {
-    state: 'confirmed',
+    state: [
+      'confirmed',
+      'accepted',
+    ],
     submission_type: 5948, // トーク
     expand: [
       'answers',

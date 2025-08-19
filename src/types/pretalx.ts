@@ -37,7 +37,10 @@ export type Slot = {
   end: string,
 }
 
-export type Room = ''; // TODO 今年のroom_idがわかったら反映
+export type Room = {
+  id: number
+  name: MultiLanguageString,
+};
 
 export type OriginalTalk = {
   code: string,
@@ -50,10 +53,7 @@ export type OriginalTalk = {
   }[],
   submission_type: {
     id: number,
-    name: {
-      en: string,
-      "ja-jp": string,
-    },
+    name: MultiLanguageString,
     default_duration: number,
     deadline: null,
     requires_access_code: boolean,
@@ -74,10 +74,7 @@ export type OriginalTalk = {
     id: number,
     room: {
       id: number,
-      name: {
-        en: string,
-        "ja-jp": string,
-      },
+      name: MultiLanguageString,
       uuid: string,
       guid: null,
       capacity: number,
@@ -92,10 +89,7 @@ export type OriginalTalk = {
     id: number,
     question: {
       id: number,
-      question: {
-        en: string,
-        "ja-jp": string,
-      },
+      question: MultiLanguageString,
       default_answer: null,
       variant: string,
       target: string,
@@ -135,4 +129,7 @@ export type OriginalTalk = {
   mean_score: number,
 }
 
-
+type MultiLanguageString = {
+  en: string,
+  "ja-jp": string,
+};

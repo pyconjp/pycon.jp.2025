@@ -54,7 +54,6 @@ const TrackPage: React.FC<TrackPageProps> = ({sessions, track, locale}) => {
 
         <TrackSessionList
           sessions={sessions}
-          track={track}
           trackName={`#${trackName}`}
           locale={currentLocale}
         />
@@ -64,7 +63,7 @@ const TrackPage: React.FC<TrackPageProps> = ({sessions, track, locale}) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const tracks: Track[] = ['ai', 'practice', 'edu', 'devops', 'web', 'libs', 'core', 'other', 'media', 'iot'];
+  const tracks: Track[] = ['ai', 'practice', 'edu', 'devops', 'web', 'libs', 'core', 'media', 'iot', 'other'];
   const langs = ['ja', 'en'];
 
   const paths = [];
@@ -85,11 +84,12 @@ export const getStaticProps: GetStaticProps<TrackPageProps> = async ({params}) =
   const track = params?.slug as Track;
 
   try {
-    const sessions = await fetchTalks();
+    const allSessions = await fetchTalks();
+    const trackSessions = allSessions.filter(session => session.track === track);
 
     return {
       props: {
-        sessions,
+        sessions: trackSessions,
         track,
         locale,
       },

@@ -1,22 +1,18 @@
 import React from 'react';
-import { Talk, Track } from '@/types/pretalx';
+import { Talk } from '@/types/pretalx';
 import SessionCard from './SessionCard';
 
 interface TrackSessionListProps {
   sessions: Talk[];
-  track: Track;
   trackName: string;
   locale: 'ja' | 'en';
 }
 
 const TrackSessionList: React.FC<TrackSessionListProps> = ({ 
   sessions, 
-  track,
   locale
 }) => {
-  const trackSessions = sessions.filter(session => session.track === track);
-  
-  const sortedSessions = trackSessions.sort((a, b) => {
+  const sortedSessions = sessions.sort((a, b) => {
     if (!a.slot || !b.slot) return 0;
     return new Date(a.slot.start).getTime() - new Date(b.slot.start).getTime();
   });

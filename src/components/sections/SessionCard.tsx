@@ -1,5 +1,5 @@
 import React from 'react';
-import { Talk } from '@/types/pretalx';
+import {Room, Talk} from '@/types/pretalx';
 import Image from 'next/image';
 
 interface SessionCardProps {
@@ -32,15 +32,16 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
     return `Day ${dayNumber} - ${month}/${day}`;
   };
 
-  const getRoomLabel = (room: { id?: string | number; name?: { 'ja-jp': string; en: string } }) => {
+  const getRoomLabel = (room: Room) => {
     if (!room) return '';
-    
+
+    // TODO roomのidを入れる
     const roomLabels: { [key: string]: string } = {
-      'roomA': 'roomA',
-      'roomB': 'roomB', 
-      'roomC': 'roomC',
-      'roomD': 'roomD',
-      'roomE': 'roomE',
+      1: 'roomA',
+      2: 'roomB',
+      3: 'roomC',
+      4: 'roomD',
+      5: 'roomE',
     };
     
     return room.name?.[locale === 'ja' ? 'ja-jp' : 'en'] || 
@@ -81,7 +82,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
           )}
         </div>
 
-        <div className="flex items-end">
+        <div className="flex items-end gap-4">
           {session.speakers.map((speaker) => (
             <div key={speaker.code} className="flex items-center gap-3">
               <span className="text-sm font-bold">{speaker.name}</span>
