@@ -3,7 +3,7 @@ import { Dictionary } from "@/types/lang";
 const Ja: Dictionary = {
   'top': {
     title: 'トップページ',
-    description: 'PyCon JP 2025のトップページです',
+    description: 'PyCon JP 2025、初の広島開催! 9月26・27日 (+28日スプリント)、広島国際会議場にて。',
     sprint_day: '開発スプリント',
     see_all: 'すべて',
     about_conference: 'カンファレンスについて',
