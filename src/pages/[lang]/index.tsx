@@ -72,7 +72,7 @@ function Home({lang, posts, sponsors, specialSponsor}: { lang: Lang, posts: Blog
     <main>
       <Header active={'home'} lang={lang} className='lg:hidden'/>
       <PageHead
-        title={dict.top.title}
+        title=""
         description={dict.top.description}
         lang={lang}
         pagePath='/'
