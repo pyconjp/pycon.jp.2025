@@ -76,7 +76,7 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
       
       <div className="relative">
         {/* デスクトップ: 左側の余白に日付表示 */}
-        <div className="hidden md:block absolute left-8 top-8 w-48 font-jost font-semibold">
+        <div className="hidden md:block absolute left-8 top-0 w-48 font-jost font-semibold">
           <DateArea 
             day={`DAY ${dayNumber}`}
             month="09"
@@ -103,7 +103,7 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
         </div>
         
         {/* 中央のトークリスト */}
-        <div className="container mx-auto px-4 md:py-8">
+        <div className="container mx-auto px-4 md:pt-0 md:pb-8">
           <TalkList 
             talks={talks} 
             locale={lang}

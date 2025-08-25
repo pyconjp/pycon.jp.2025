@@ -1,6 +1,7 @@
 import React from 'react';
 import {Room, Talk} from '@/types/pretalx';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface SessionCardProps {
   session: Talk;
@@ -48,41 +49,43 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
   };
 
   return (
-    <div className="bg-white border border-gray-200 p-6 hover:shadow-md transition-shadow">
-      {/* タイトル */}
-      <h3 className="text-lg font-bold mb-4 line-clamp-2">
-        {session.title}
-      </h3>
+    <Link href={`/${locale}/timetable/talk/${session.code}`} className="block">
+      <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow cursor-pointer relative flex flex-col h-full">
+        {/* タイトル */}
+        <h3 className="text-lg font-bold mb-4 line-clamp-2 hover:text-blue-600 transition-colors">
+          {session.title}
+        </h3>
       
-      {/* メイン情報 */}
-      <div className="space-y-4">
-        {/* 部屋と言語タグ */}
-        {session.slot && (
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded">
-              {getRoomLabel(session.slot.room)}
-            </span>
-            <span className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded">
-              {getLanguageLabel(session.talk_language)}
-            </span>
-          </div>
-        )}
-        
-        {/* 時間情報 */}
-        {session.slot && (
-          <div className="text-sm text-gray-600">
-            <div className="font-medium">
-              {formatTime(session.slot.start, session.slot.end)}
+        {/* メイン情報 - flexboxで下揃え */}
+        <div className="flex-grow flex flex-col justify-end space-y-4">
+          {/* 部屋と言語タグ */}
+          {session.slot && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded">
+                {getRoomLabel(session.slot.room)}
+              </span>
+              <span className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded">
+                {getLanguageLabel(session.talk_language)}
+              </span>
             </div>
-          </div>
-        )}
+          )}
+          
+          {/* 時間情報 */}
+          {session.slot && (
+            <div className="text-sm text-gray-600">
+              <div className="font-medium">
+                {formatTime(session.slot.start, session.slot.end)}
+              </div>
+            </div>
+          )}
+        </div>
         
-        {/* スピーカー情報 */}
-        <div className="pt-4 border-t border-gray-100">
+        {/* スピーカー情報（右下配置） */}
+        <div className="flex justify-end mt-4">
           <div className="flex flex-wrap gap-3">
             {session.speakers.map((speaker) => (
               <div key={speaker.code} className="flex items-center gap-2">
-                <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                <div className="relative w-10 h-10 overflow-hidden bg-gray-200 flex-shrink-0 rounded">
                   {speaker.avatar_url ? (
                     <Image
                       src={speaker.avatar_url}
@@ -98,13 +101,13 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
                     </div>
                   )}
                 </div>
-                <span className="text-sm font-medium text-gray-900">{speaker.name}</span>
+                <span className="text-sm font-bold text-gray-900">{speaker.name}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
