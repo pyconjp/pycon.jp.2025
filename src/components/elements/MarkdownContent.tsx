@@ -19,16 +19,16 @@ const components: Partial<Components> = {
     <h3 className="text-lg font-bold mb-2 mt-4">{children}</h3>
   ),
   p: ({ children }) => (
-    <p className="mb-4 leading-relaxed">{children}</p>
+    <p className="mb-4 leading-relaxed whitespace-pre-wrap">{children}</p>
   ),
   ul: ({ children }) => (
-    <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>
+    <ul className="list-disc pl-6 mb-4 space-y-1">{children}</ul>
   ),
   ol: ({ children }) => (
-    <ol className="list-decimal list-inside mb-4 space-y-2">{children}</ol>
+    <ol className="list-decimal pl-6 mb-4 space-y-1">{children}</ol>
   ),
   li: ({ children }) => (
-    <li className="ml-4">{children}</li>
+    <li className="leading-relaxed">{children}</li>
   ),
   a: ({ href, children }) => (
     <ExternalLink href={href || ''} className="text-blue-600 hover:text-blue-800 underline">
