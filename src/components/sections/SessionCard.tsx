@@ -52,7 +52,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
     <Link href={`/${locale}/timetable/talk/${session.code}`} className="block">
       <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow cursor-pointer relative flex flex-col h-full">
         {/* タイトル */}
-        <h3 className="text-lg font-bold mb-4 line-clamp-2 hover:text-blue-600 transition-colors">
+        <h3 className="text-lg font-bold mb-4 line-clamp-2 transition-colors">
           {session.title}
         </h3>
       

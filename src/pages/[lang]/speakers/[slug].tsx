@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {GetStaticPaths, GetStaticProps} from 'next';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
@@ -22,41 +22,90 @@ const TrackPage: React.FC<TrackPageProps> = ({sessions, track, locale}) => {
   const currentLocale = (router.locale || locale) as 'ja' | 'en';
   const dictionary = currentLocale === 'ja' ? Ja : En;
   const trackName = dictionary.timetable.track[track];
+  
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
 
   const allTracks: Track[] = ['ai', 'practice', 'edu', 'devops', 'web', 'libs', 'core', 'media', 'iot', 'other'];
 
+  useEffect(() => {
+    const checkScroll = () => {
+      if (navRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = navRef.current;
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+      }
+    };
+
+    checkScroll();
+    const nav = navRef.current;
+    if (nav) {
+      nav.addEventListener('scroll', checkScroll);
+      window.addEventListener('resize', checkScroll);
+      
+      return () => {
+        nav.removeEventListener('scroll', checkScroll);
+        window.removeEventListener('resize', checkScroll);
+      };
+    }
+  }, []);
+
   return (
     <DefaultLayout lang={currentLocale}>
-      <div className="container mx-auto px-4 py-12">
+      <div className="min-h-screen bg-[#FAFAFA]">
+        <div className="container mx-auto px-4 py-12">
+        {/* Track navigation */}
+        <div className="py-4 mb-8 -mx-4 px-4 md:-mx-8 md:px-8">
+          <div className="max-w-7xl mx-auto">
+            <nav className="border border-gray-300 rounded-lg overflow-hidden relative bg-white">
+              <div ref={navRef} className="overflow-x-auto scrollbar-hide">
+                <div className="flex items-center md:justify-center gap-6 px-6 py-3 min-w-max">
+                  {/* キーノート */}
+                  <Link
+                    href={`/${currentLocale}/speakers`}
+                    className="px-3 py-2 text-sm font-medium transition-all text-black whitespace-nowrap flex-shrink-0 hover:text-gray-600"
+                  >
+                    {currentLocale === 'ja' ? 'キーノート' : 'Keynote'}
+                  </Link>
+                  
+                  {/* 縦線 */}
+                  <div className="h-6 w-px bg-gray-300 flex-shrink-0"></div>
+                  
+                  {/* トラック一覧 */}
+                  {allTracks.map((t) => (
+                    <Link
+                      key={t}
+                      href={`/${currentLocale}/speakers/${t}`}
+                      className={`px-3 py-2 text-sm font-medium transition-all text-black whitespace-nowrap flex-shrink-0 ${
+                        t === track
+                          ? 'border-b-2 border-black'
+                          : 'hover:text-gray-600'
+                      }`}
+                    >
+                      {dictionary.timetable.track[t]}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              {/* Blur effect when scrollable - inside the border */}
+              {canScrollRight && (
+                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none" />
+              )}
+            </nav>
+          </div>
+        </div>
+
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">
             #{trackName}
           </h1>
         </div>
 
-        <div className="mb-8">
-          <div className="flex flex-wrap gap-2">
-            {allTracks.map((t) => (
-              <Link
-                key={t}
-                href={`/${currentLocale}/speakers/${t}`}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  t === track
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                #{dictionary.timetable.track[t]}
-              </Link>
-            ))}
-          </div>
-        </div>
-
         <TrackSessionList
           sessions={sessions}
-          trackName={`#${trackName}`}
+          trackName={trackName}
           locale={currentLocale}
         />
+        </div>
       </div>
     </DefaultLayout>
   );
