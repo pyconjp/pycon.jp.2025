@@ -7,6 +7,7 @@ import {fetchTalks} from '@/libs/pretalx';
 import {Talk, Track} from '@/types/pretalx';
 import {Lang} from '@/types/lang';
 import DefaultLayout from "@/components/layout/DefaultLayout";
+import PageHead from '@/components/elements/PageHead';
 import Ja from '@/lang/ja';
 import En from '@/lang/en';
 
@@ -50,7 +51,13 @@ const TrackPage: React.FC<TrackPageProps> = ({sessions, track, locale}) => {
   }, []);
 
   return (
-    <DefaultLayout lang={currentLocale}>
+    <DefaultLayout lang={currentLocale} activeHeader="speakers">
+      <PageHead
+        title={`${trackName} - ${currentLocale === 'ja' ? 'スピーカー' : 'Speakers'}`}
+        description={`PyCon JP 2025 ${trackName} ${currentLocale === 'ja' ? 'トラックのセッション一覧' : 'track sessions'}`}
+        lang={currentLocale}
+        pagePath={`/speakers/${track}`}
+      />
       <div className="min-h-screen bg-[#FAFAFA]">
         <div className="container mx-auto px-4 py-12">
         {/* Track navigation */}

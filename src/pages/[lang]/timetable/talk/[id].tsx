@@ -98,13 +98,13 @@ function TalkDetailPage({ lang, talk }: TalkDetailPageProps) {
             <div className="flex gap-4">
               {speakers.map((speaker, index) => (
                 <div key={index} className="text-center">
-                  <div className="bg-white p-1 shadow-lg">
+                  <div className="bg-white p-1 shadow-lg w-[98px] h-[98px] flex items-center justify-center">
                     {speaker.avatar_url ? (
                       <Image
                         src={speaker.avatar_url}
                         alt={speaker.name}
-                        width={100}
-                        height={100}
+                        width={96}
+                        height={96}
                         className="object-cover w-24 h-24"
                       />
                     ) : (
