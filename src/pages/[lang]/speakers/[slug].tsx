@@ -22,7 +22,7 @@ const TrackPage: React.FC<TrackPageProps> = ({sessions, track, locale}) => {
   const currentLocale = (router.locale || locale) as 'ja' | 'en';
   const dictionary = currentLocale === 'ja' ? Ja : En;
   const trackName = dictionary.timetable.track[track];
-  
+
   const allTracks: Track[] = ['ai', 'practice', 'edu', 'devops', 'web', 'libs', 'core', 'media', 'iot', 'other'];
 
   return (
@@ -33,7 +33,7 @@ const TrackPage: React.FC<TrackPageProps> = ({sessions, track, locale}) => {
             #{trackName}
           </h1>
         </div>
-        
+
         <div className="mb-8">
           <div className="flex flex-wrap gap-2">
             {allTracks.map((t) => (

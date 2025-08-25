@@ -55,12 +55,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+    <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow flex flex-col h-full">
       <h3 className="text-base font-bold mb-6 line-clamp-2">
         {session.title}
       </h3>
       
-      <div className="flex items-center justify-between">
+      <div className="flex items-end justify-between flex-grow">
         <div className="flex flex-col gap-3">
           {session.slot && (
             <>
@@ -86,7 +86,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
           {session.speakers.map((speaker) => (
             <div key={speaker.code} className="flex items-center gap-3">
               <span className="text-sm font-bold">{speaker.name}</span>
-              <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-blue-500">
+              <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-white">
                 {speaker.avatar_url ? (
                   <Image
                     src={speaker.avatar_url}
@@ -95,7 +95,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white">
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                     </svg>

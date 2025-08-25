@@ -133,3 +133,10 @@ type MultiLanguageString = {
   en: string,
   "ja-jp": string,
 };
+
+export type PretalxApiResponse = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: OriginalTalk[];
+};

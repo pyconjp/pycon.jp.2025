@@ -1,5 +1,6 @@
-import axios from 'axios';
-import {OriginalTalk, Talk} from '@/types/pretalx';
+import axios, {AxiosResponse} from 'axios';
+import {OriginalTalk, Talk, Track, Level, PretalxApiResponse} from '@/types/pretalx';
+import {Lang} from '@/types/lang';
 
 const EVENT_ID = 'pycon-jp-2025';
 
@@ -9,20 +10,20 @@ const QUESTION_IDS = {
   level: 5336,
 }
 
-const LEVELS = {
+const LEVELS: { [key: string]: Level } = {
   Novice: 'novice',
   Beginner: 'beginner',
   Intermediate: 'intermediate',
   Advanced: 'advanced',
 }
 
-const LANG_LABEL = {
+const LANG_LABEL: { [key: string]: Lang } = {
   'English': 'en',
   '日本語': 'ja',
   'Japanese': 'ja',
 }
 
-const TRACK_ID_MAP: { [key: number]: string } = {
+const TRACK_ID_MAP: { [key: number]: Track } = {
   5833: 'practice',  // Pythonを用いた開発のプラクティス
   5834: 'web',       // Webアプリケーション
   5835: 'ai',        // データサイエンス、AI
@@ -35,59 +36,111 @@ const TRACK_ID_MAP: { [key: number]: string } = {
   5842: 'other',     // その他
 }
 
+// ヘルパー関数: 質問IDに対応する回答を取得
+const getAnswerByQuestionId = (originalTalk: OriginalTalk, questionId: number): string => {
+  return originalTalk.answers.find(answer => answer.question.id === questionId)?.answer || '';
+};
+
+// ヘルパー関数: 言語ラベルを取得
+const getLanguageLabel = (originalTalk: OriginalTalk, questionId: number): Lang => {
+  const answer = getAnswerByQuestionId(originalTalk, questionId);
+  return LANG_LABEL[answer] || 'en';
+};
+
+// ヘルパー関数: レベルを取得
+const getLevel = (originalTalk: OriginalTalk): Level => {
+  const answer = getAnswerByQuestionId(originalTalk, QUESTION_IDS.level);
+  return LEVELS[answer] || 'beginner';
+};
+
 export const fetchTalks = async (): Promise<Talk[]> => {
-  const params = {
-    state: [
-      'confirmed',
-      'accepted',
-    ],
-    submission_type: 5948, // トーク
-    expand: [
-      'answers',
-      'answers.question',
-      'resources',
-      'slots.room',
-      'speakers.answers',
-      'submission_type',
-      'tags',
-      'tracks',
-    ].join(','),
-  };
-  return axios.get(
-    `https://pretalx.com/api/events/${EVENT_ID}/submissions/`,
-    {
-      headers: {
-        Authorization: `Token ${process.env.PRETALX_API_KEY}`,
-      },
-      params,
+  // URLSearchParamsを使用して複数のstateパラメータを追加
+  const searchParams = new URLSearchParams();
+  searchParams.append('submission_type', '5948'); // トーク
+  searchParams.append('expand', [
+    'answers',
+    'answers.question',
+    'resources',
+    'slots.room',
+    'speakers.answers',
+    'submission_type',
+    'tags',
+    'tracks',
+  ].join(','));
+  // stateは複数の値を個別のパラメータとして送信
+  searchParams.append('state', 'confirmed');
+  searchParams.append('state', 'accepted');
+
+  const allTalks: OriginalTalk[] = [];
+  let nextUrl: string | null = `https://pretalx.com/api/events/${EVENT_ID}/submissions/?${searchParams.toString()}`;
+
+  while (nextUrl) {
+    try {
+      const res: AxiosResponse<PretalxApiResponse> = await axios.get<PretalxApiResponse>(
+        nextUrl,
+        {
+          headers: {
+            Authorization: `Token ${process.env.PRETALX_API_KEY}`,
+          },
+          // URLに既にパラメータが含まれているため、追加のparamsは不要
+        }
+      );
+
+      allTalks.push(...res.data.results);
+      nextUrl = res.data.next;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorDetails = {
+          url: nextUrl,
+          status: error.response?.status,
+          statusText: error.response?.statusText,
+          // Pretalx APIのエラーレスポンス形式に対応
+          errorData: error.response?.data,
+          // フィールド固有のエラー（例: {"amount": ["Please submit a valid integer."]})
+          fieldErrors: error.response?.data && typeof error.response.data === 'object' && !error.response.data.detail 
+            ? error.response.data 
+            : null,
+          // 一般的なエラー（例: {"detail": "Method 'DELETE' not allowed."}）
+          generalError: error.response?.data?.detail || null,
+          message: error.message,
+        };
+        
+        console.log('Failed to fetch talks from Pretalx API:', errorDetails);
+        throw new Error(`Failed to fetch talks from Pretalx API: ${JSON.stringify(errorDetails)}`);
+      }
+      
+      console.error('Unexpected error fetching talks:', error);
+      throw new Error(`Failed to fetch talks from Pretalx API: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
-  ).then(res => {
-    const originalTalks = res.data.results;
-    return originalTalks.map((originalTalk: OriginalTalk) => ({
-      code: originalTalk.code,
-      title: originalTalk.title,
-      speakers: originalTalk.speakers.map(speaker => ({
-        code: speaker.code,
-        name: speaker.name,
-        biography: speaker.biography,
-        avatar_url: speaker.avatar_url,
-      })),
-      track: TRACK_ID_MAP[originalTalk.track] || 'other',
-      abstract: originalTalk.abstract,
-      description: originalTalk.description,
-      duration: originalTalk.duration,
-      talk_language: LANG_LABEL[originalTalk.answers.find(answer => answer.question.id === QUESTION_IDS.talk_language)?.answer as keyof typeof LANG_LABEL],
-      slide_language: LANG_LABEL[originalTalk.answers.find(answer => answer.question.id === QUESTION_IDS.slide_language)?.answer as keyof typeof LANG_LABEL],
-      level: LEVELS[originalTalk.answers.find(answer => answer.question.id === QUESTION_IDS.level)?.answer as keyof typeof LEVELS],
-      resource: originalTalk.resources.map(resource => ({
-        resource: resource.resource,
-        description: resource.description,
-      })),
-      slot: originalTalk.slots.length > 0 ? {
-        room: originalTalk.slots[0].room,
-        start: originalTalk.slots[0].start,
-        end: originalTalk.slots[0].end,
-      } : null,
-    }));
-  });
+  }
+
+  return allTalks.map((originalTalk: OriginalTalk) => ({
+    code: originalTalk.code,
+    title: originalTalk.title,
+    speakers: originalTalk.speakers.map(speaker => ({
+      code: speaker.code,
+      name: speaker.name,
+      biography: speaker.biography,
+      avatar_url: speaker.avatar_url,
+    })),
+    track: TRACK_ID_MAP[originalTalk.track] || 'other',
+    abstract: originalTalk.abstract,
+    description: originalTalk.description,
+    duration: originalTalk.duration,
+    talk_language: getLanguageLabel(originalTalk, QUESTION_IDS.talk_language),
+    slide_language: getLanguageLabel(originalTalk, QUESTION_IDS.slide_language),
+    level: getLevel(originalTalk),
+    resource: originalTalk.resources.map(resource => ({
+      resource: resource.resource,
+      description: resource.description,
+    })),
+    slot: originalTalk.slots.length > 0 && originalTalk.slots[0].room && originalTalk.slots[0].start && originalTalk.slots[0].end ? {
+      room: {
+        id: originalTalk.slots[0].room.id,
+        name: originalTalk.slots[0].room.name,
+      },
+      start: originalTalk.slots[0].start,
+      end: originalTalk.slots[0].end,
+    } : null,
+  }));
 }
