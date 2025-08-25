@@ -9,7 +9,7 @@ import LinkButton from "@/components/elements/LinkButton";
 import {Lang} from "@/types/lang";
 import dynamic from "next/dynamic";
 import {dictionary} from "@/lang";
-import DateArea from "@/components/elements/DateArea";
+import DisplayDate from '../elements/DisplayDate';
 
 const images = [
   '/common/hero/hero_1.jpg',
@@ -45,26 +45,9 @@ export default function HeroSection({lang}: {lang: Lang}) {
         <div
           className='absolute bg-white w-[120%] aspect-[16_/_3] rounded-t-[100%] lg:top-[85dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0'/>
       </div>
-      <div className='lg:w-5/8 w-10/12 mx-auto mt-[-15dvh] lg:-mt-72 z-10 font-jost'>
-        <div className='flex flex-col w-80 font-semibold ml-auto mx-auto lg:mr-0'>
-          <div className='flex flex-row lg:h-60 h-40'>
-            <DateArea day='DAY 1' month='09' date='26' weekday='FRI' className='bg-secondary text-black'/>
-            <DateArea day='DAY 2' month='09' date='27' weekday='SAT' className='bg-primary text-white'/>
-          </div>
-          <div
-            className='bg-gray-50 rounded-lg h-12 lg:h-16 border-gray-300 border-2 flex justify-between items-center px-6'>
-            <div className='flex flex-1 gap-4 text-x'>
-              <span><FontAwesomeIcon icon={faPlus}/></span>
-              <span>9/28</span>
-              <span>SUN</span>
-            </div>
-            <div>
-              {dict.top.sprint_day}
-            </div>
-          </div>
-        </div>
+      <div className="lg:w-5/8 w-10/12 mx-auto mt-[-15dvh] lg:-mt-72 z-10">
+        <DisplayDate lang={lang}/>
       </div>
-
       <div
         className='relative lg:w-5/8 w-10/12 h-auto mx-auto flex flex-col lg:flex-row gap-12 bg-transparent lg:-mt-24 lg:items-end'>
         <div className='flex-1'>
