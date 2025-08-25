@@ -219,45 +219,38 @@ function TalkDetailPage({ lang, talk }: TalkDetailPageProps) {
               
               {/* スライドやリソース */}
               {talk.resource && talk.resource.length > 0 && (
-                <div className="mb-8 p-4 bg-gray-50 rounded-lg">
-                  <h3 className="text-sm font-bold mb-3 text-gray-600">
-                    {isJapanese ? 'スライド概要' : 'Slide Summary'}
-                  </h3>
-                  <ul className="space-y-2">
-                    {talk.resource.map((res, index) => (
-                      <li key={index}>
-                        <a
-                          href={res.resource}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-800 underline text-sm"
-                        >
-                          {res.description || res.resource}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              
-              {/* プレゼン録画 */}
-              {talk.resource && talk.resource.length > 0 && (
-                <div className="mb-8 p-4 bg-gray-50 rounded-lg">
-                  <h3 className="text-sm font-bold mb-3 text-gray-600">
-                    {isJapanese ? 'プレゼン録画' : 'Presentation Recording'}
-                  </h3>
+                <div className="mb-8">
                   <div className="space-y-2">
                     {talk.resource.map((res, index) => (
-                      <div key={index}>
-                        <a 
-                          href={res.resource} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-800 underline text-sm"
-                        >
-                          {res.description || res.resource}
-                        </a>
-                      </div>
+                      <a
+                        key={index}
+                        href={res.resource}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full px-6 py-4 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-gray-800 font-medium">
+                            {res.description || 'スライド概要'}
+                          </span>
+                          <svg 
+                            className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path 
+                              strokeLinecap="round" 
+                              strokeLinejoin="round" 
+                              strokeWidth={2} 
+                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
+                            />
+                          </svg>
+                        </div>
+                        <span className="text-xs text-gray-500 mt-1 block">
+                          {res.resource}
+                        </span>
+                      </a>
                     ))}
                   </div>
                 </div>
