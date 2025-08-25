@@ -22,6 +22,7 @@
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
     "googleapis": "^150.0.1",
+    "lightningcss": "^1.28.2",
     "next": "15.3.2",
     "next-sitemap": "^4.2.3",
     "rc-tooltip": "^6.4.0",
