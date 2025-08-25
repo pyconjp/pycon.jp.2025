@@ -2,6 +2,8 @@
 // フォールバック用のページとして残しています
 
 import {GetStaticProps} from "next";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export const getStaticPaths = async () => {
   return {
@@ -13,19 +15,36 @@ export const getStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  // next.config.ts でリダイレクトされるため、このページは実際には表示されません
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // 静的生成時はリダイレクトできないため、propsのみ返す
   return {
-    redirect: {
-      destination: '/ja/timetable/day1',
-      permanent: false,
+    props: {
+      lang: params?.lang || 'ja',
     },
   };
 };
 
-function TimetablePage() {
-  // このページは表示されません（リダイレクトされるため）
-  return null;
+interface TimetablePageProps {
+  lang: string;
+}
+
+function TimetablePage({ lang }: TimetablePageProps) {
+  const router = useRouter();
+  
+  useEffect(() => {
+    // クライアントサイドでリダイレクト（next.config.tsのリダイレクトが効かない場合のフォールバック）
+    router.replace(`/${lang}/timetable/day1`);
+  }, [lang, router]);
+  
+  // リダイレクト中の表示
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading...</p>
+      </div>
+    </div>
+  );
 }
 
 export default TimetablePage;
