@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import DateArea from '@/components/elements/DateArea';
 import MarkdownContent from '@/components/elements/MarkdownContent';
+import ResourceSection from '@/components/sections/ResourceSection';
 import { Talk } from '@/types/pretalx';
 import { Lang } from '@/types/lang';
 
@@ -141,6 +142,14 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
             <p className="text-gray-700 text-sm md:text-base leading-relaxed whitespace-pre-wrap break-words">
               {talk.abstract}
             </p>
+          </div>
+        )}
+        
+        {/* リソースセクション */}
+        {talk.resource && talk.resource.length > 0 && (
+          <div className="mb-8">
+            <hr className="border-gray-200 mb-6"/>
+            <ResourceSection resources={talk.resource} className="" />
           </div>
         )}
         

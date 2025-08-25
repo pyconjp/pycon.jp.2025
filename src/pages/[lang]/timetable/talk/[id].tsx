@@ -6,7 +6,6 @@ import { fetchTalks } from "@/libs/pretalx";
 import { Talk } from "@/types/pretalx";
 import SpeakerAvatar from "@/components/elements/SpeakerAvatar";
 import TalkDetailSection from "@/components/sections/TalkDetailSection";
-import ResourceSection from "@/components/sections/ResourceSection";
 import SpeakerInfoSection from "@/components/sections/SpeakerInfoSection";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -82,11 +81,6 @@ function TalkDetailPage({ lang, talk }: TalkDetailPageProps) {
         
           {/* メインのトークカード */}
           <TalkDetailSection talk={talk} lang={lang} />
-          
-          {/* リソースセクション */}
-          {talk.resource && talk.resource.length > 0 && (
-            <ResourceSection resources={talk.resource} className="mt-6" />
-          )}
           
           {/* スピーカー情報（別枠） */}
           {speakers.length > 0 && (

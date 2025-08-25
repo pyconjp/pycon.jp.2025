@@ -16,7 +16,7 @@ export const menu: Menu[] = [
   },
   {
     'key': 'speakers',
-    'href': '/speakers/practice',
+    'href': '/speakers',
   },
   {
     'key': 'map',
