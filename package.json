@@ -27,6 +27,7 @@
     "rc-tooltip": "^6.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
     "swiper": "^11.2.8",
     "tailwind-scrollbar-hide": "^4.0.0"
   },

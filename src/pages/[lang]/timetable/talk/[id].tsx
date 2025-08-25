@@ -9,6 +9,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import DateArea from "@/components/elements/DateArea";
+import MarkdownContent from "@/components/elements/MarkdownContent";
 
 // ヘルパー関数
 const getLanguageLabel = (langCode: Lang): string => {
@@ -114,7 +115,7 @@ function TalkDetailPage({ lang, talk }: TalkDetailPageProps) {
                       </div>
                     )}
                   </div>
-                  <p className="mt-2 text-sm font-medium text-gray-700">{speaker.name}</p>
+                  <p className="mt-2 text-sm font-bold text-gray-700">{speaker.name}</p>
                 </div>
               ))}
             </div>
@@ -269,11 +270,10 @@ function TalkDetailPage({ lang, talk }: TalkDetailPageProps) {
                   <h2 className="text-lg font-bold mb-4">
                     {isJapanese ? 'トーク詳細 / Description' : 'Description'}
                   </h2>
-                  <div className="prose prose-gray max-w-none">
-                    <p className="whitespace-pre-wrap break-words text-gray-700 text-sm md:text-base leading-relaxed">
-                      {talk.description}
-                    </p>
-                  </div>
+                  <MarkdownContent 
+                    content={talk.description}
+                    className="text-gray-700 text-sm md:text-base"
+                  />
                 </div>
               )}
             </div>
@@ -311,9 +311,10 @@ function TalkDetailPage({ lang, talk }: TalkDetailPageProps) {
                         {isJapanese ? 'プロフィール' : 'Profile'}
                       </p>
                       {speaker.biography && (
-                        <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap break-words">
-                          {speaker.biography}
-                        </p>
+                        <MarkdownContent 
+                          content={speaker.biography}
+                          className="text-gray-700 text-sm"
+                        />
                       )}
                     </div>
                   </div>
