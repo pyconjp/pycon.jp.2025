@@ -12,7 +12,6 @@ export const menu: Menu[] = [
   {
     'key': 'timetable',
     'href': '/timetable',
-    'isComingSoon': false,
   },
   {
     'key': 'speakers',
