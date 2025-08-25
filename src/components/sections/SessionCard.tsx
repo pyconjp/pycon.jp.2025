@@ -24,13 +24,6 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
     return `${startTime} - ${endTime}`;
   };
 
-  const formatDay = (start: string) => {
-    const date = new Date(start);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const dayNumber = day === 26 ? 1 : 2;
-    return `Day ${dayNumber} - ${month}/${day}`;
-  };
 
   const getRoomLabel = (room: Room) => {
     if (!room) return '';
@@ -55,55 +48,60 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow flex flex-col h-full">
-      <h3 className="text-base font-bold mb-6 line-clamp-2">
+    <div className="bg-white border border-gray-200 p-6 hover:shadow-md transition-shadow">
+      {/* タイトル */}
+      <h3 className="text-lg font-bold mb-4 line-clamp-2">
         {session.title}
       </h3>
       
-      <div className="flex items-end justify-between flex-grow">
-        <div className="flex flex-col gap-3">
-          {session.slot && (
-            <>
-              <div className="flex items-center gap-3">
-                <span className="px-3 py-1 bg-gray-100 rounded-md text-sm font-medium">
-                  {getRoomLabel(session.slot.room)}
-                </span>
-                <span className="px-3 py-1 bg-gray-100 rounded-md text-sm font-medium">
-                  {getLanguageLabel(session.talk_language)}
-                </span>
-              </div>
-              <div className="text-base font-semibold">
-                {formatTime(session.slot.start, session.slot.end)}
-              </div>
-              <div className="text-sm text-gray-600">
-                {formatDay(session.slot.start)}
-              </div>
-            </>
-          )}
-        </div>
-
-        <div className="flex items-end gap-4">
-          {session.speakers.map((speaker) => (
-            <div key={speaker.code} className="flex items-center gap-3">
-              <span className="text-sm font-bold">{speaker.name}</span>
-              <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-white">
-                {speaker.avatar_url ? (
-                  <Image
-                    src={speaker.avatar_url}
-                    alt={speaker.name}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                )}
-              </div>
+      {/* メイン情報 */}
+      <div className="space-y-4">
+        {/* 部屋と言語タグ */}
+        {session.slot && (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded">
+              {getRoomLabel(session.slot.room)}
+            </span>
+            <span className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded">
+              {getLanguageLabel(session.talk_language)}
+            </span>
+          </div>
+        )}
+        
+        {/* 時間情報 */}
+        {session.slot && (
+          <div className="text-sm text-gray-600">
+            <div className="font-medium">
+              {formatTime(session.slot.start, session.slot.end)}
             </div>
-          ))}
+          </div>
+        )}
+        
+        {/* スピーカー情報 */}
+        <div className="pt-4 border-t border-gray-100">
+          <div className="flex flex-wrap gap-3">
+            {session.speakers.map((speaker) => (
+              <div key={speaker.code} className="flex items-center gap-2">
+                <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                  {speaker.avatar_url ? (
+                    <Image
+                      src={speaker.avatar_url}
+                      alt={speaker.name}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <span className="text-sm font-medium text-gray-900">{speaker.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

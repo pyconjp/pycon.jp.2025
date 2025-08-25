@@ -22,6 +22,18 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // タイムテーブルのリダイレクト
+      {
+        source: '/ja/timetable',
+        destination: '/ja/timetable/day1',
+        permanent: false,
+      },
+      {
+        source: '/en/timetable',
+        destination: '/en/timetable/day1',
+        permanent: false,
+      },
+      
       // ルートへのアクセス：cookie.lang に応じてリダイレクト
       {
         source: '/',

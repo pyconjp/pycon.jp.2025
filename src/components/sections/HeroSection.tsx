@@ -5,11 +5,11 @@ import 'swiper/css/effect-fade'
 import Image from "next/image";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import clsx from "clsx";
 import LinkButton from "@/components/elements/LinkButton";
 import {Lang} from "@/types/lang";
 import dynamic from "next/dynamic";
 import {dictionary} from "@/lang";
+import DateArea from "@/components/elements/DateArea";
 
 const images = [
   '/common/hero/hero_1.jpg',
@@ -19,32 +19,6 @@ const images = [
 export default function HeroSection({lang}: {lang: Lang}) {
   const dict = dictionary[lang];
   const Abstract = dynamic(() => import(`@/components/markdown/${lang}/abstract.mdx`), {ssr: true});
-
-  const DateArea = ({day, month, date, weekday, className}: {
-    day: string,
-    month: string,
-    date: string,
-    weekday: string,
-    className: string
-  }) => (
-    <div className={clsx('flex-1 rounded-lg py-4 lg:py-6 text-center', className)}>
-      <div className='w-full text-xl'>
-        {day}
-      </div>
-      <div className='relative lg:mt-8 mt-2 w-20 lg:h-24 h-16 mx-auto'>
-        <div className='absolute top-0 left-0 text-xl'>
-          {month}
-        </div>
-        <hr className='absolute top-6 w-10/12 [transform:rotate(-25deg)]'/>
-        <div className='absolute bottom-0 right-0 left-0 lg:text-6xl text-4xl text-right lg:text-center'>
-          {date}
-        </div>
-      </div>
-      <div className='w-full lg:mt-4 mt-2 text-sm'>
-        {weekday}
-      </div>
-    </div>
-  )
 
   return (
     <section className='lg:-mt-96'>
