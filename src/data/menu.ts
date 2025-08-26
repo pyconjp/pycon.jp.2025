@@ -35,6 +35,7 @@ export const footerMenu: { key: 'cfp' | 'cfs' | 'buy_ticket', href: string, isCl
   {
     'key': 'cfs',
     'href': 'https://docs.google.com/forms/d/e/1FAIpQLSfCVLHY3zMR1z7YGy8aRyJiSa64pnVpById6UjNDiwD5K0VmQ/viewform',
+    isClosed: true,
   },
   {
     'key': 'buy_ticket',

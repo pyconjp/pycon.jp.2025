@@ -74,7 +74,7 @@ function SponsorPage({ sponsors, lang }: Props) {
   return (
     <DefaultLayout lang={lang} activeHeader="about">
       <PageHead
-        title={lang === "ja" ? `${currentSponsor.name_ja} | スポンサー` : `${currentSponsor.name_ja} | Sponsor`}
+        title={lang === "ja" ? `${currentSponsor.name_ja || currentSponsor.name_en} | スポンサー` : `${currentSponsor.name_en || currentSponsor.name_ja} | Sponsor`}
         description={lang === "ja" ? 'PyCon JP 2025のスポンサーページです' : 'This is the sponsor page of PyCon JP 2025'}
         lang={lang}
         pagePath={`/sponsors/${currentSponsor.path}`}
@@ -101,7 +101,7 @@ function SponsorPage({ sponsors, lang }: Props) {
                   <div className="rounded-xl border border-[#0000001A] w-[195px] h-[115px] lg:w-[400px] lg:h-[175px] flex justify-center items-center overflow-hidden">
                     <ImageWithFallback
                       src={`/common/sponsor/${currentSponsor.logo_image}`}
-                      alt={lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
+                      alt={lang === 'ja' ? (currentSponsor.name_ja || currentSponsor.name_en) : (currentSponsor.name_en || currentSponsor.name_ja)}
                       width={480}
                       height={210}
                       className="w-full h-full p-2 lg:p-5 object-contain"
@@ -117,7 +117,7 @@ function SponsorPage({ sponsors, lang }: Props) {
                   </div>
                 </div>
                 <h2 className="my-6 text-xl font-bold">
-                  {lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
+                  {lang === 'ja' ? (currentSponsor.name_ja || currentSponsor.name_en) : (currentSponsor.name_en || currentSponsor.name_ja)}
                 </h2>
                 {currentSponsor.plan !== 'silver' && (
                   <p className="text-base">
@@ -126,7 +126,7 @@ function SponsorPage({ sponsors, lang }: Props) {
                 )}
                 <SponsorLinkButton
                   href={lang === 'ja' ? currentSponsor.url_ja : currentSponsor.url_en}
-                  title={lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
+                  title={lang === 'ja' ? (currentSponsor.name_ja || currentSponsor.name_en) : (currentSponsor.name_en || currentSponsor.name_ja)}
                   className="mt-6 w-full"
                 />
               </div>
