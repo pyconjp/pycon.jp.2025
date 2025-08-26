@@ -3,7 +3,7 @@ import {Dictionary} from "@/types/lang";
 const En: Dictionary = {
   'top': {
     title: 'TOP page',
-    description: 'is the TOP page of PyCon JP 2025',
+    description: 'PyCon JP 2025 will be held in Hiroshima! September 26th-27th, and the sprint on the 28th 2025. At the Hiroshima International Conference Center.',
     sprint_day: 'Sprint Day',
     see_all: 'See All',
     about_conference: 'About PyCon JP',
