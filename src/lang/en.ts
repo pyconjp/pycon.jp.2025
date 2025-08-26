@@ -61,6 +61,7 @@ const En: Dictionary = {
   },
   'button': {
     buy_ticket: 'Buy Ticket',
+    buy_party_ticket: 'Buy Party Ticket',
   },
   'venue': {
     title: "Venue",

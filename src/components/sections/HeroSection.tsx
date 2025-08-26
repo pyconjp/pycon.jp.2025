@@ -100,9 +100,14 @@ export default function HeroSection({lang}: {lang: Lang}) {
           <div className='text-sm lg:text-base mb-4'>
             <Abstract/>
           </div>
-          <LinkButton href='https://pyconjp.connpass.com/event/359523/'>
-            {dict.button.buy_ticket}
-          </LinkButton>
+          <div className='space-y-2'>
+            <LinkButton href='https://pyconjp.connpass.com/event/359523/'>
+              {dict.button.buy_ticket}
+            </LinkButton>
+            <LinkButton href='https://pyconjp.connpass.com/event/361700/'>
+              {dict.button.buy_party_ticket}
+            </LinkButton>
+          </div>
         </div>
         <div className='flex-1 w-10/12 lg:w-auto mx-auto'>
           <div className='relative aspect-[4/3] ml-auto max-h-[400px]'>

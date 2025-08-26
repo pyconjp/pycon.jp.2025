@@ -35,7 +35,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                     className="w-72 h-42 object-contain" />
                 </div>
                 <div className="flex flex-col my-4">
-                  <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
+                  <h3 className="text-xl font-bold">{lang === 'ja' ? (sponsor.name_ja || sponsor.name_en) : (sponsor.name_en || sponsor.name_ja)}</h3>
                   <p className="lg:max-w-[480px] mt-4">
                     {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, platinum_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, platinum_len) + "..." : ""}
                   </p>
@@ -65,7 +65,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                   />
                 </div>
                 <div className="flex flex-col my-4">
-                  <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
+                  <h3 className="text-xl font-bold">{lang === 'ja' ? (sponsor.name_ja || sponsor.name_en) : (sponsor.name_en || sponsor.name_ja)}</h3>
                   <p className="lg:max-w-[480px]">
                     {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, platinum_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, platinum_len) + "..." : ""}
                   </p>
@@ -94,7 +94,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                 />
               </div>
               <div className="flex flex-col my-4">
-                <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
+                <h3 className="text-xl font-bold">{lang === 'ja' ? (sponsor.name_ja || sponsor.name_en) : (sponsor.name_en || sponsor.name_ja)}</h3>
                 <p className="lg:max-w-[230px] pt-2">
                   {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, gold_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, gold_len) + "..." : ""}
                 </p>
@@ -123,7 +123,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                   />
                 </div>
                 <div className="flex flex-col my-4">
-                  <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
+                  <h3 className="text-xl font-bold">{lang === 'ja' ? (sponsor.name_ja || sponsor.name_en) : (sponsor.name_en || sponsor.name_ja)}</h3>
                   <p className="lg:max-w-[230px] pt-2">
                     {lang === 'ja' ? sponsor.pr_ja ? sponsor.pr_ja.substring(0, gold_len) + "..." : "" : sponsor.pr_en ? sponsor.pr_en.substring(0, gold_len) + "..." : ""}
                   </p>
@@ -152,7 +152,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                 />
               </div>
               <div className="flex flex-col py-4">
-                <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
+                <h3 className="text-xl font-bold">{lang === 'ja' ? (sponsor.name_ja || sponsor.name_en) : (sponsor.name_en || sponsor.name_ja)}</h3>
               </div>
             </Link>
           ))}
@@ -177,8 +177,8 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                 />
               </div>
               <div className="flex flex-col py-4">
-                <h3 className="text-xl font-bold">{lang === 'ja' ? sponsor.name_ja : sponsor.name_en}</h3>
-                <p className="text-[#808080]">{lang === 'ja' ? sponsor.title_ja : sponsor.title_en}</p>
+                <h3 className="text-xl font-bold">{lang === 'ja' ? (sponsor.name_ja || sponsor.name_en) : (sponsor.name_en || sponsor.name_ja)}</h3>
+                <p className="text-[#808080]">{lang === 'ja' ? (sponsor.title_ja || sponsor.title_en) : (sponsor.title_en || sponsor.title_ja)}</p>
               </div>
             </Link>
           ))}
