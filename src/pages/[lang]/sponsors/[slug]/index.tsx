@@ -6,7 +6,7 @@ import { Lang } from "@/types/lang";
 import { Sponsor } from "@/types/sponsor";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import ImageWithFallback from "@/components/elements/ImageWithFallback";
+import CloudflareImage from "@/components/elements/CloudflareImage";
 import SponsorLinkButton from "@/components/elements/SponsorLinkButton";
 import Link from "next/link";
 import KeynotesSection from "@/components/sections/KeynotesSection";
@@ -74,7 +74,7 @@ function SponsorPage({ sponsors, lang }: Props) {
   return (
     <DefaultLayout lang={lang} activeHeader="about">
       <PageHead
-        title={lang === "ja" ? `${currentSponsor.name_ja} | スポンサー` : `${currentSponsor.name_ja} | Sponsor`}
+        title={lang === "ja" ? `${currentSponsor.name_ja || currentSponsor.name_en} | スポンサー` : `${currentSponsor.name_en || currentSponsor.name_ja} | Sponsor`}
         description={lang === "ja" ? 'PyCon JP 2025のスポンサーページです' : 'This is the sponsor page of PyCon JP 2025'}
         lang={lang}
         pagePath={`/sponsors/${currentSponsor.path}`}
@@ -99,13 +99,14 @@ function SponsorPage({ sponsors, lang }: Props) {
                 </div>
                 <div className="flex justify-center items-center gap-4">
                   <div className="rounded-xl border border-[#0000001A] w-[195px] h-[115px] lg:w-[400px] lg:h-[175px] flex justify-center items-center overflow-hidden">
-                    <ImageWithFallback
-                      src={`/common/sponsor/${currentSponsor.logo_image}`}
+                    <CloudflareImage
+                      category="sponsors"
+                      fileName={currentSponsor.logo_image}
+                      fallbackSrc="/common/no_image_sponsor.png"
                       alt={lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
                       width={480}
                       height={210}
                       className="w-full h-full p-2 lg:p-5 object-contain"
-                      fallback={'/common/no_image_sponsor.png'}
                     />
                   </div>
                   <div className="rounded-xl border border-[#0000001A] w-[85px] h-[115px] lg:w-[160px] lg:h-[175px] flex justify-center items-center">
@@ -117,7 +118,7 @@ function SponsorPage({ sponsors, lang }: Props) {
                   </div>
                 </div>
                 <h2 className="my-6 text-xl font-bold">
-                  {lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
+                  {lang === 'ja' ? (currentSponsor.name_ja || currentSponsor.name_en) : (currentSponsor.name_en || currentSponsor.name_ja)}
                 </h2>
                 {currentSponsor.plan !== 'silver' && (
                   <p className="text-base">
@@ -126,7 +127,7 @@ function SponsorPage({ sponsors, lang }: Props) {
                 )}
                 <SponsorLinkButton
                   href={lang === 'ja' ? currentSponsor.url_ja : currentSponsor.url_en}
-                  title={lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
+                  title={lang === 'ja' ? (currentSponsor.name_ja || currentSponsor.name_en) : (currentSponsor.name_en || currentSponsor.name_ja)}
                   className="mt-6 w-full"
                 />
               </div>
