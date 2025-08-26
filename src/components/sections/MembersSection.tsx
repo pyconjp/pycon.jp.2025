@@ -25,7 +25,7 @@ export default function MembersSection({members, lang, ...props}: Props) {
               <CloudflareImage
                 category="members"
                 fileName={member.image}
-                fallbackSrc="/common/no_image.jpg"
+                fallbackSrc="/common/no_image.png"
                 alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
                 width={110}
                 height={110}
