@@ -2,7 +2,6 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, EffectFade} from 'swiper/modules';
 import 'swiper/css'
 import 'swiper/css/effect-fade'
-import Image from "next/image";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
