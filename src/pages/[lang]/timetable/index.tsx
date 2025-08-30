@@ -4,6 +4,8 @@
 import {GetStaticProps} from "next";
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import PageHead from "@/components/elements/PageHead";
+import { Lang } from "@/types/lang";
 
 export const getStaticPaths = async () => {
   return {
@@ -26,7 +28,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 interface TimetablePageProps {
-  lang: string;
+  lang: Lang;
 }
 
 function TimetablePage({ lang }: TimetablePageProps) {
@@ -34,17 +36,25 @@ function TimetablePage({ lang }: TimetablePageProps) {
   
   useEffect(() => {
     // クライアントサイドでリダイレクト（next.config.tsのリダイレクトが効かない場合のフォールバック）
-    router.replace(`/${lang}/timetable/day1`);
+    void router.replace(`/${lang}/timetable/day1`);
   }, [lang, router]);
   
   // リダイレクト中の表示
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
-        <p className="mt-4 text-gray-600">Loading...</p>
+    <>
+      <PageHead
+        title={lang === "ja" ? 'タイムテーブル' : 'Timetable'}
+        description={lang === "ja" ? 'PyCon JP 2025のタイムテーブル' : 'Timetable for PyCon JP 2025'}
+        lang={lang}
+        pagePath='/timetable'
+      />
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
