@@ -101,17 +101,19 @@ const TrackPage: React.FC<TrackPageProps> = ({sessions, track, locale}) => {
           </div>
         </div>
 
-        <div className="mb-8">
+        <div className="mb-8 px-4 md:px-8">
           <h1 className="text-4xl font-bold mb-4">
             #{trackName}
           </h1>
         </div>
 
-        <TrackSessionList
-          sessions={sessions}
-          trackName={trackName}
-          locale={currentLocale}
-        />
+        <div className="px-4 md:px-8">
+          <TrackSessionList
+            sessions={sessions}
+            trackName={trackName}
+            locale={currentLocale}
+          />
+        </div>
         </div>
       </div>
     </DefaultLayout>

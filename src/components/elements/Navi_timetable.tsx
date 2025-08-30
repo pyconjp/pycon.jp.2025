@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Lang } from '@/types/lang';
 import clsx from 'clsx';
 
@@ -10,6 +11,7 @@ interface NaviTimetableProps {
 }
 
 const NaviTimetable: React.FC<NaviTimetableProps> = ({ currentDay, currentRoom, lang }) => {
+  const router = useRouter();
   const [canScrollRight, setCanScrollRight] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
@@ -27,10 +29,22 @@ const NaviTimetable: React.FC<NaviTimetableProps> = ({ currentDay, currentRoom, 
   ];
 
   const roomItems = [
-    { id: 'roomA', label: 'roomA' },
-    { id: 'roomB', label: 'roomB' },
-    { id: 'roomC', label: 'roomC' },
-    { id: 'roomD', label: 'roomD' },
+    { 
+      id: '4739', 
+      label: lang === 'ja' ? 'フェニックスホール' : 'Phoenix Hall' 
+    },
+    { 
+      id: '4740', 
+      label: lang === 'ja' ? 'ダリア1' : 'Dahlia 1' 
+    },
+    { 
+      id: '4741', 
+      label: lang === 'ja' ? 'ダリア2' : 'Dahlia 2' 
+    },
+    { 
+      id: '4742', 
+      label: lang === 'ja' ? 'ラン' : 'Ran' 
+    },
   ];
 
   useEffect(() => {
@@ -88,10 +102,24 @@ const NaviTimetable: React.FC<NaviTimetableProps> = ({ currentDay, currentRoom, 
               {roomItems.map((item) => (
                 <button
                   key={item.id}
+                  onClick={() => {
+                    const query = { ...router.query };
+                    if (currentRoom === item.id) {
+                      // 同じルームをクリックした場合はフィルタを解除
+                      delete query.room;
+                    } else {
+                      // 別のルームをクリックした場合はフィルタを適用
+                      query.room = item.id;
+                    }
+                    router.push({
+                      pathname: router.pathname,
+                      query,
+                    });
+                  }}
                   className={clsx(
-                    "px-2 py-2 text-sm font-medium transition-all text-black whitespace-nowrap",
+                    "px-2 py-2 text-sm font-medium transition-all text-black whitespace-nowrap hover:text-gray-600 cursor-pointer",
                     {
-                      "border-b-2 border-black": currentRoom === item.id,
+                      "border-b-2 border-black hover:text-black": currentRoom === item.id,
                     }
                   )}
                 >

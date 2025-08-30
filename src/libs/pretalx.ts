@@ -82,7 +82,6 @@ export const fetchTalks = async (): Promise<Talk[]> => {
           headers: {
             Authorization: `Token ${process.env.PRETALX_API_KEY}`,
           },
-          // URLに既にパラメータが含まれているため、追加のparamsは不要
         }
       );
 
@@ -105,8 +104,8 @@ export const fetchTalks = async (): Promise<Talk[]> => {
           message: error.message,
         };
         
-        console.log('Failed to fetch talks from Pretalx API:', errorDetails);
-        throw new Error(`Failed to fetch talks from Pretalx API: ${JSON.stringify(errorDetails)}`);
+        console.error('Failed to fetch talks from Pretalx API:', errorDetails);
+        throw new Error(`Failed to fetch talks from Pretalx API: ${error.message}`);
       }
       
       console.error('Unexpected error fetching talks:', error);

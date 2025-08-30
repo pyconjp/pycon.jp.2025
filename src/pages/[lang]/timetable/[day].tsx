@@ -1,5 +1,6 @@
 import {Lang} from "@/types/lang";
 import {GetStaticProps, GetStaticPaths} from "next";
+import { useRouter } from 'next/router';
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import NaviTimetable from "@/components/elements/Navi_timetable";
 import PageHead from "@/components/elements/PageHead";
@@ -56,8 +57,15 @@ interface TimetablePageProps {
 }
 
 function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
+  const router = useRouter();
   const dayNumber = day === 'day1' ? 1 : 2;
   const dateStr = day === 'day1' ? '9/26' : '9/27';
+  const currentRoom = router.query.room as string | undefined;
+  
+  // ルームでフィルタリング
+  const filteredTalks = currentRoom 
+    ? talks.filter(talk => talk.slot?.room?.id === parseInt(currentRoom))
+    : talks;
   
   return (
     <DefaultLayout lang={lang} activeHeader="timetable">
@@ -72,7 +80,7 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
         grayscale={true} />
       
       {/* ナビゲーションタブ */}
-      <NaviTimetable currentDay={day as 'day1' | 'day2'} lang={lang}/>
+      <NaviTimetable currentDay={day as 'day1' | 'day2'} currentRoom={currentRoom} lang={lang}/>
       
       <div className="relative">
         {/* デスクトップ: 左側の余白に日付表示 */}
@@ -103,11 +111,12 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
         </div>
         
         {/* 中央のトークリスト */}
-        <div className="container mx-auto px-4 md:pt-0 md:pb-8">
+        <div className="max-w-screen-xl mx-auto px-4 md:pl-56 lg:pl-64 md:pr-8 md:pt-0 md:pb-8">
           <TalkList 
-            talks={talks} 
+            talks={filteredTalks} 
             locale={lang}
             showFilters={false}
+            groupByTime={true}
           />
         </div>
       </div>

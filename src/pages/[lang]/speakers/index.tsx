@@ -108,7 +108,7 @@ export default function Speaker({ lang }: Props) {
           </div>
         </div>
 
-        <div className="mb-8">
+        <div className="mb-8 px-4 md:px-8">
           <h1 className="text-4xl font-bold mb-4">
             #{lang === 'ja' ? 'キーノート' : 'Keynote'}
           </h1>

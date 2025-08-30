@@ -15,8 +15,9 @@ interface TalkDetailCardProps {
 }
 
 const getLanguageLabel = (langCode: Lang): string => {
-  return langCode === 'ja' ? '日本語' : 'English';
+  return langCode === 'ja' ? '日本語' : 'EN';
 };
+
 
 const formatDateTime = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -85,15 +86,17 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
             
             <div>
               {/* ラベル情報 */}
-              <div className="flex flex-wrap gap-2 md:gap-3 mb-4">
-                {talk.slot?.room && (
-                  <span className="px-3 py-1 text-xs font-semibold rounded bg-gray-100 text-gray-700">
-                    {talk.slot.room.name?.en || talk.slot.room.name?.['en'] || `Room ${talk.slot.room.id}`}
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                {talk.slot?.room && talk.slot.room.name && (
+                  <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                    {lang === 'ja' 
+                      ? (talk.slot.room.name['ja-jp'] || talk.slot.room.name.en || `Room ${talk.slot.room.id}`)
+                      : (talk.slot.room.name.en || talk.slot.room.name['ja-jp'] || `Room ${talk.slot.room.id}`)}
                   </span>
                 )}
                 
                 {talk.talk_language && (
-                  <span className="px-3 py-1 text-xs font-semibold rounded bg-gray-100 text-gray-700">
+                  <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
                     {getLanguageLabel(talk.talk_language)}
                   </span>
                 )}
@@ -101,11 +104,11 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
               
               {/* 時間情報 */}
               {startTime && (
-                <div className="text-sm text-gray-600 mb-6 md:mb-0">
-                  <span className="font-medium">
+                <div className="text-sm flex items-center justify-between">
+                  <span className="text-gray-900 font-bold">
                     {startTime.time} - {endTime || ''}
                   </span>
-                  <span className="ml-4 text-gray-500">
+                  <span className="text-gray-600">
                     {talk.duration}min
                   </span>
                 </div>
@@ -139,9 +142,10 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
             <h2 className="hidden md:hidden text-lg font-bold mb-4">
               {isJapanese ? '概要' : 'Abstract'}
             </h2>
-            <p className="text-gray-700 text-sm md:text-base leading-relaxed whitespace-pre-wrap break-words">
-              {talk.abstract}
-            </p>
+            <MarkdownContent 
+              content={talk.abstract}
+              className="text-gray-700 text-sm md:text-base break-all"
+            />
           </div>
         )}
         
