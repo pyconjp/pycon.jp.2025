@@ -61,6 +61,7 @@ const Ja: Dictionary = {
   },
   'button': {
     buy_ticket: 'チケットを購入',
+    buy_party_ticket: 'パーティチケットを購入',
   },
   'venue': {
     title: "Venue",

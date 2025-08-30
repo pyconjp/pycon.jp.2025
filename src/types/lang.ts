@@ -61,6 +61,7 @@ export type Dictionary = {
   },
   button: {
     buy_ticket: string,
+    buy_party_ticket: string,
   },
   venue: {
     title: string,

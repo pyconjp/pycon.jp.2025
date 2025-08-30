@@ -37,8 +37,8 @@ export default function RecruitmentSection({ lang, ...props }: Props) {
         </div>
         <div className='mt-auto'>
           <LinkButton
-            href='https://docs.google.com/forms/d/e/1FAIpQLSfCVLHY3zMR1z7YGy8aRyJiSa64pnVpById6UjNDiwD5K0VmQ/viewform'>
-            {dict.top.sponsor_registration}
+            href='https://docs.google.com/forms/d/e/1FAIpQLSfCVLHY3zMR1z7YGy8aRyJiSa64pnVpById6UjNDiwD5K0VmQ/viewform' disabled={true}>
+            {dict.menu.ended}
           </LinkButton>
         </div>
       </div>
