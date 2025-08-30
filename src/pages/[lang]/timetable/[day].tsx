@@ -47,6 +47,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       day,
       talks: sortedTalks,
     },
+    revalidate: 3600, // 1時間（3600秒）ごとに再生成
   };
 };
 

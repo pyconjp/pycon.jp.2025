@@ -40,6 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       lang,
       talk,
     },
+    revalidate: 3600, // 1時間（3600秒）ごとに再生成
   };
 };
 
