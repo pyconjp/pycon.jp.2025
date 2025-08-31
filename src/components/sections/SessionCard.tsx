@@ -31,9 +31,9 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
 
   return (
     <Link href={`/${locale}/timetable/talk/${session.code}`} className="block">
-      <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow cursor-pointer relative flex flex-col h-full">
+      <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-[0_0px_40px_0px_rgba(0,0,0,0.1)] cursor-pointer relative flex flex-col h-full">
         {/* タイトル */}
-        <h3 className="text-lg font-bold mb-4 line-clamp-2 transition-colors">
+        <h3 className="text-lg font-bold pb-4 line-clamp-2 transition-colors leading-[1.1]">
           {session.title}
         </h3>
       
@@ -64,9 +64,10 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
             )}
             
             {/* 右側：スピーカー情報 */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 items-end">
               {session.speakers.map((speaker) => (
                 <div key={speaker.code} className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-gray-900 text-right leading-none">{speaker.name}</span>
                   <div className="relative w-10 h-10 overflow-hidden bg-gray-200 flex-shrink-0 rounded">
                     {speaker.avatar_url ? (
                       <Image
@@ -83,7 +84,6 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
                       </div>
                     )}
                   </div>
-                  <span className="text-sm font-bold text-gray-900">{speaker.name}</span>
                 </div>
               ))}
             </div>
