@@ -1,6 +1,7 @@
 import {Lang} from "@/types/lang";
 import {GetStaticProps, GetStaticPaths} from "next";
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import NaviTimetable from "@/components/elements/Navi_timetable";
 import PageHead from "@/components/elements/PageHead";
@@ -61,11 +62,19 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
   const router = useRouter();
   const dayNumber = day === 'day1' ? 1 : 2;
   const dateStr = day === 'day1' ? '9/26' : '9/27';
-  const currentRoom = router.query.room as string | undefined;
+  
+  // URLからの初期値を取得
+  const initialRoom = router.query.room as string | undefined;
+  const [selectedRoom, setSelectedRoom] = useState<string | undefined>(initialRoom);
+  
+  // URLパラメータが変更されたときにStateを更新（直アクセス対応）
+  useEffect(() => {
+    setSelectedRoom(router.query.room as string | undefined);
+  }, [router.query.room]);
   
   // ルームでフィルタリング
-  const filteredTalks = currentRoom 
-    ? talks.filter(talk => talk.slot?.room?.id === parseInt(currentRoom))
+  const filteredTalks = selectedRoom 
+    ? talks.filter(talk => talk.slot?.room?.id === parseInt(selectedRoom))
     : talks;
   
   return (
@@ -81,7 +90,12 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
         grayscale={true} />
       
       {/* ナビゲーションタブ */}
-      <NaviTimetable currentDay={day as 'day1' | 'day2'} currentRoom={currentRoom} lang={lang}/>
+      <NaviTimetable 
+        currentDay={day as 'day1' | 'day2'} 
+        currentRoom={selectedRoom} 
+        lang={lang}
+        onRoomChange={setSelectedRoom}
+      />
       
       <div className="relative">
         {/* デスクトップ: 左側の余白に日付表示 */}

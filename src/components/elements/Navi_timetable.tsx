@@ -8,12 +8,14 @@ interface NaviTimetableProps {
   currentDay: 'day1' | 'day2';
   currentRoom?: string;
   lang: Lang;
+  onRoomChange?: (room: string | undefined) => void;
 }
 
-const NaviTimetable: React.FC<NaviTimetableProps> = ({ currentDay, currentRoom, lang }) => {
+const NaviTimetable: React.FC<NaviTimetableProps> = ({ currentDay, currentRoom, lang, onRoomChange }) => {
   const router = useRouter();
   const [canScrollRight, setCanScrollRight] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+  const [selectedRoom, setSelectedRoom] = useState<string | undefined>(currentRoom);
 
   const dayItems = [
     { 
@@ -46,6 +48,11 @@ const NaviTimetable: React.FC<NaviTimetableProps> = ({ currentDay, currentRoom, 
       label: lang === 'ja' ? 'ラン' : 'Ran' 
     },
   ];
+
+  // URLのクエリパラメータが変更されたときにStateを更新
+  useEffect(() => {
+    setSelectedRoom(currentRoom);
+  }, [currentRoom]);
 
   useEffect(() => {
     const checkScroll = () => {
@@ -103,23 +110,30 @@ const NaviTimetable: React.FC<NaviTimetableProps> = ({ currentDay, currentRoom, 
                 <button
                   key={item.id}
                   onClick={() => {
+                    const newRoom = selectedRoom === item.id ? undefined : item.id;
+                    setSelectedRoom(newRoom);
+                    
+                    // 親コンポーネントにState変更を通知
+                    if (onRoomChange) {
+                      onRoomChange(newRoom);
+                    }
+                    
+                    // URLの書き換え（ページ遷移なし）
                     const query = { ...router.query };
-                    if (currentRoom === item.id) {
-                      // 同じルームをクリックした場合はフィルタを解除
+                    if (newRoom === undefined) {
                       delete query.room;
                     } else {
-                      // 別のルームをクリックした場合はフィルタを適用
-                      query.room = item.id;
+                      query.room = newRoom;
                     }
-                    router.push({
+                    router.replace({
                       pathname: router.pathname,
                       query,
-                    });
+                    }, undefined, { shallow: true });
                   }}
                   className={clsx(
                     "px-2 py-2 text-sm font-medium transition-all text-black whitespace-nowrap hover:text-gray-600 cursor-pointer",
                     {
-                      "border-b-2 border-black hover:text-black": currentRoom === item.id,
+                      "border-b-2 border-black hover:text-black": selectedRoom === item.id,
                     }
                   )}
                 >
