@@ -6,9 +6,10 @@ import Link from 'next/link';
 interface SessionCardProps {
   session: Talk;
   locale: 'ja' | 'en';
+  showDate?: boolean; // スピーカーページで日付を表示するかどうか
 }
 
-const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
+const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = false }) => {
   const formatTime = (start: string, end: string) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
@@ -27,6 +28,15 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
 
   const getLanguageLabel = (lang: string) => {
     return lang === 'ja' ? '日本語' : 'EN';
+  };
+
+  const getDateInfo = (dateStr: string) => {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const dayNumber = day === 26 ? '1' : '2';
+    return `Day ${dayNumber} - ${month}/${day}`;
   };
 
   return (
@@ -56,9 +66,16 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale }) => {
                     {getLanguageLabel(session.talk_language)}
                   </span>
                 </div>
-                <div className="text-sm flex items-center gap-2">
-                  <span className="text-gray-900 font-bold">{formatTime(session.slot.start, session.slot.end)}</span>
-                  <span className="text-gray-600">{session.duration}min</span>
+                <div className="flex flex-col gap-1">
+                  <div className="text-sm flex items-center gap-2">
+                    <span className="text-gray-900 font-bold">{formatTime(session.slot.start, session.slot.end)}</span>
+                    <span className="text-gray-600">{session.duration}min</span>
+                  </div>
+                  {showDate && session.slot.start && (
+                    <div className="text-xs text-gray-500 font-bold">
+                      {getDateInfo(session.slot.start)}
+                    </div>
+                  )}
                 </div>
               </div>
             )}

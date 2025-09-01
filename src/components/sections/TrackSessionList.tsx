@@ -26,6 +26,7 @@ const TrackSessionList: React.FC<TrackSessionListProps> = ({
             key={session.code} 
             session={session} 
             locale={locale}
+            showDate={true}
           />
         ))}
       </div>
