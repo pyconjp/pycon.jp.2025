@@ -89,5 +89,19 @@ export type Dictionary = {
     head: string,
     head_name: string,
     see_on_google_map: string,
-  }
+  },
+  timetable: {
+    track: {
+      'ai': string,
+      'practice': string,
+      'edu': string,
+      'devops': string,
+      'web': string,
+      'libs': string,
+      'core': string,
+      'other': string,
+      'media': string,
+      'iot': string,
+    }
+  },
 };
