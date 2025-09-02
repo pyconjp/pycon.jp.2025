@@ -69,9 +69,11 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                         : (session.slot.room.name.en || session.slot.room.name['ja-jp'] || `Room ${session.slot.room.id}`)
                     )}
                   </span>
-                  <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
-                    {getLanguageLabel(session.talk_language)}
-                  </span>
+                  {!session.is_special && (
+                    <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                      {getLanguageLabel(session.talk_language)}
+                    </span>
+                  )}
                 </div>
                 <div className="flex flex-col gap-1">
                   <div className="text-sm flex items-center gap-2">

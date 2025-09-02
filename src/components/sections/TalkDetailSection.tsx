@@ -102,7 +102,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
                   </span>
                 )}
                 
-                {talk.talk_language && (
+                {talk.talk_language && !talk.is_special && (
                   <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
                     {getLanguageLabel(talk.talk_language)}
                   </span>

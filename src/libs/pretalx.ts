@@ -141,6 +141,7 @@ export const fetchTalks = async (): Promise<Talk[]> => {
       start: originalTalk.slots[0].start,
       end: originalTalk.slots[0].end,
     } : null,
+    is_special: false,
   }));
 }
 
@@ -232,5 +233,6 @@ export const fetchSpecial = async (): Promise<Talk[]> => {
       start: originalTalk.slots[0].start,
       end: originalTalk.slots[0].end,
     } : null,
+    is_special: true,
   }));
 }

@@ -13,6 +13,7 @@ export type Talk = {
   level: Level,
   resource: Resource[],
   slot: Slot | null,
+  is_special: boolean,
 }
 
 export type Speaker = {
