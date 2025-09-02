@@ -26,6 +26,13 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
     return `${startTime} - ${endTime}`;
   };
 
+  const calculateDuration = (start: string, end: string) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const diffMs = endDate.getTime() - startDate.getTime();
+    return Math.round(diffMs / 60000);
+  };
+
   const getLanguageLabel = (lang: string) => {
     return lang === 'ja' ? '日本語' : 'EN';
   };
@@ -69,7 +76,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                 <div className="flex flex-col gap-1">
                   <div className="text-sm flex items-center gap-2">
                     <span className="text-gray-900 font-bold">{formatTime(session.slot.start, session.slot.end)}</span>
-                    <span className="text-gray-600">{session.duration}min</span>
+                    <span className="text-gray-600">{calculateDuration(session.slot.start, session.slot.end)}min</span>
                   </div>
                   {showDate && session.slot.start && (
                     <div className="text-xs text-gray-500 font-bold">

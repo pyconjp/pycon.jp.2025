@@ -2,7 +2,7 @@ import { Lang } from "@/types/lang";
 import { GetStaticProps, GetStaticPaths } from "next";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import PageHead from "@/components/elements/PageHead";
-import { fetchTalks } from "@/libs/pretalx";
+import { fetchTalks, fetchSpecial } from "@/libs/pretalx";
 import { Talk } from "@/types/pretalx";
 import SpeakerAvatar from "@/components/elements/SpeakerAvatar";
 import TalkDetailSection from "@/components/sections/TalkDetailSection";
@@ -10,8 +10,12 @@ import SpeakerInfoSection from "@/components/sections/SpeakerInfoSection";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const talks = await fetchTalks();
+  const specials = await fetchSpecial();
   
-  const paths = talks.flatMap(talk => [
+  // talksとspecialsを結合
+  const allTalks = [...talks, ...specials];
+  
+  const paths = allTalks.flatMap(talk => [
     { params: { lang: 'ja', id: talk.code } },
     { params: { lang: 'en', id: talk.code } },
   ]);
@@ -27,7 +31,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params?.id as string;
   
   const talks = await fetchTalks();
-  const talk = talks.find(t => t.code === id);
+  const specials = await fetchSpecial();
+  
+  // talksとspecialsの両方から検索
+  const allTalks = [...talks, ...specials];
+  const talk = allTalks.find(t => t.code === id);
   
   if (!talk) {
     return {
@@ -66,19 +74,24 @@ function TalkDetailPage({ lang, talk }: TalkDetailPageProps) {
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           <div className="relative mx-0 md:mx-0 sm:mx-4">
           {/* スピーカーアバター（枠上に配置） */}
-          <div className="flex justify-center -mb-14 relative z-[5]">
-            <div className="flex gap-4">
-              {speakers.map((speaker, index) => (
-                <SpeakerAvatar
-                  key={index}
-                  name={speaker.name}
-                  avatarUrl={speaker.avatar_url}
-                  size="small"
-                  showName={true}
-                />
-              ))}
+          {speakers.length > 0 ? (
+            <div className="flex justify-center -mb-14 relative z-[5]">
+              <div className="flex gap-4">
+                {speakers.map((speaker, index) => (
+                  <SpeakerAvatar
+                    key={index}
+                    name={speaker.name}
+                    avatarUrl={speaker.avatar_url}
+                    size="small"
+                    showName={true}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            // スピーカーがいない場合は適切な余白を確保
+            <div className="pb-14"></div>
+          )}
         
           {/* メインのトークカード */}
           <TalkDetailSection talk={talk} lang={lang} />

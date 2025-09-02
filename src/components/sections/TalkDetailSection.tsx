@@ -34,6 +34,13 @@ const formatDateTime = (dateStr: string) => {
   };
 };
 
+const calculateDuration = (start: string, end: string) => {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const diffMs = endDate.getTime() - startDate.getTime();
+  return Math.round(diffMs / 60000);
+};
+
 const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose }) => {
   const isJapanese = lang === 'ja';
   const startTime = talk.slot?.start ? formatDateTime(talk.slot.start) : null;
@@ -108,9 +115,11 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
                   <span className="text-gray-900 font-bold">
                     {startTime.time} - {endTime || ''}
                   </span>
-                  <span className="text-gray-600">
-                    {talk.duration}min
-                  </span>
+                  {talk.slot?.start && talk.slot?.end && (
+                    <span className="text-gray-600">
+                      {calculateDuration(talk.slot.start, talk.slot.end)}min
+                    </span>
+                  )}
                 </div>
               )}
             </div>
