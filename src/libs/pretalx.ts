@@ -143,3 +143,94 @@ export const fetchTalks = async (): Promise<Talk[]> => {
     } : null,
   }));
 }
+
+export const fetchSpecial = async (): Promise<Talk[]> => {
+  // URLSearchParamsを使用して複数のstateパラメータを追加
+  const searchParams = new URLSearchParams();
+  searchParams.append('submission_type', '6521'); // トーク
+  searchParams.append('expand', [
+    'answers',
+    'answers.question',
+    'resources',
+    'slots.room',
+    'speakers.answers',
+    'submission_type',
+    'tags',
+    'tracks',
+  ].join(','));
+  // stateは複数の値を個別のパラメータとして送信
+  searchParams.append('state', 'confirmed');
+  searchParams.append('state', 'accepted');
+
+  const allTalks: OriginalTalk[] = [];
+  let nextUrl: string | null = `https://pretalx.com/api/events/${EVENT_ID}/submissions/?${searchParams.toString()}`;
+
+  while (nextUrl) {
+    try {
+      const res: AxiosResponse<PretalxApiResponse> = await axios.get<PretalxApiResponse>(
+        nextUrl,
+        {
+          headers: {
+            Authorization: `Token ${process.env.PRETALX_API_KEY}`,
+          },
+        }
+      );
+
+      allTalks.push(...res.data.results);
+      nextUrl = res.data.next;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorDetails = {
+          url: nextUrl,
+          status: error.response?.status,
+          statusText: error.response?.statusText,
+          // Pretalx APIのエラーレスポンス形式に対応
+          errorData: error.response?.data,
+          // フィールド固有のエラー（例: {"amount": ["Please submit a valid integer."]})
+          fieldErrors: error.response?.data && typeof error.response.data === 'object' && !error.response.data.detail
+            ? error.response.data
+            : null,
+          // 一般的なエラー（例: {"detail": "Method 'DELETE' not allowed."}）
+          generalError: error.response?.data?.detail || null,
+          message: error.message,
+        };
+
+        console.error('Failed to fetch talks from Pretalx API:', errorDetails);
+        throw new Error(`Failed to fetch talks from Pretalx API: ${error.message}`);
+      }
+
+      console.error('Unexpected error fetching talks:', error);
+      throw new Error(`Failed to fetch talks from Pretalx API: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+
+  return allTalks.map((originalTalk: OriginalTalk) => ({
+    code: originalTalk.code,
+    title: originalTalk.title,
+    speakers: originalTalk.speakers.map(speaker => ({
+      code: speaker.code,
+      name: speaker.name,
+      biography: speaker.biography,
+      avatar_url: speaker.avatar_url,
+    })),
+    track: TRACK_ID_MAP[originalTalk.track] || 'other',
+    abstract: originalTalk.abstract,
+    description: originalTalk.description,
+    duration: originalTalk.duration,
+    talk_language: getLanguageLabel(originalTalk, QUESTION_IDS.talk_language),
+    slide_language: getLanguageLabel(originalTalk, QUESTION_IDS.slide_language),
+    level: getLevel(originalTalk),
+    resource: originalTalk.resources.map(resource => ({
+      resource: resource.resource,
+      description: resource.description,
+    })),
+    slot: originalTalk.slots.length > 0 && originalTalk.slots[0].room && originalTalk.slots[0].start && originalTalk.slots[0].end ? {
+      room: {
+        id: originalTalk.slots[0].room.id,
+        name: originalTalk.slots[0].room.name,
+      },
+      start: originalTalk.slots[0].start,
+      end: originalTalk.slots[0].end,
+    } : null,
+  }));
+}

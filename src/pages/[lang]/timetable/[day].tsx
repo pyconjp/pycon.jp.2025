@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import NaviTimetable from "@/components/elements/Navi_timetable";
 import PageHead from "@/components/elements/PageHead";
-import { fetchTalks } from "@/libs/pretalx";
+import {fetchSpecial, fetchTalks} from "@/libs/pretalx";
 import { Talk } from "@/types/pretalx";
 import TalkList from "@/components/sections/TalkList";
 import DateArea from "@/components/elements/DateArea";
@@ -27,9 +27,13 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   const lang = params?.lang || 'ja';
   const day = params?.day || 'day1';
   const talks = await fetchTalks();
+  const specials = await fetchSpecial();
+  
+  // talksとspecialsをマージ
+  const allTalks = [...talks, ...specials];
   
   // 日付でフィルタリング（9/26はday1、9/27はday2）
-  const filteredTalks = talks.filter(talk => {
+  const filteredTalks = allTalks.filter(talk => {
     if (!talk.slot?.start) return false;
     const date = new Date(talk.slot.start);
     const dayNumber = date.getDate() === 26 ? 'day1' : 'day2';
