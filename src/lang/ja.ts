@@ -90,6 +90,20 @@ const Ja: Dictionary = {
     head_name: "西本 卓也",
     see_on_google_map: "Googleマップで見る", 
   },
+  'timetable': {
+    track: {
+      'ai': 'データサイエンス、AI',
+      'practice': 'Pythonを用いた開発のプラクティス',
+      'edu': 'コミュニティ、教育',
+      'devops': 'DevOps、テスト、ドキュメンテーション、パッケージ',
+      'web': 'Webアプリケーション',
+      'libs': 'ライブラリやサービスを作ってみた',
+      'core': 'Python自体の機能、開発',
+      'other': 'その他',
+      'media': '映像、音楽、ゲーム、イラスト',
+      'iot': 'IoT、ハードウェア、ネットワーク',
+    }
+  },
 }
 
 export default Ja;

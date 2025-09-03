@@ -89,6 +89,20 @@ const En: Dictionary = {
     head: "Chair (2025)",
     head_name: "Takuya Nishimoto",
     see_on_google_map: "See on Google Maps",
+  },
+  'timetable': {
+    track: {
+      'ai': 'Data Science, AI',
+      'practice': 'Python Development Practices',
+      'edu': 'Community, Education',
+      'devops': 'DevOps, Testing, Documentation, Packaging',
+      'web': 'Web Applications',
+      'libs': 'Libraries and Services',
+      'core': 'Python Features, Development',
+      'other': 'Other',
+      'media': 'Video, Music, Games, Illustrations',
+      'iot': 'IoT, Hardware, Networking',
+    }
   }
 }
 
