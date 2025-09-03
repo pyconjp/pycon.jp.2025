@@ -2,9 +2,6 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, EffectFade} from 'swiper/modules';
 import 'swiper/css'
 import 'swiper/css/effect-fade'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import clsx from "clsx";
 import LinkButton from "@/components/elements/LinkButton";
 import CloudflareImage from "@/components/elements/CloudflareImage";
 import {Lang} from "@/types/lang";
