@@ -1,5 +1,5 @@
 import { Lang } from "@/types/lang";
-import { SpecialSponsor, Sponsor } from "@/types/sponsor";
+import { Patron, SpecialSponsor, Sponsor } from "@/types/sponsor";
 import React from "react";
 import CloudflareImage from "@/components/elements/CloudflareImage";
 import Link from "next/link";
@@ -7,16 +7,17 @@ import Link from "next/link";
 type Props = {
   sponsors: Sponsor[];
   specialSponsors: SpecialSponsor[];
+  patron: Patron[];
   lang: Lang;
 } & React.HTMLAttributes<HTMLElement>;
 
 const platinum_len = 60;
 const gold_len = 20;
 
-export default function SponsorSection({ sponsors, specialSponsors, lang, ...props }: Props) {
+export default function SponsorSection({ sponsors, specialSponsors, patron, lang, ...props }: Props) {
   return (
     <section {...props}>
-      {sponsors.filter(sponsor => sponsor.plan === 'platinum').length > 0 && 
+      {sponsors.filter(sponsor => sponsor.plan === 'platinum').length > 0 &&
         <div className="relative py-2 mb-12">
           <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
             <span className="text-5xl font-bold font-jost">Platinum Sponsors</span><span className="lg:mx-24 text-[##808080]">プラチナスポンサー</span>
@@ -44,8 +45,8 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
             ))}
           </div>
         </div>
-        }
-      {sponsors.filter(sponsor => sponsor.plan === 'psf').length > 0 && 
+      }
+      {sponsors.filter(sponsor => sponsor.plan === 'psf').length > 0 &&
         <div className="relative py-2">
           <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
             <span className="text-5xl font-bold font-jost">PSF</span><span className="lg:mx-24 text-[##808080]">PSF</span>
@@ -103,7 +104,7 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
           ))}
         </div>
       </div>
-      {sponsors.filter(sponsor => sponsor.plan === 'flower').length > 0 && 
+      {sponsors.filter(sponsor => sponsor.plan === 'flower').length > 0 &&
         <div className="relative py-2">
           <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
             <span className="text-5xl font-bold font-jost">Flower Sponsors</span><span className="lg:mx-24 text-[##808080]">フラワースポンサー</span>
@@ -181,6 +182,31 @@ export default function SponsorSection({ sponsors, specialSponsors, lang, ...pro
                 <p className="text-[#808080]">{lang === 'ja' ? (sponsor.title_ja || sponsor.title_en) : (sponsor.title_en || sponsor.title_ja)}</p>
               </div>
             </Link>
+          ))}
+        </div>
+      </div>
+      <div className="relative py-2 mb-10">
+        <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
+          <span className="text-5xl font-bold font-jost">Patron Sponsors</span><span className="lg:mx-24 text-[##808080]">パトロンスポンサー</span>
+        </h2>
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-[24px] gap-y-12 lg:gap-y-10 place-items-center">
+          {patron.map((patron, index) => (
+            <div key={index} className="w-[145px] h-[165px] lg:w-[180px] lg:h-[210px]">
+              <div className="flex flex-col items-center bg-[#9A9A9A] rounded-lg">
+                <CloudflareImage
+                  category="patron"
+                  fileName={patron.image}
+                  fallbackSrc="/common/no_image_sponsor.png"
+                  alt={patron.name}
+                  width={500}
+                  height={500}
+                  className="w-[105px] h-[105px] object-cover rounded-full p-4"
+                />
+              </div>
+              <div className="flex flex-col py-4">
+                <h3 className="text-[15px] font-bold">{patron.name}</h3>
+              </div>
+            </div>
           ))}
         </div>
       </div>
