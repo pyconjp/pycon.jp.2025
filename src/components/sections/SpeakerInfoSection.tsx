@@ -34,10 +34,10 @@ const SpeakerInfoSection: React.FC<SpeakerInfoCardProps> = ({ speaker, lang, cla
                 className="object-cover w-[120px] h-[120px] rounded-lg"
               />
             ) : (
-              <div className="w-[120px] h-[120px] bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center rounded-lg">
-                <span className="text-white text-4xl font-bold">
-                  {speaker.name}
-                </span>
+              <div className="w-[120px] h-[120px] bg-gray-200 flex items-center justify-center rounded-lg">
+                <svg className="w-[60px] h-[60px] text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                </svg>
               </div>
             )}
           </div>
