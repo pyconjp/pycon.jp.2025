@@ -23,7 +23,6 @@ const SpeakerAvatar: React.FC<SpeakerAvatarProps> = ({
   className = '',
 }) => {
   const sizeConfig = sizeMap[size];
-  const initial = name.charAt(0).toUpperCase();
 
   return (
     <div className={`text-center ${className}`}>
