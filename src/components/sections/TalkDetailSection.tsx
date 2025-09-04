@@ -73,13 +73,15 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
         <div className="flex flex-col md:flex-row mb-6">
           {/* 日付表示（PC） */}
           <div className="hidden md:block w-48 flex-shrink-0 font-jost font-semibold pr-6">
-            <DateArea 
-              day={`DAY ${startTime?.date === '9/26' ? '1' : '2'}`}
-              month="09"
-              date={startTime?.date === '9/26' ? '26' : '27'}
-              weekday={startTime?.dayOfWeek || 'FRI'}
-              className='text-black'
-            />
+            {startTime ? (
+              <DateArea 
+                day={`DAY ${startTime.date === '9/26' ? '1' : '2'}`}
+                month="09"
+                date={startTime.date === '9/26' ? '26' : '27'}
+                weekday={startTime.dayOfWeek || 'FRI'}
+                className='text-black'
+              />
+            ) : null}
           </div>
           
           {/* 縦線 */}
@@ -127,22 +129,24 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
         </div>
         
         {/* SP版の日付表示 */}
-        <div className="md:hidden border-t border-gray-200 pt-4 font-jost mb-6">
-          <div className="flex items-start justify-between">
-            <div className="text-sm font-bold">DAY {startTime?.date === '9/26' ? '1' : '2'}</div>
-            <div className="flex items-start gap-2">
-              <div className="flex items-start">
-                <span className="text-3xl font-bold">09</span>
-                <span className="text-5xl font-bold">/{startTime?.date === '9/26' ? '26' : '27'}</span>
-              </div>
-              <div className="text-sm text-gray-600 font-semibold">
-                {startTime?.dayOfWeek || 'FRI'}
+        {startTime && (
+          <div className="md:hidden border-t border-gray-200 pt-4 font-jost mb-6">
+            <div className="flex items-start justify-between">
+              <div className="text-sm font-bold">DAY {startTime.date === '9/26' ? '1' : '2'}</div>
+              <div className="flex items-start gap-2">
+                <div className="flex items-start">
+                  <span className="text-3xl font-bold">09</span>
+                  <span className="text-5xl font-bold">/{startTime.date === '9/26' ? '26' : '27'}</span>
+                </div>
+                <div className="text-sm text-gray-600 font-semibold">
+                  {startTime.dayOfWeek || 'FRI'}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
         
-        <hr className="md:hidden border-gray-200 mb-6"/>
+        {startTime && <hr className="md:hidden border-gray-200 mb-6"/>}
         
         {/* 概要 */}
         {talk.abstract && (

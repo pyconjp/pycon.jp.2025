@@ -37,10 +37,10 @@ const SpeakerAvatar: React.FC<SpeakerAvatarProps> = ({
             className={`object-cover w-full h-full`}
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-            <span className={`text-white font-bold ${sizeConfig.text}`}>
-              {initial}
-            </span>
+          <div className="w-full h-full flex items-center justify-center text-gray-400">
+            <svg className="w-1/2 h-1/2" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+            </svg>
           </div>
         )}
       </div>
