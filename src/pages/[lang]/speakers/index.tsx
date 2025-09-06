@@ -46,27 +46,27 @@ export default function Speaker({ lang }: Props) {
         {/* Track navigation */}
         <TrackNavigation locale={lang} isKeynote={true} />
 
-        <div className="mb-8 px-4 md:px-8">
-          <h1 className="text-4xl font-bold mb-4">
-            #{lang === 'ja' ? 'キーノート' : 'Keynote'}
-          </h1>
-        </div>
+          <div className="mb-8 px-4 md:px-8">
+            <h1 className="text-4xl font-bold mb-4">
+              #{lang === 'ja' ? 'キーノート' : 'Keynote'}
+            </h1>
+          </div>
 
-        <KeynotesSection className='mx-auto lg:w-5/8 w-10/12 pb-20' lang={lang} />
-        <div className='mx-auto lg:w-5/8 w-10/12 pb-20 mt-10'>
-          <div className="flex max-lg:flex-col-reverse lg:justify-between items-center">
-            <div className="flex flex-col lg:max-w-1/2">
-              <div className="flex flex-col text-2xl font-extrabold mb-8">
-                <h2>キーノート選定の理由──</h2>
-                <h2>&ldquo;いま求められるPython像&rdquo;を映す二人</h2>
+          <KeynotesSection className='mx-auto lg:w-5/8 w-10/12 pb-20' lang={lang} />
+          <div className='mx-auto lg:w-5/8 w-10/12 pb-20 mt-10'>
+            <div className="flex max-lg:flex-col-reverse lg:justify-between items-center">
+              <div className="flex flex-col lg:max-w-1/2">
+                <div className="flex flex-col text-2xl font-extrabold mb-8">
+                  <h2>キーノート選定の理由──</h2>
+                  <h2>&ldquo;いま求められるPython像&rdquo;を映す二人</h2>
+                </div>
+                <ReasonKeynoteSelection />
               </div>
-              <ReasonKeynoteSelection />
-            </div>
-            <div className="max-lg:mb-16">
-              <DisplayDate lang={lang} />
+              <div className="max-lg:mb-16">
+                <DisplayDate lang={lang} />
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </DefaultLayout>
