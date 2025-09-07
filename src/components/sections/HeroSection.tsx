@@ -2,16 +2,16 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, EffectFade} from 'swiper/modules';
 import 'swiper/css'
 import 'swiper/css/effect-fade'
-import Image from "next/image";
 import LinkButton from "@/components/elements/LinkButton";
+import CloudflareImage from "@/components/elements/CloudflareImage";
 import {Lang} from "@/types/lang";
 import dynamic from "next/dynamic";
 import {dictionary} from "@/lang";
 import DisplayDate from '../elements/DisplayDate';
 
 const images = [
-  '/common/hero/hero_1.jpg',
-  '/common/hero/hero_2.jpg',
+  {fileName: 'hero_1', fallback: '/common/hero/hero_1.jpg'},
+  {fileName: 'hero_2', fallback: '/common/hero/hero_2.jpg'},
 ]
 
 export default function HeroSection({lang}: {lang: Lang}) {
@@ -33,10 +33,16 @@ export default function HeroSection({lang}: {lang: Lang}) {
           loop={true}
           className="w-full h-[50vh] lg:h-[85vh] overflow-hidden !-z-20"
         >
-          {images.map((src, index) => (
+          {images.map((image, index) => (
             <SwiperSlide key={index}>
-              <Image src={src} alt={`Hero Section ${index}`} width={512} height={340} priority
-                     className='w-full h-full object-cover'/>
+              <CloudflareImage 
+                category="hero"
+                fileName={image.fileName}
+                fallbackSrc={image.fallback}
+                alt={`Hero Section ${index}`} 
+                width={1920} 
+                height={1080} 
+                className='w-full h-full object-cover'/>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -50,7 +56,14 @@ export default function HeroSection({lang}: {lang: Lang}) {
         className='relative lg:w-5/8 w-10/12 h-auto mx-auto flex flex-col lg:flex-row gap-12 bg-transparent lg:-mt-24 lg:items-end'>
         <div className='flex-1'>
           <div className='relative w-4/6 max-w-72 mx-auto'>
-            <Image src='/common/hero/theme.png' alt='あつまれPythonのピース' width={1120} height={1120} className='z-10'/>
+            <CloudflareImage 
+              category="hero"
+              fileName="theme.png"
+              fallbackSrc="/common/hero/theme.png"
+              alt='あつまれPythonのピース' 
+              width={1120} 
+              height={1120} 
+              className='z-10'/>
           </div>
           <div className='text-sm lg:text-base mb-4'>
             <Abstract/>
@@ -67,19 +80,25 @@ export default function HeroSection({lang}: {lang: Lang}) {
         <div className='flex-1 w-10/12 lg:w-auto mx-auto'>
           <div className='relative aspect-[4/3] ml-auto max-h-[400px]'>
             <div className="absolute bottom-[40%] left-0 h-[60%] aspect-[4/3]">
-              <Image
-                src='/common/hero/abstract_1.jpg'
+              <CloudflareImage
+                category="hero"
+                fileName="abstract_1.jpg"
+                fallbackSrc="/common/hero/abstract_1.jpg"
                 alt='Abstract Image 1'
-                fill
-                className='object-cover rounded-lg'
+                width={800}
+                height={600}
+                className='w-full h-full object-cover rounded-lg'
               />
             </div>
             <div className="absolute bottom-0 right-0 h-[60%] aspect-[4/3]">
-              <Image
-                src='/common/hero/abstract_2.jpg'
+              <CloudflareImage
+                category="hero"
+                fileName="abstract_2.jpg"
+                fallbackSrc="/common/hero/abstract_2.jpg"
                 alt='Abstract Image 2'
-                fill
-                className='object-cover rounded-lg'
+                width={800}
+                height={600}
+                className='w-full h-full object-cover rounded-lg'
               />
             </div>
           </div>

@@ -89,9 +89,16 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
         lang={lang}
         pagePath={`/timetable/${day}`}
       />
-      <ContentsHeader title="Timetable" subtitle="タイムテーブル"
-        images={['/common/timetable_header_1.png', '/common/timetable_header_2.png']} 
-        grayscale={true} />
+      <ContentsHeader
+        grayscale
+        title="Timetable"
+        subtitle="タイムテーブル"
+        cloudflareImages={{
+          category: 'common',
+          fileNames: ['timetable_header_1', 'timetable_header_2'],
+          fallbackSrcs: ['/common/timetable_header_1.png', '/common/timetable_header_2.png']
+        }}
+      />
       
       {/* ナビゲーションタブ */}
       <NaviTimetable 

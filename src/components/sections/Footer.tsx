@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import CloudflareImage from "@/components/elements/CloudflareImage";
 import {Lang} from "@/types/lang";
 import {dictionary} from "@/lang";
 import ExternalLink from "@/components/elements/ExternalLink";
@@ -15,7 +15,7 @@ export default function Footer({lang}: { lang: Lang }) {
     <footer className='bg-white'>
       <div className='w-10/12 lg:max-w-[1000px] mx-auto pt-11 flex flex-col lg:flex-row items-stretch max-lg:gap-4'>
         <div className='flex-1'>
-          <Image src='/common/logo_footer.svg' alt='PyCon JP 2025 Logo' width={280} height={80} className='mb-6'/>
+          <CloudflareImage category='common' fileName='logo_footer.svg' fallbackSrc='/common/logo_footer.svg' alt='PyCon JP 2025 Logo' width={280} height={80} className='mb-6'/>
           <ExternalLink href='https://x.com/pyconjapan'
                         className='flex flex-row justify-between border-2 border-gray-200 rounded-r-full rounded-l-full py-3 px-8 w-full lg:w-80 mb-5'>
             <span className='font-semibold'>X</span>
@@ -92,8 +92,10 @@ export default function Footer({lang}: { lang: Lang }) {
       <div className="flex justify-center mb-20">
         <div className="flex flex-col lg:flex-row gap-2 bg-white lg:gap-10 lg:max-w-[653px] items-center p-10">
           <Link href="https://www.pycon.jp/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
-            <Image
-              src='/common/logo_association.svg'
+            <CloudflareImage
+              category='common'
+              fileName='logo_association.svg'
+              fallbackSrc='/common/logo_association.svg'
               alt="Pycon JP Association Logo"
               height={143}
               width={85}
