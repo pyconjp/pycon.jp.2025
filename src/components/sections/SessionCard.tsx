@@ -59,7 +59,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
           {/* 下部情報：左側にラベルと時間、右側にスピーカー */}
           <div className="flex justify-between items-end gap-4">
             {/* 左側：ラベルと時間情報（縦並び） */}
-            {session.slot && (
+            {session.slot ? (
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
@@ -87,6 +87,8 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                   )}
                 </div>
               </div>
+            ) : (
+              <div className="flex-1"></div>
             )}
             
             {/* 右側：スピーカー情報 */}
