@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import KeynotesSection from "@/components/sections/KeynotesSection";
 import OverviewSection from "@/components/sections/OverviewSection";
-import RecruitmentSection from "@/components/sections/RecruitmentSection";
+import SessionsSection from "@/components/sections/SessionsSection";
 import { getPatrons, getSpecialSponsors, getSponsors } from "@/libs/spreadsheet";
 import { Patron, SpecialSponsor, Sponsor } from "@/types/sponsor";
 import SponsorSection from "@/components/sections/Sponsor";
@@ -93,7 +93,7 @@ function Home({ lang, posts, sponsors, specialSponsor, patrons }: { lang: Lang, 
         <NewsSection className='mx-auto lg:w-5/8 w-10/12 mt-20' posts={posts} lang={lang} />
         <ImageSlideSection className='w-full my-20 lg:my-36' />
         <OverviewSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20' />
-        <RecruitmentSection lang={lang} className='mx-auto lg:w-5/8 w-10/12 my-20' />
+        <SessionsSection lang={lang} className='my-20' />
         <div className="bg-[#FAFAFA] py-2 pb-10">
           <SponsorSection className="mx-auto lg:w-5/8 w-10/12" sponsors={sponsors} lang={lang} patron={patrons} specialSponsors={specialSponsor} />
         </div>

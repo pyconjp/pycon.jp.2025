@@ -5,9 +5,10 @@ import { useState, useEffect } from 'react';
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import NaviTimetable from "@/components/elements/Navi_timetable";
 import PageHead from "@/components/elements/PageHead";
-import {fetchSpecial, fetchTalks} from "@/libs/pretalx";
+import {fetchSessions, SUBMISSION_TYPES} from "@/libs/pretalx";
 import { Talk } from "@/types/pretalx";
 import TalkList from "@/components/sections/TalkList";
+import SessionCard from "@/components/sections/SessionCard";
 import DateArea from "@/components/elements/DateArea";
 import ContentsHeader from "@/components/sections/ContentsHeader";
 
@@ -26,11 +27,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
   const lang = params?.lang || 'ja';
   const day = params?.day || 'day1';
-  const talks = await fetchTalks();
-  const specials = await fetchSpecial();
+  const talks = await fetchSessions(SUBMISSION_TYPES.TALK);
+  const specials = await fetchSessions(SUBMISSION_TYPES.SPECIAL);
+  const posters = await fetchSessions(SUBMISSION_TYPES.POSTER);
+  const communityPosters = await fetchSessions(SUBMISSION_TYPES.COMMUNITY_POSTER);
   
-  // talksとspecialsをマージ
+  // talksとspecialsをマージ（ポスターは別管理）
   const allTalks = [...talks, ...specials];
+  const allPosters = [...posters, ...communityPosters];
   
   // 日付でフィルタリング（9/26はday1、9/27はday2）
   const filteredTalks = allTalks.filter(talk => {
@@ -51,6 +55,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       lang,
       day,
       talks: sortedTalks,
+      posters: allPosters,
     },
     revalidate: 3600, // 1時間（3600秒）ごとに再生成
   };
@@ -60,9 +65,10 @@ interface TimetablePageProps {
   lang: Lang;
   day: string;
   talks: Talk[];
+  posters: Talk[];
 }
 
-function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
+function TimetableDayPage({lang, day, talks, posters}: TimetablePageProps) {
   const router = useRouter();
   const dayNumber = day === 'day1' ? 1 : 2;
   const dateStr = day === 'day1' ? '9/26' : '9/27';
@@ -80,6 +86,7 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
   const filteredTalks = selectedRoom 
     ? talks.filter(talk => talk.slot?.room?.id === parseInt(selectedRoom))
     : talks;
+  
   
   return (
     <DefaultLayout lang={lang} activeHeader="timetable">
@@ -144,6 +151,33 @@ function TimetableDayPage({lang, day, talks}: TimetablePageProps) {
             showFilters={false}
             groupByTime={true}
           />
+          
+          {/* ポスターセッション */}
+          {posters.length > 0 && (
+            <div id="poster-section" className="mt-12 scroll-mt-20">
+              <div className="border-t-2 border-gray-300 mb-8"></div>
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {lang === 'ja' ? 'ポスターセッション' : 'Poster Session'}
+                </h2>
+                <p className="text-sm text-gray-600 mt-2">
+                  {lang === 'ja' 
+                    ? 'ポスター発表は両日とも同じ内容で開催されます。'
+                    : 'Poster presentations will be held with the same content on both days.'}
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {posters.map((poster) => (
+                  <SessionCard
+                    key={poster.code}
+                    session={poster}
+                    locale={lang}
+                    showDate={false}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </DefaultLayout>
