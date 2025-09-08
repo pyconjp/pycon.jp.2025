@@ -35,8 +35,9 @@ function TimetablePage({ lang }: TimetablePageProps) {
   const router = useRouter();
   
   useEffect(() => {
-    // クライアントサイドでリダイレクト（next.config.tsのリダイレクトが効かない場合のフォールバック）
-    void router.replace(`/${lang}/timetable/day1`);
+    // ハッシュフラグメントを保持しながらリダイレクト
+    const hash = window.location.hash;
+    void router.replace(`/${lang}/timetable/day1${hash}`);
   }, [lang, router]);
   
   // リダイレクト中の表示

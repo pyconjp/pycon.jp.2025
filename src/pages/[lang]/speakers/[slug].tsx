@@ -3,7 +3,7 @@ import {GetStaticPaths, GetStaticProps} from 'next';
 import {useRouter} from 'next/router';
 import TrackSessionList from '@/components/sections/TrackSessionList';
 import TrackNavigation from '@/components/sections/TrackNavigation';
-import {fetchTalks} from '@/libs/pretalx';
+import {fetchSessions, SUBMISSION_TYPES} from '@/libs/pretalx';
 import {Talk, Track} from '@/types/pretalx';
 import {Lang} from '@/types/lang';
 import DefaultLayout from "@/components/layout/DefaultLayout";
@@ -112,7 +112,7 @@ export const getStaticProps: GetStaticProps<TrackPageProps> = async ({params}) =
   const track = params?.slug as Track;
 
   try {
-    const allSessions = await fetchTalks();
+    const allSessions = await fetchSessions(SUBMISSION_TYPES.TALK);
 
     return {
       props: {
