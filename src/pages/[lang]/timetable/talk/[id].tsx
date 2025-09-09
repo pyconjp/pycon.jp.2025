@@ -2,22 +2,24 @@ import { Lang } from "@/types/lang";
 import { GetStaticProps, GetStaticPaths } from "next";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import PageHead from "@/components/elements/PageHead";
-import { fetchTalks, fetchSpecial } from "@/libs/pretalx";
+import { fetchSession, fetchSessions, SUBMISSION_TYPES } from "@/libs/pretalx";
 import { Talk } from "@/types/pretalx";
 import SpeakerAvatar from "@/components/elements/SpeakerAvatar";
 import TalkDetailSection from "@/components/sections/TalkDetailSection";
 import SpeakerInfoSection from "@/components/sections/SpeakerInfoSection";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const talks = await fetchTalks();
-  const specials = await fetchSpecial();
+  const talks = await fetchSessions(SUBMISSION_TYPES.TALK);
+  const specials = await fetchSessions(SUBMISSION_TYPES.SPECIAL);
+  const posters = await fetchSessions(SUBMISSION_TYPES.POSTER);
+  const communityPosters = await fetchSessions(SUBMISSION_TYPES.COMMUNITY_POSTER);
   
-  // talksとspecialsを結合
-  const allTalks = [...talks, ...specials];
+  // 全てのセッションを結合
+  const allSessions = [...talks, ...specials, ...posters, ...communityPosters];
   
-  const paths = allTalks.flatMap(talk => [
-    { params: { lang: 'ja', id: talk.code } },
-    { params: { lang: 'en', id: talk.code } },
+  const paths = allSessions.flatMap(session => [
+    { params: { lang: 'ja', id: session.code } },
+    { params: { lang: 'en', id: session.code } },
   ]);
 
   return {
@@ -30,13 +32,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const lang = params?.lang as Lang || 'ja';
   const id = params?.id as string;
   
-  const talks = await fetchTalks();
-  const specials = await fetchSpecial();
-  
-  // talksとspecialsの両方から検索
-  const allTalks = [...talks, ...specials];
-  const talk = allTalks.find(t => t.code === id);
-  
+  // 単体のトークを直接取得
+  const talk = await fetchSession(id);
+
   if (!talk) {
     return {
       notFound: true,

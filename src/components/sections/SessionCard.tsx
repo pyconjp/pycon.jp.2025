@@ -2,6 +2,7 @@ import React from 'react';
 import {Talk} from '@/types/pretalx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SUBMISSION_TYPE_IDS, shouldShowRoom } from '@/libs/pretalx';
 
 interface SessionCardProps {
   session: Talk;
@@ -43,14 +44,14 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const dayNumber = day === 26 ? '1' : '2';
-    return `Day ${dayNumber} - ${month}/${day}`;
+    return `DAY ${dayNumber} - ${month}/${day}`;
   };
 
   return (
     <Link href={`/${locale}/timetable/talk/${session.code}`} className="block">
       <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-[0_0px_40px_0px_rgba(0,0,0,0.1)] cursor-pointer relative flex flex-col h-full">
         {/* タイトル */}
-        <h3 className="text-lg font-bold pb-8 line-clamp-2 transition-colors leading-[1.1]">
+        <h3 className="text-lg font-bold pb-8 transition-colors leading-[1.3]">
           {session.title}
         </h3>
       
@@ -62,14 +63,27 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
             {session.slot ? (
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
-                    {session.slot.room && session.slot.room.name && (
-                      locale === 'ja' 
+                  {/* ポスター分類ラベル */}
+                  {session.submission_type_id === SUBMISSION_TYPE_IDS.POSTER && (
+                    <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                      {locale === 'ja' ? 'ポスター' : 'Poster'}
+                    </span>
+                  )}
+                  {session.submission_type_id === SUBMISSION_TYPE_IDS.COMMUNITY_POSTER && (
+                    <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                      {locale === 'ja' ? 'コミュニティポスター' : 'Community Poster'}
+                    </span>
+                  )}
+                  {/* ルーム情報（特殊コードの場合は非表示） */}
+                  {session.slot.room && session.slot.room.name && shouldShowRoom(session.code) && (
+                    <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                      {locale === 'ja' 
                         ? (session.slot.room.name['ja-jp'] || session.slot.room.name.en || `Room ${session.slot.room.id}`)
-                        : (session.slot.room.name.en || session.slot.room.name['ja-jp'] || `Room ${session.slot.room.id}`)
-                    )}
-                  </span>
-                  {!session.is_special && (
+                        : (session.slot.room.name.en || session.slot.room.name['ja-jp'] || `Room ${session.slot.room.id}`)}
+                    </span>
+                  )}
+                  {/* 言語ラベル */}
+                  {session.submission_type_id !== SUBMISSION_TYPE_IDS.SPECIAL && (
                     <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
                       {getLanguageLabel(session.talk_language)}
                     </span>
@@ -88,7 +102,21 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                 </div>
               </div>
             ) : (
-              <div className="flex-1"></div>
+              <div className="flex-1">
+                {/* slotがない場合でもポスターラベルを表示 */}
+                <div className="flex flex-wrap items-center gap-2">
+                  {session.submission_type_id === SUBMISSION_TYPE_IDS.POSTER && (
+                    <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                      {locale === 'ja' ? 'ポスター' : 'Poster'}
+                    </span>
+                  )}
+                  {session.submission_type_id === SUBMISSION_TYPE_IDS.COMMUNITY_POSTER && (
+                    <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                      {locale === 'ja' ? 'コミュニティポスター' : 'Community Poster'}
+                    </span>
+                  )}
+                </div>
+              </div>
             )}
             
             {/* 右側：スピーカー情報 */}
