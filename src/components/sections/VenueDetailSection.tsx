@@ -45,9 +45,14 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
               <p className="pb-2">{dict.venue.head_name}</p>
             </div>
             <div className="border-b-2 border-gray-300 space-y-2">
+              <p className="font-bold">{dict.venue.co_host}</p>
+              <p className="pb-2">{dict.venue.co_host_name}</p>
+            </div>
+            <div className="border-b-2 border-gray-300 space-y-2">
               <p className="font-bold">{dict.venue.expected_attendees}</p>
               <p className="pb-2">{dict.venue.expected_attendees_number}</p>
             </div>
+
           </div>
         </div>
       </section>
