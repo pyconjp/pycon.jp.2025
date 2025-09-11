@@ -1,0 +1,44 @@
+name: Scheduled Cloudflare Deployment
+
+on:
+  schedule:
+    # JST 9:00 AM = UTC 0:00 AM
+    # JST 9:00 PM = UTC 12:00 PM (noon)
+    - cron: '0 0 * * *'
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  trigger-deployment:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger Cloudflare Deployment
+        run: |
+          curl -X POST "${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{}' \
+            --fail \
+            --show-error
+        
+      - name: Log Deployment Trigger
+        if: success()
+        run: |
+          echo "✅ Successfully triggered Cloudflare deployment at $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "JST Time: $(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M:%S')"
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "👤 Triggered by: ${{ github.actor }}"
+            echo "🌿 Branch: ${{ github.ref_name }}"
+          else
+            echo "⏰ Scheduled deployment"
+          fi
+        
+      - name: Log Failure
+        if: failure()
+        run: |
+          echo "❌ Failed to trigger Cloudflare deployment at $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "JST Time: $(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M:%S')"
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "👤 Triggered by: ${{ github.actor }}"
+            echo "🌿 Branch: ${{ github.ref_name }}"
+          fi
