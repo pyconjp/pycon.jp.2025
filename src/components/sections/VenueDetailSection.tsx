@@ -52,7 +52,6 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
               <p className="font-bold">{dict.venue.expected_attendees}</p>
               <p className="pb-2">{dict.venue.expected_attendees_number}</p>
             </div>
-
           </div>
         </div>
       </section>
