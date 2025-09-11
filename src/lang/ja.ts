@@ -34,6 +34,7 @@ const Ja: Dictionary = {
     nursery: '託児所',
     member: 'メンバー',
     sponsor: 'スポンサー',
+    related_events: '関連イベント',
   },
   'header': {
     venue: '広島国際会議場',
