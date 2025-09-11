@@ -34,6 +34,7 @@ const En: Dictionary = {
     nursery: 'Nursery',
     member: 'Members',
     sponsor: 'Sponsors',
+    related_events: 'Related Events',
   },
   'header': {
     venue: 'ICCH',

@@ -34,6 +34,7 @@ export type Dictionary = {
     nursery: string,
     member: string,
     sponsor: string,
+    related_events: string,
   },
   header: {
     venue: string,
