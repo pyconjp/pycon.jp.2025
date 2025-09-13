@@ -43,7 +43,7 @@ const EventCard = ({ event, lang }: { event: RelatedEvent; lang: Lang }) => {
     <Link href={event.detailsUrl} target="_blank" rel="noopener noreferrer">
       <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col relative">
         {/* Event Tag - positioned in the top-left corner */}
-        <span className="absolute top-0 left-0 z-10 inline-block px-3 py-1 text-xs font-semibold text-white rounded-tl-xl rounded-br-xl bg-primary">
+        <span className="absolute top-0 left-0 inline-block px-3 py-1 text-xs font-semibold text-white rounded-tl-xl rounded-br-xl bg-primary">
           {event.detailType}
         </span>
 
