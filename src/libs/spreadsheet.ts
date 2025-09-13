@@ -1,6 +1,7 @@
 import {Patron, SpecialSponsor, Sponsor} from "@/types/sponsor";
 import {google} from "googleapis";
 import {Member, RawMember} from "@/types/member";
+import {RelatedEvent} from "@/types/relatedEvents";
 
 const cache = new Map<string, unknown>();
 
@@ -201,4 +202,58 @@ export async function getSpecialSponsors(): Promise<SpecialSponsor[]> {
 
   cache.set('special_sponsors', sponsorPromise);
   return sponsorPromise;
+}
+
+export async function getRelatedEvents(): Promise<RelatedEvent[]> {
+  if (!process.env.RELATED_EVENT_SPREADSHEET_ID) {
+    return [];
+  }
+
+  if (cache.has('related_events')) {
+    return cache.get('related_events') as Promise<RelatedEvent[]>;
+  }
+
+  const relatedEventsPromise = (async () => {
+    const events = await fetchSheet<RelatedEvent>(
+      process.env.RELATED_EVENT_SPREADSHEET_ID || '',
+      '関連イベント!A2:P100',
+      [
+        'eventName',
+        'type',
+        'detailType',
+        'startDateTime',
+        'endDateTime',
+        'fee',
+        'participationRequirements',
+        'capacity',
+        'venueJa',
+        'venueEn',
+        'sponsoredByName',
+        'sponsoredByUrl',
+        'detailsUrl',
+        'imageUrl',
+        'appendixString',
+        'appendixUrl',
+      ]
+    );
+
+    // "-"を空文字列に変換、imageUrlはファイル名のみ抽出
+    return events.map(event => {
+      const transformedEvent: Partial<RelatedEvent> = {};
+      for (const key in event) {
+        let value = event[key as keyof RelatedEvent];
+
+        // imageUrlの場合はファイル名のみ抽出
+        if (key === 'imageUrl' && value && value !== '-') {
+          value = value.split('/').pop() || '';
+        }
+
+        (transformedEvent as Record<string, string>)[key] = value === '-' ? '' : value;
+      }
+      return transformedEvent as RelatedEvent;
+    });
+  })();
+
+  cache.set('related_events', relatedEventsPromise);
+  return relatedEventsPromise;
 }
