@@ -12,13 +12,13 @@ interface Navi_aboutProps {
   lang: Lang,
 }
 
-const navItems: { key: Position, href: string, isComingSoon?: boolean, isExternal?: boolean }[] = [
+const navItems: { key: Position, href: string, isComingSoon?: boolean }[] = [
   {key: "venue", href: "/venue"},
   {key: "coc", href: "/coc"},
   {key: "sponsor", href: "/sponsors"},
   {key: "member", href: "/members"},
   {key: "nursery", href: "/nursery"},
-  {key: "related_events", href: "/related-events", isExternal: true},
+  {key: "related_events", href: "/related-events"},
 ];
 
 export default function Navi_about({position, lang}: Navi_aboutProps) {
@@ -52,7 +52,7 @@ export default function Navi_about({position, lang}: Navi_aboutProps) {
       <nav
         ref={navRef}
         className="bg-[#FAFAFA] flex md:justify-center space-x-8 text-xs md:text-sm font-semibold py-4 border-b border-[#E4E7EB] overflow-x-auto flex-nowrap px-4 scrollbar-hide">
-        {navItems.map(({key, href, isComingSoon, isExternal}) => (
+        {navItems.map(({key, href, isComingSoon}) => (
           isComingSoon ? (
             <Tooltip key={key} overlay={<span>{dict.menu.coming_soon}</span>} trigger={['hover', 'click']}
                      placement='bottom'>
@@ -70,7 +70,6 @@ export default function Navi_about({position, lang}: Navi_aboutProps) {
             <Link
               key={key}
               href={`/${lang}${href}`}
-              {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className={clsx(
                 "relative pb-2 after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-6 after:h-0.5 after:bg-black after:transition-opacity after:duration-300 whitespace-nowrap",
                 {"after:opacity-100": position === key},
