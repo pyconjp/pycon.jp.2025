@@ -89,6 +89,8 @@ export type Dictionary = {
     commitee_name: string,
     head: string,
     head_name: string,
+    co_host: string,
+    co_host_name: string,
     see_on_google_map: string,
   },
   timetable: {

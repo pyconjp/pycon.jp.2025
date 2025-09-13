@@ -89,6 +89,8 @@ const En: Dictionary = {
     commitee_name: "PyCon JP 2025 Organizing Members",
     head: "Chair (2025)",
     head_name: "Takuya Nishimoto",
+    co_host: "Co-Host",
+    co_host_name: "Hiroshima Prefecture, The Chugoku Shimbun",
     see_on_google_map: "See on Google Maps",
   },
   'timetable': {
