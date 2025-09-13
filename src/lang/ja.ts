@@ -89,6 +89,8 @@ const Ja: Dictionary = {
     commitee_name: "PyCon JP 2025 主催メンバー",
     head: "座長(2025)",
     head_name: "西本 卓也",
+    co_host: "後援",
+    co_host_name: "広島県・中国新聞社",
     see_on_google_map: "Googleマップで見る", 
   },
   'timetable': {
