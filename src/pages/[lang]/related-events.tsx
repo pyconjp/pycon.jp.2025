@@ -48,9 +48,9 @@ const EventCard = ({ event, lang }: { event: RelatedEvent; lang: Lang }) => {
         </span>
 
         {/* Content */}
-        <div className="flex flex-1 px-6 pt-12 pb-6">
+        <div className="flex flex-col-reverse md:flex-row flex-1 px-6 pt-12 pb-6">
           {/* Left side - Event details */}
-          <div className="flex-1 pr-6">
+          <div className="flex-1 md:pr-6 mt-4 md:mt-0">
             <h3 className="font-bold text-base mb-1 line-clamp-2">{event.eventName}</h3>
 
             {/* Participation Requirements */}
@@ -109,8 +109,8 @@ const EventCard = ({ event, lang }: { event: RelatedEvent; lang: Lang }) => {
             </div>
           </div>
 
-          {/* Right side - Image */}
-          <div className="relative flex-shrink-0" style={{ width: '128px', height: '72px' }}>
+          {/* Right side on desktop, top on mobile - Image */}
+          <div className="relative flex-shrink-0 w-full md:w-32" style={{ height: '72px' }}>
             {event.imageUrl ? (
               <Image
                 src={`/common/events/${event.imageUrl}`}
