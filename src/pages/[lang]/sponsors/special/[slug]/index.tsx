@@ -14,6 +14,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: specialSponsors
       .map(specialSponsor => specialSponsor.path)
+      .filter(path => path && path.trim() !== '') // 空のパスを除外
       .reduce((acc: string[], path) => acc.includes(path) ? acc : [...acc, path], []) // 重複排除
       .map(path => [
         { params: { lang: 'ja', slug: path } },
