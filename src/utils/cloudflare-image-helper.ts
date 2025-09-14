@@ -27,13 +27,19 @@ export function getCloudflareImageUrl(
   fileName: string,
   category: string,
   variant: string = 'public'
-): string {
+): string | undefined {
+  // Check if a fileName is empty or invalid
+  if (!fileName || fileName.trim() === '') {
+    console.warn(`Empty fileName provided for category: ${category}`);
+    return undefined;
+  }
+
   const accountHash = process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH;
   if (!accountHash) {
     console.warn('Cloudflare account hash not configured');
-    return '';
+    return undefined;
   }
-  
+
   const imageId = generateCloudflareImageId(fileName, category);
   return `https://imagedelivery.net/${accountHash}/${imageId}/${variant}`;
 }

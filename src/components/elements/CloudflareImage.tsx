@@ -22,13 +22,13 @@ export default function CloudflareImage({
   className
 }: CloudflareImageProps) {
   const [imgSrc, setImgSrc] = useState(() => {
-    if (!fileName) return fallbackSrc;
+    if (!fileName || fileName.trim() === '') return fallbackSrc;
     const url = getCloudflareImageUrl(category, fileName);
-    return url ?? fallbackSrc;
+    return url || fallbackSrc;
   });
 
   // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
-  const isCloudflareUrl = imgSrc.includes('imagedelivery.net');
+  const isCloudflareUrl = imgSrc && imgSrc.includes('imagedelivery.net');
 
   if (isCloudflareUrl) {
     return (
