@@ -116,7 +116,7 @@ const EventCard = ({ event, lang }: { event: RelatedEvent; lang: Lang }) => {
                 src={`/common/events/${event.imageUrl}`}
                 alt={event.eventName}
                 fill
-                className="object-cover rounded-lg"
+                className="object-contain rounded-lg"
               />
             ) : (
               <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
