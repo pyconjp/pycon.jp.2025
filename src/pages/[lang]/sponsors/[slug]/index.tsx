@@ -101,9 +101,9 @@ function SponsorPage({ sponsors, lang }: Props) {
                   <div className="rounded-xl border border-[#0000001A] w-[195px] h-[115px] lg:w-[400px] lg:h-[175px] flex justify-center items-center overflow-hidden">
                     <CloudflareImage
                       category="sponsors"
-                      fileName={currentSponsor.logo_image}
+                      fileName={currentSponsor.logo_image || ''}
                       fallbackSrc="/common/no_image_sponsor.png"
-                      alt={lang === 'ja' ? currentSponsor.name_ja : currentSponsor.name_en}
+                      alt={lang === 'ja' ? (currentSponsor.name_ja || currentSponsor.name_en) : (currentSponsor.name_en || currentSponsor.name_ja)}
                       width={480}
                       height={210}
                       className="w-full h-full p-2 lg:p-5 object-contain"
