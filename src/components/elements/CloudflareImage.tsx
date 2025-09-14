@@ -28,7 +28,7 @@ export default function CloudflareImage({
   });
 
   // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
-  const isCloudflareUrl = imgSrc.includes('imagedelivery.net');
+  const isCloudflareUrl = imgSrc && imgSrc.includes('imagedelivery.net');
 
   if (isCloudflareUrl) {
     return (
