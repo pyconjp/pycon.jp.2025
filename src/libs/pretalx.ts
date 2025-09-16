@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from 'axios';
-import {OriginalTalk, Talk, Track, Level, PretalxApiResponse} from '@/types/pretalx';
+import {Level, OriginalTalk, PosterSession, PretalxApiResponse, Talk, TalkSession, Track} from '@/types/pretalx';
 import {Lang} from '@/types/lang';
 
 const EVENT_ID = 'pycon-jp-2025';
@@ -10,9 +10,22 @@ export const SUBMISSION_TYPES = {
   SPECIAL: 6521,
   POSTER: 5949,
   COMMUNITY_POSTER: 5950,
+  LUNCH: -1, // Lunch用の特殊値
 } as const;
 
 export type SubmissionType = typeof SUBMISSION_TYPES[keyof typeof SUBMISSION_TYPES];
+
+// Type guard functions
+export const isTalkSession = (session: Talk): session is TalkSession => {
+  return session.submission_type_id === SUBMISSION_TYPES.TALK ||
+         session.submission_type_id === SUBMISSION_TYPES.SPECIAL ||
+         session.submission_type_id === SUBMISSION_TYPES.LUNCH;
+};
+
+export const isPosterSession = (session: Talk): session is PosterSession => {
+  return session.submission_type_id === SUBMISSION_TYPES.POSTER ||
+         session.submission_type_id === SUBMISSION_TYPES.COMMUNITY_POSTER;
+};
 
 // ルーム表示を非表示にする特殊コード
 export const CODES_WITHOUT_ROOM = ['NYCNJH', 'N7NJCH'] as const;
@@ -73,38 +86,7 @@ const getLevel = (originalTalk: OriginalTalk): Level => {
 
 // OriginalTalkからTalkへの変換処理
 const parseTalk = (originalTalk: OriginalTalk): Talk => {
-  // POSTERとCOMMUNITY_POSTERの場合のroom情報
-  const isPoster = originalTalk.submission_type.id === SUBMISSION_TYPES.POSTER ||
-                   originalTalk.submission_type.id === SUBMISSION_TYPES.COMMUNITY_POSTER;
-
-  let slot = null;
-
-  if (isPoster) {
-    // POSTERとCOMMUNITY_POSTERの場合は固定のroom情報を設定
-    slot = {
-      room: {
-        id: 4811,
-        name: {
-          'ja-jp': 'サクラ',
-          en: 'Sakura',
-        },
-      },
-      start: null,
-      end: null,
-    };
-  } else if (originalTalk.slots.length > 0 && originalTalk.slots[0].room && originalTalk.slots[0].start && originalTalk.slots[0].end) {
-    // 通常のトークの場合
-    slot = {
-      room: {
-        id: originalTalk.slots[0].room.id,
-        name: originalTalk.slots[0].room.name,
-      },
-      start: originalTalk.slots[0].start,
-      end: originalTalk.slots[0].end,
-    };
-  }
-
-  return {
+  const baseData = {
     code: originalTalk.code,
     title: originalTalk.title,
     speakers: originalTalk.speakers.map(speaker => ({
@@ -124,9 +106,68 @@ const parseTalk = (originalTalk: OriginalTalk): Talk => {
       resource: resource.resource,
       description: resource.description,
     })),
-    slot,
-    submission_type_id: originalTalk.submission_type.id,
   };
+
+  // POSTERとCOMMUNITY_POSTERの場合
+  if (originalTalk.submission_type.id === SUBMISSION_TYPES.POSTER ||
+      originalTalk.submission_type.id === SUBMISSION_TYPES.COMMUNITY_POSTER) {
+    const posterSession: PosterSession = {
+      ...baseData,
+      submission_type_id: originalTalk.submission_type.id as 5949 | 5950,
+      slot: {
+        room: {
+          id: 4811,
+          name: {
+            'ja-jp': 'サクラ',
+            en: 'Sakura',
+          },
+        },
+        start: null,
+        end: null,
+      },
+    };
+    return posterSession;
+  }
+
+  // TALKとSPECIALの場合
+  if (originalTalk.submission_type.id === SUBMISSION_TYPES.TALK ||
+      originalTalk.submission_type.id === SUBMISSION_TYPES.SPECIAL) {
+    // slotsが空配列の場合はnull
+    if (!originalTalk.slots.length) {
+      return {
+        ...baseData,
+        submission_type_id: originalTalk.submission_type.id as 5948 | 6521,
+        slot: null,
+      };
+    }
+
+    // slotsが空でない場合、room/start/endのいずれかがない場合もnull
+    if (!originalTalk.slots[0].room || !originalTalk.slots[0].start || !originalTalk.slots[0].end) {
+      console.warn(`Talk/Special session ${originalTalk.code} has incomplete slot data`);
+      return {
+        ...baseData,
+        submission_type_id: originalTalk.submission_type.id as 5948 | 6521,
+        slot: null,
+      };
+    }
+
+    // 正常なslotがある場合（room, start, endが全て存在）
+    return {
+      ...baseData,
+      submission_type_id: originalTalk.submission_type.id as 5948 | 6521,
+      slot: {
+        room: {
+          id: originalTalk.slots[0].room.id,
+          name: originalTalk.slots[0].room.name,
+        },
+        start: originalTalk.slots[0].start,
+        end: originalTalk.slots[0].end,
+      },
+    };
+  }
+
+  // 未知のsubmission_typeの場合（通常はありえない）
+  throw new Error(`Unknown submission type: ${originalTalk.submission_type.id}`);
 };
 
 // 統合されたセッション取得関数

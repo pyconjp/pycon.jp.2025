@@ -11,7 +11,8 @@ interface SessionCardProps {
 }
 
 const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = false }) => {
-  const formatTime = (start: string, end: string) => {
+  const formatTime = (start: string | null, end: string | null) => {
+    if (!start || !end) return '';
     const startDate = new Date(start);
     const endDate = new Date(end);
     
@@ -27,7 +28,8 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
     return `${startTime} - ${endTime}`;
   };
 
-  const calculateDuration = (start: string, end: string) => {
+  const calculateDuration = (start: string | null, end: string | null) => {
+    if (!start || !end) return 0;
     const startDate = new Date(start);
     const endDate = new Date(end);
     const diffMs = endDate.getTime() - startDate.getTime();
@@ -38,7 +40,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
     return lang === 'ja' ? '日本語' : 'EN';
   };
 
-  const getDateInfo = (dateStr: string) => {
+  const getDateInfo = (dateStr: string | null) => {
     if (!dateStr) return null;
     const date = new Date(dateStr);
     const day = date.getDate();
@@ -48,7 +50,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
   };
 
   // Lunchの特別な表示
-  if (session.submission_type_id === -1) {
+  if (session.submission_type_id === SUBMISSION_TYPES.LUNCH) {
     return (
       <div className="bg-gray-100 border border-gray-300 rounded-lg p-6 relative flex flex-col h-full">
         {/* タイトル */}
@@ -127,10 +129,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                   </div>
                 )}
                 <div className="flex flex-col gap-1">
-                  <div className="text-sm flex items-center gap-2">
-                    <span className="text-gray-900 font-bold">{formatTime(session.slot.start, session.slot.end)}</span>
-                    <span className="text-gray-600">{calculateDuration(session.slot.start, session.slot.end)}min</span>
-                  </div>
+                  {session.slot.start && session.slot.end && (
+                    <div className="text-sm flex items-center gap-2">
+                      <span className="text-gray-900 font-bold">{formatTime(session.slot.start, session.slot.end)}</span>
+                      <span className="text-gray-600">{calculateDuration(session.slot.start, session.slot.end)}min</span>
+                    </div>
+                  )}
                   {showDate && session.slot.start && (
                     <div className="text-xs text-gray-500 font-bold">
                       {getDateInfo(session.slot.start)}

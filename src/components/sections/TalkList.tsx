@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { Talk, Track } from '@/types/pretalx';
+import { Talk, Track, TalkSession } from '@/types/pretalx';
 import SessionCard from './SessionCard';
 import { Lang } from '@/types/lang';
 import Ja from '@/lang/ja';
 import En from '@/lang/en';
+import { SUBMISSION_TYPES } from '@/libs/pretalx';
 
 interface TalkListProps {
   talks: Talk[];
@@ -26,7 +27,7 @@ const TalkList: React.FC<TalkListProps> = ({
   const allTracks: Track[] = ['ai', 'practice', 'edu', 'devops', 'web', 'libs', 'core', 'media', 'iot', 'other'];
 
   // Lunchの擬似トークを生成
-  const createLunchTalk = (dayStr: string, startTime: string, endTime: string): Talk => {
+  const createLunchTalk = (dayStr: string, startTime: string, endTime: string): TalkSession => {
     return {
       code: `LUNCH-${dayStr}`,
       title: 'Lunch',
@@ -44,7 +45,7 @@ const TalkList: React.FC<TalkListProps> = ({
         start: startTime,
         end: endTime,
       },
-      submission_type_id: -1, // 特殊な値でLunchを識別
+      submission_type_id: SUBMISSION_TYPES.LUNCH, // 特殊な値でLunchを識別
     };
   };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Talk } from '@/types/pretalx';
+import { isTalkSession } from '@/libs/pretalx';
 import SessionCard from './SessionCard';
 
 interface TrackSessionListProps {
@@ -8,14 +9,34 @@ interface TrackSessionListProps {
   locale: 'ja' | 'en';
 }
 
-const TrackSessionList: React.FC<TrackSessionListProps> = ({ 
-  sessions, 
+const TrackSessionList: React.FC<TrackSessionListProps> = ({
+  sessions,
   locale
 }) => {
-  const sortedSessions = sessions.sort((a, b) => {
-    if (!a.slot || !b.slot) return 0;
-    return new Date(a.slot.start).getTime() - new Date(b.slot.start).getTime();
-  });
+  const sortedSessions = sessions
+    .filter(session => session.slot !== null) // slotがnullのものを除外
+    .sort((a, b) => {
+      // Type guard を使用して型安全にアクセス
+      const aIsTalk = isTalkSession(a);
+      const bIsTalk = isTalkSession(b);
+
+      // 両方がTalkSessionの場合
+      if (aIsTalk && bIsTalk && a.slot && b.slot) {
+        return new Date(a.slot.start).getTime() - new Date(b.slot.start).getTime();
+      }
+
+      // 片方だけがTalkSessionの場合、TalkSessionを先に
+      if (aIsTalk && !bIsTalk) return -1;
+      if (!aIsTalk && bIsTalk) return 1;
+
+      // 両方がPosterSessionの場合
+      if (!aIsTalk && !bIsTalk) {
+        if (!a.slot || !b.slot || !a.slot.start || !b.slot.start) return 0;
+        return new Date(a.slot.start).getTime() - new Date(b.slot.start).getTime();
+      }
+
+      return 0;
+    });
 
 
   return (
