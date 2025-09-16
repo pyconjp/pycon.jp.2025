@@ -18,6 +18,7 @@ const En: Dictionary = {
     timetable: 'Timetable',
     speakers: 'Speakers',
     map: 'Map',
+    sightseeing: 'Sightseeing',
     venue: 'Venue',
     coc: 'Code of Conduct',
     members: 'Members',
@@ -106,6 +107,13 @@ const En: Dictionary = {
       'media': 'Video, Music, Games, Illustrations',
       'iot': 'IoT, Hardware, Networking',
     }
+  },
+  'sightseeing': {
+    title: 'Sightseeing',
+    subtitle: 'Nearby Attractions',
+    updateComing: 'Hiroshima, Updating.',
+    description: "New spots are opening all over the city, making parks and museums more exciting than ever. In conjunction with PyCon 2025's venue 'Gather Python's Peace', we've picked out the latest of Hiroshima. Whether you're visiting for the first time or returning after a while, you're sure to discover something new about Hiroshima. Step out from the International Conference Center and explore the unique Hiroshima of today.",
+    googleMapButton: 'Google Map'
   }
 }
 
