@@ -16,7 +16,7 @@ export default function DisplayDate({ lang }: { lang: Lang }) {
     href?: string
   }) => {
     const content = (
-      <div className={clsx('flex-1 rounded-lg py-4 lg:py-6 text-center', className, href && 'cursor-pointer')}>
+      <div className={clsx('flex-1 rounded-lg py-4 lg:py-6 text-center transition-all', className, href && 'cursor-pointer hover:brightness-90')}>
         <div className='w-full text-xl'>
           {day}
         </div>
@@ -44,8 +44,11 @@ export default function DisplayDate({ lang }: { lang: Lang }) {
           <DateArea day='DAY 1' month='09' date='26' weekday='FRI' className='bg-secondary text-black' href={`/${lang}/timetable/day1`} />
           <DateArea day='DAY 2' month='09' date='27' weekday='SAT' className='bg-primary text-white' href={`/${lang}/timetable/day2`} />
         </div>
-        <div
-          className='bg-gray-50 rounded-lg h-12 lg:h-16 border-gray-300 border-2 flex justify-between items-center px-6'>
+        <a
+          href='https://pyconjp.connpass.com/event/361701/'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='bg-gray-50 rounded-lg h-12 lg:h-16 border-gray-300 border-2 flex justify-between items-center px-6 hover:bg-gray-100 transition-colors cursor-pointer'>
           <div className='flex flex-1 gap-4 text-x'>
             <span><FontAwesomeIcon icon={faPlus} /></span>
             <span>9/28</span>
@@ -54,7 +57,7 @@ export default function DisplayDate({ lang }: { lang: Lang }) {
           <div>
             {dict.top.sprint_day}
           </div>
-        </div>
+        </a>
       </div>
     </div>
   )
