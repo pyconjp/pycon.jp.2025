@@ -19,8 +19,8 @@ const SightseeingPage = ({ locale, places }: SightseeingPageProps) => {
   return (
     <DefaultLayout lang={locale}>
       <PageHead
-        title={dict.sightseeing.title}
-        description={dict.sightseeing.description}
+        title={locale === "ja" ? '周辺施設' : 'Sightseeing'}
+        description={locale === "ja" ? 'PyCon JP 2025の会場周辺の観光施設をご紹介します' : 'Discover tourist attractions around the PyCon JP 2025 venue'}
         lang={locale}
         pagePath="/sightseeing"
       />
