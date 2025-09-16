@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from 'axios';
-import {Level, OriginalTalk, PosterSession, PretalxApiResponse, Talk, TalkSession, Track} from '@/types/pretalx';
+import {Level, OriginalTalk, PretalxApiResponse, Talk, TalkSession, Track} from '@/types/pretalx';
 import {Lang} from '@/types/lang';
 
 const EVENT_ID = 'pycon-jp-2025';
@@ -20,11 +20,6 @@ export const isTalkSession = (session: Talk): session is TalkSession => {
   return session.submission_type_id === SUBMISSION_TYPES.TALK ||
          session.submission_type_id === SUBMISSION_TYPES.SPECIAL ||
          session.submission_type_id === SUBMISSION_TYPES.LUNCH;
-};
-
-export const isPosterSession = (session: Talk): session is PosterSession => {
-  return session.submission_type_id === SUBMISSION_TYPES.POSTER ||
-         session.submission_type_id === SUBMISSION_TYPES.COMMUNITY_POSTER;
 };
 
 // ルーム表示を非表示にする特殊コード
@@ -111,7 +106,7 @@ const parseTalk = (originalTalk: OriginalTalk): Talk => {
   // POSTERとCOMMUNITY_POSTERの場合
   if (originalTalk.submission_type.id === SUBMISSION_TYPES.POSTER ||
       originalTalk.submission_type.id === SUBMISSION_TYPES.COMMUNITY_POSTER) {
-    const posterSession: PosterSession = {
+    return {
       ...baseData,
       submission_type_id: originalTalk.submission_type.id as 5949 | 5950,
       slot: {
@@ -126,7 +121,6 @@ const parseTalk = (originalTalk: OriginalTalk): Talk => {
         end: null,
       },
     };
-    return posterSession;
   }
 
   // TALKとSPECIALの場合
