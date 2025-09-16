@@ -4,6 +4,7 @@ import { dictionary } from '@/lang';
 import DefaultLayout from '@/components/layout/DefaultLayout';
 import PageHead from '@/components/elements/PageHead';
 import ContentsHeader from '@/components/sections/ContentsHeader';
+import CloudflareImage from '@/components/elements/CloudflareImage';
 import { SightseeingPlace } from '@/types/sightseeing';
 import { getSightseeingPlaces } from '@/libs/spreadsheet';
 
@@ -36,7 +37,7 @@ const SightseeingPage = ({ locale, places }: SightseeingPageProps) => {
 
       {/* Table of Contents - 目次 */}
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-[#FAFAFA] border border-[#0000001A] rounded-2xl p-5 max-w-4xl mx-auto">
+        <div className="bg-[#FAFAFA] border border-[#0000001A] rounded-2xl p-5 max-w-5xl mx-auto">
           <div className="lg:grid grid-cols-2 gap-x-4 gap-y-2">
             {places.map((place, index) => (
               <a
@@ -59,7 +60,7 @@ const SightseeingPage = ({ locale, places }: SightseeingPageProps) => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         {/* Introduction Section */}
-        <div className="max-w-4xl mx-auto mb-16">
+        <div className="max-w-5xl mx-auto mb-16">
           <h2 className="text-3xl font-bold mb-6">{dict.sightseeing.updateComing}</h2>
           <p className="text-lg leading-relaxed">{dict.sightseeing.description}</p>
         </div>
@@ -73,9 +74,13 @@ const SightseeingPage = ({ locale, places }: SightseeingPageProps) => {
                 {/* 画像 - 横幅100% */}
                 {place.image && (
                   <div className="relative w-full h-64 md:h-96 mb-6 overflow-hidden rounded-lg">
-                    <img
-                      src={place.image}
+                    <CloudflareImage
+                      category="sightseeing"
+                      fileName={place.image}
+                      fallbackSrc={`/common/sightseeing/${place.image}`}
                       alt={locale === 'ja' ? place.name_ja : place.name_en}
+                      width={1200}
+                      height={600}
                       className="w-full h-full object-cover"
                     />
                   </div>
