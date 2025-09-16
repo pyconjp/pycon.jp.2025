@@ -10,22 +10,62 @@ interface TalkListProps {
   locale: Lang;
   showFilters?: boolean;
   groupByTime?: boolean;
+  day?: 'day1' | 'day2'; // 日付を追加
 }
 
-const TalkList: React.FC<TalkListProps> = ({ 
-  talks, 
+const TalkList: React.FC<TalkListProps> = ({
+  talks,
   locale,
   showFilters = true,
-  groupByTime = false
+  groupByTime = false,
+  day
 }) => {
   const dictionary = locale === 'ja' ? Ja : En;
   const [selectedTrack, setSelectedTrack] = useState<Track | 'all'>('all');
-  
+
   const allTracks: Track[] = ['ai', 'practice', 'edu', 'devops', 'web', 'libs', 'core', 'media', 'iot', 'other'];
-  
+
+  // Lunchの擬似トークを生成
+  const createLunchTalk = (dayStr: string, startTime: string, endTime: string): Talk => {
+    return {
+      code: `LUNCH-${dayStr}`,
+      title: 'Lunch',
+      speakers: [],
+      track: 'other' as Track,
+      abstract: '',
+      description: '',
+      duration: 60,
+      talk_language: 'en' as Lang,
+      slide_language: 'en' as Lang,
+      level: 'beginner',
+      resource: [],
+      slot: {
+        room: { id: 0, name: { en: '', 'ja-jp': '' } },
+        start: startTime,
+        end: endTime,
+      },
+      submission_type_id: -1, // 特殊な値でLunchを識別
+    };
+  };
+
+  // dayに応じてLunchを追加
+  const talksWithLunch = useMemo(() => {
+    const allTalks = [...talks];
+
+    if (day === 'day1') {
+      // Day1: 12:30-13:30
+      allTalks.push(createLunchTalk('DAY1', '2025-09-26T12:30:00+09:00', '2025-09-26T13:30:00+09:00'));
+    } else if (day === 'day2') {
+      // Day2: 12:20-13:20
+      allTalks.push(createLunchTalk('DAY2', '2025-09-27T12:20:00+09:00', '2025-09-27T13:20:00+09:00'));
+    }
+
+    return allTalks;
+  }, [talks, day]);
+
   // トークをフィルタリング
   const filteredTalks = useMemo(() => {
-    let filtered = talks;
+    let filtered = talksWithLunch;
     
     if (selectedTrack !== 'all') {
       filtered = filtered.filter(talk => talk.track === selectedTrack);
@@ -42,7 +82,7 @@ const TalkList: React.FC<TalkListProps> = ({
       }
       return timeComparison;
     });
-  }, [talks, selectedTrack]);
+  }, [talksWithLunch, selectedTrack]);
   
   // 時刻ごとにグルーピング
   const groupedTalks = useMemo(() => {
@@ -139,9 +179,9 @@ const TalkList: React.FC<TalkListProps> = ({
       {/* 空の状態 */}
       {filteredTalks.length === 0 && (
         <div className="text-center py-12 text-gray-500">
-          {locale === 'ja' 
-            ? 'セッション情報は準備中です。'
-            : 'Session information is coming soon.'}
+          {locale === 'ja'
+            ? 'セッションはありません。'
+            : 'No sessions available.'}
         </div>
       )}
     </div>

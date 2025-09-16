@@ -6,13 +6,6 @@ const EVENT_ID = 'pycon-jp-2025';
 
 // Submission Type定数
 export const SUBMISSION_TYPES = {
-  TALK: '5948' as const,
-  SPECIAL: '6521' as const,
-  POSTER: '5949' as const,
-  COMMUNITY_POSTER: '5950' as const,
-};
-
-export const SUBMISSION_TYPE_IDS = {
   TALK: 5948,
   SPECIAL: 6521,
   POSTER: 5949,
@@ -79,36 +72,62 @@ const getLevel = (originalTalk: OriginalTalk): Level => {
 };
 
 // OriginalTalkからTalkへの変換処理
-const parseTalk = (originalTalk: OriginalTalk): Talk => ({
-  code: originalTalk.code,
-  title: originalTalk.title,
-  speakers: originalTalk.speakers.map(speaker => ({
-    code: speaker.code,
-    name: speaker.name,
-    biography: speaker.biography,
-    avatar_url: speaker.avatar_url,
-  })),
-  track: TRACK_ID_MAP[originalTalk.track] || 'other',
-  abstract: originalTalk.abstract,
-  description: originalTalk.description,
-  duration: originalTalk.duration,
-  talk_language: getLanguageLabel(originalTalk, QUESTION_IDS.talk_language),
-  slide_language: getLanguageLabel(originalTalk, QUESTION_IDS.slide_language),
-  level: getLevel(originalTalk),
-  resource: originalTalk.resources.map(resource => ({
-    resource: resource.resource,
-    description: resource.description,
-  })),
-  slot: originalTalk.slots.length > 0 && originalTalk.slots[0].room && originalTalk.slots[0].start && originalTalk.slots[0].end ? {
-    room: {
-      id: originalTalk.slots[0].room.id,
-      name: originalTalk.slots[0].room.name,
-    },
-    start: originalTalk.slots[0].start,
-    end: originalTalk.slots[0].end,
-  } : null,
-  submission_type_id: originalTalk.submission_type.id,
-});
+const parseTalk = (originalTalk: OriginalTalk): Talk => {
+  // POSTERとCOMMUNITY_POSTERの場合のroom情報
+  const isPoster = originalTalk.submission_type.id === SUBMISSION_TYPES.POSTER ||
+                   originalTalk.submission_type.id === SUBMISSION_TYPES.COMMUNITY_POSTER;
+
+  let slot = null;
+
+  if (isPoster) {
+    // POSTERとCOMMUNITY_POSTERの場合は固定のroom情報を設定
+    slot = {
+      room: {
+        id: 4811,
+        name: {
+          'ja-jp': 'サクラ',
+          en: 'Sakura',
+        },
+      },
+      start: null,
+      end: null,
+    };
+  } else if (originalTalk.slots.length > 0 && originalTalk.slots[0].room && originalTalk.slots[0].start && originalTalk.slots[0].end) {
+    // 通常のトークの場合
+    slot = {
+      room: {
+        id: originalTalk.slots[0].room.id,
+        name: originalTalk.slots[0].room.name,
+      },
+      start: originalTalk.slots[0].start,
+      end: originalTalk.slots[0].end,
+    };
+  }
+
+  return {
+    code: originalTalk.code,
+    title: originalTalk.title,
+    speakers: originalTalk.speakers.map(speaker => ({
+      code: speaker.code,
+      name: speaker.name,
+      biography: speaker.biography,
+      avatar_url: speaker.avatar_url,
+    })),
+    track: TRACK_ID_MAP[originalTalk.track] || 'other',
+    abstract: originalTalk.abstract,
+    description: originalTalk.description,
+    duration: originalTalk.duration,
+    talk_language: getLanguageLabel(originalTalk, QUESTION_IDS.talk_language),
+    slide_language: getLanguageLabel(originalTalk, QUESTION_IDS.slide_language),
+    level: getLevel(originalTalk),
+    resource: originalTalk.resources.map(resource => ({
+      resource: resource.resource,
+      description: resource.description,
+    })),
+    slot,
+    submission_type_id: originalTalk.submission_type.id,
+  };
+};
 
 // 統合されたセッション取得関数
 // 単体のセッション取得関数
@@ -151,7 +170,7 @@ export const fetchSession = async (code: string): Promise<Talk | null> => {
 export const fetchSessions = async (submissionType: SubmissionType): Promise<Talk[]> => {
   // URLSearchParamsを使用して複数のstateパラメータを追加
   const searchParams = new URLSearchParams();
-  searchParams.append('submission_type', submissionType);
+  searchParams.append('submission_type', String(submissionType));
   searchParams.append('expand', [
     'answers',
     'answers.question',

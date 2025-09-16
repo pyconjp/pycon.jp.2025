@@ -7,7 +7,7 @@ import MarkdownContent from '@/components/elements/MarkdownContent';
 import ResourceSection from '@/components/sections/ResourceSection';
 import { Talk } from '@/types/pretalx';
 import { Lang } from '@/types/lang';
-import { SUBMISSION_TYPE_IDS, shouldShowRoom } from '@/libs/pretalx';
+import { SUBMISSION_TYPES, shouldShowRoom } from '@/libs/pretalx';
 
 interface TalkDetailCardProps {
   talk: Talk;
@@ -97,15 +97,27 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
             <div>
               {/* ラベル情報 */}
               <div className="flex flex-wrap items-center gap-2 mb-2">
+                {/* ポスター分類ラベル */}
+                {talk.submission_type_id === SUBMISSION_TYPES.POSTER && (
+                  <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                    {lang === 'ja' ? 'ポスター' : 'Poster'}
+                  </span>
+                )}
+                {talk.submission_type_id === SUBMISSION_TYPES.COMMUNITY_POSTER && (
+                  <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                    {lang === 'ja' ? 'コミュニティポスター' : 'Community Poster'}
+                  </span>
+                )}
+
                 {talk.slot?.room && talk.slot.room.name && shouldShowRoom(talk.code) && (
                   <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
-                    {lang === 'ja' 
+                    {lang === 'ja'
                       ? (talk.slot.room.name['ja-jp'] || talk.slot.room.name.en || `Room ${talk.slot.room.id}`)
                       : (talk.slot.room.name.en || talk.slot.room.name['ja-jp'] || `Room ${talk.slot.room.id}`)}
                   </span>
                 )}
-                
-                {talk.talk_language && talk.submission_type_id !== SUBMISSION_TYPE_IDS.SPECIAL && (
+
+                {talk.talk_language && talk.submission_type_id !== SUBMISSION_TYPES.SPECIAL && (
                   <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
                     {getLanguageLabel(talk.talk_language)}
                   </span>

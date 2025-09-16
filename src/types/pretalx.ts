@@ -34,8 +34,8 @@ export type Resource = {
 
 export type Slot = {
   room: Room,
-  start: string,
-  end: string,
+  start: string | null,
+  end: string | null,
 }
 
 export type Room = {
