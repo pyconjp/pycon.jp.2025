@@ -2,6 +2,7 @@ import {Patron, SpecialSponsor, Sponsor} from "@/types/sponsor";
 import {google} from "googleapis";
 import {Member, RawMember} from "@/types/member";
 import {RelatedEvent} from "@/types/relatedEvents";
+import {SightseeingPlace} from "@/types/sightseeing";
 
 const cache = new Map<string, unknown>();
 
@@ -256,4 +257,32 @@ export async function getRelatedEvents(): Promise<RelatedEvent[]> {
 
   cache.set('related_events', relatedEventsPromise);
   return relatedEventsPromise;
+}
+
+export async function getSightseeingPlaces(): Promise<SightseeingPlace[]> {
+  if (!process.env.SIGHTSEEING_SPREADSHEET_ID) {
+    return [];
+  }
+
+  if (cache.has('sightseeing_places')) {
+    return cache.get('sightseeing_places') as Promise<SightseeingPlace[]>;
+  }
+
+  const sightseeingPromise = (async () => {
+    return await fetchSheet<SightseeingPlace>(
+      process.env.SIGHTSEEING_SPREADSHEET_ID || '',
+      'シート1!A2:F100',
+      [
+        'name_ja',
+        'description_ja',
+        'name_en',
+        'description_en',
+        'google_map_url',
+        'image',
+      ]
+    );
+  })();
+
+  cache.set('sightseeing_places', sightseeingPromise);
+  return sightseeingPromise;
 }

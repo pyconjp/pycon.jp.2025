@@ -1,25 +1,26 @@
 import axios, {AxiosResponse} from 'axios';
-import {OriginalTalk, Talk, Track, Level, PretalxApiResponse} from '@/types/pretalx';
+import {Level, OriginalTalk, PretalxApiResponse, Talk, TalkSession, Track} from '@/types/pretalx';
 import {Lang} from '@/types/lang';
 
 const EVENT_ID = 'pycon-jp-2025';
 
 // Submission Type定数
 export const SUBMISSION_TYPES = {
-  TALK: '5948' as const,
-  SPECIAL: '6521' as const,
-  POSTER: '5949' as const,
-  COMMUNITY_POSTER: '5950' as const,
-};
-
-export const SUBMISSION_TYPE_IDS = {
   TALK: 5948,
   SPECIAL: 6521,
   POSTER: 5949,
   COMMUNITY_POSTER: 5950,
+  LUNCH: -1, // Lunch用の特殊値
 } as const;
 
 export type SubmissionType = typeof SUBMISSION_TYPES[keyof typeof SUBMISSION_TYPES];
+
+// Type guard functions
+export const isTalkSession = (session: Talk): session is TalkSession => {
+  return session.submission_type_id === SUBMISSION_TYPES.TALK ||
+         session.submission_type_id === SUBMISSION_TYPES.SPECIAL ||
+         session.submission_type_id === SUBMISSION_TYPES.LUNCH;
+};
 
 // ルーム表示を非表示にする特殊コード
 export const CODES_WITHOUT_ROOM = ['NYCNJH', 'N7NJCH'] as const;
@@ -79,36 +80,89 @@ const getLevel = (originalTalk: OriginalTalk): Level => {
 };
 
 // OriginalTalkからTalkへの変換処理
-const parseTalk = (originalTalk: OriginalTalk): Talk => ({
-  code: originalTalk.code,
-  title: originalTalk.title,
-  speakers: originalTalk.speakers.map(speaker => ({
-    code: speaker.code,
-    name: speaker.name,
-    biography: speaker.biography,
-    avatar_url: speaker.avatar_url,
-  })),
-  track: TRACK_ID_MAP[originalTalk.track] || 'other',
-  abstract: originalTalk.abstract,
-  description: originalTalk.description,
-  duration: originalTalk.duration,
-  talk_language: getLanguageLabel(originalTalk, QUESTION_IDS.talk_language),
-  slide_language: getLanguageLabel(originalTalk, QUESTION_IDS.slide_language),
-  level: getLevel(originalTalk),
-  resource: originalTalk.resources.map(resource => ({
-    resource: resource.resource,
-    description: resource.description,
-  })),
-  slot: originalTalk.slots.length > 0 && originalTalk.slots[0].room && originalTalk.slots[0].start && originalTalk.slots[0].end ? {
-    room: {
-      id: originalTalk.slots[0].room.id,
-      name: originalTalk.slots[0].room.name,
-    },
-    start: originalTalk.slots[0].start,
-    end: originalTalk.slots[0].end,
-  } : null,
-  submission_type_id: originalTalk.submission_type.id,
-});
+const parseTalk = (originalTalk: OriginalTalk): Talk => {
+  const baseData = {
+    code: originalTalk.code,
+    title: originalTalk.title,
+    speakers: originalTalk.speakers.map(speaker => ({
+      code: speaker.code,
+      name: speaker.name,
+      biography: speaker.biography,
+      avatar_url: speaker.avatar_url,
+    })),
+    track: TRACK_ID_MAP[originalTalk.track] || 'other',
+    abstract: originalTalk.abstract,
+    description: originalTalk.description,
+    duration: originalTalk.duration,
+    talk_language: getLanguageLabel(originalTalk, QUESTION_IDS.talk_language),
+    slide_language: getLanguageLabel(originalTalk, QUESTION_IDS.slide_language),
+    level: getLevel(originalTalk),
+    resource: originalTalk.resources.map(resource => ({
+      resource: resource.resource,
+      description: resource.description,
+    })),
+  };
+
+  // POSTERとCOMMUNITY_POSTERの場合
+  if (originalTalk.submission_type.id === SUBMISSION_TYPES.POSTER ||
+      originalTalk.submission_type.id === SUBMISSION_TYPES.COMMUNITY_POSTER) {
+    return {
+      ...baseData,
+      submission_type_id: originalTalk.submission_type.id as 5949 | 5950,
+      slot: {
+        room: {
+          id: 4811,
+          name: {
+            'ja-jp': 'サクラ',
+            en: 'Sakura',
+          },
+        },
+        start: null,
+        end: null,
+      },
+    };
+  }
+
+  // TALKとSPECIALの場合
+  if (originalTalk.submission_type.id === SUBMISSION_TYPES.TALK ||
+      originalTalk.submission_type.id === SUBMISSION_TYPES.SPECIAL) {
+    // slotsが空配列の場合はnull
+    if (!originalTalk.slots.length) {
+      return {
+        ...baseData,
+        submission_type_id: originalTalk.submission_type.id as 5948 | 6521,
+        slot: null,
+      };
+    }
+
+    // slotsが空でない場合、room/start/endのいずれかがない場合もnull
+    if (!originalTalk.slots[0].room || !originalTalk.slots[0].start || !originalTalk.slots[0].end) {
+      console.warn(`Talk/Special session ${originalTalk.code} has incomplete slot data`);
+      return {
+        ...baseData,
+        submission_type_id: originalTalk.submission_type.id as 5948 | 6521,
+        slot: null,
+      };
+    }
+
+    // 正常なslotがある場合（room, start, endが全て存在）
+    return {
+      ...baseData,
+      submission_type_id: originalTalk.submission_type.id as 5948 | 6521,
+      slot: {
+        room: {
+          id: originalTalk.slots[0].room.id,
+          name: originalTalk.slots[0].room.name,
+        },
+        start: originalTalk.slots[0].start,
+        end: originalTalk.slots[0].end,
+      },
+    };
+  }
+
+  // 未知のsubmission_typeの場合（通常はありえない）
+  throw new Error(`Unknown submission type: ${originalTalk.submission_type.id}`);
+};
 
 // 統合されたセッション取得関数
 // 単体のセッション取得関数
@@ -151,7 +205,7 @@ export const fetchSession = async (code: string): Promise<Talk | null> => {
 export const fetchSessions = async (submissionType: SubmissionType): Promise<Talk[]> => {
   // URLSearchParamsを使用して複数のstateパラメータを追加
   const searchParams = new URLSearchParams();
-  searchParams.append('submission_type', submissionType);
+  searchParams.append('submission_type', String(submissionType));
   searchParams.append('expand', [
     'answers',
     'answers.question',

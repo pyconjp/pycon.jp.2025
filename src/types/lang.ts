@@ -18,6 +18,7 @@ export type Dictionary = {
     timetable: string,
     speakers: string,
     map: string,
+    sightseeing: string,
     venue: string,
     coc: string,
     members: string,
@@ -106,5 +107,12 @@ export type Dictionary = {
       'media': string,
       'iot': string,
     }
+  },
+  sightseeing: {
+    title: string,
+    subtitle: string,
+    updateComing: string,
+    description: string,
+    googleMapButton: string,
   },
 };

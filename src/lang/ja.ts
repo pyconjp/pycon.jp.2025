@@ -18,6 +18,7 @@ const Ja: Dictionary = {
     timetable: 'タイムテーブル',
     speakers: 'スピーカー',
     map: '周辺施設',
+    sightseeing: '周辺施設',
     venue: '会場案内',
     coc: '行動規範',
     members: 'メンバー',
@@ -107,6 +108,13 @@ const Ja: Dictionary = {
       'iot': 'IoT、ハードウェア、ネットワーク',
     }
   },
+  'sightseeing': {
+    title: 'Sightseeing',
+    subtitle: '周辺施設',
+    updateComing: '広島、アップデート中。',
+    description: '街のまんなかに新しいスポットが続々と登場して、駅もお城も、公園もミュージアムもどんどん進化。PyCon JP 2025の合言葉「あつまれPythonのピース」に合わせて、最新の広島をピックアップしました。初めての人も、久しぶりの人も、「こんな広島、知らなかった！」がきっと見つかるはず。さあ、会場（国際会議場）からちょっと足をのばして、今だけ・ここだけの広島へ。',
+    googleMapButton: 'Google Map'
+  }
 }
 
 export default Ja;

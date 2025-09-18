@@ -49,11 +49,11 @@ export default function HeroSection({lang}: {lang: Lang}) {
         <div
           className='absolute bg-white w-[120%] aspect-[16_/_3] rounded-t-[100%] lg:top-[85dvh] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0'/>
       </div>
-      <div className="lg:w-5/8 w-10/12 mx-auto mt-[-15dvh] lg:-mt-72 z-10">
+      <div className="lg:w-5/8 w-10/12 mx-auto mt-[-15dvh] lg:-mt-72 z-10 relative">
         <DisplayDate lang={lang}/>
       </div>
       <div
-        className='relative lg:w-5/8 w-10/12 h-auto mx-auto flex flex-col lg:flex-row gap-12 bg-transparent lg:-mt-24 lg:items-end'>
+        className='relative lg:w-5/8 w-10/12 h-auto mx-auto flex flex-col lg:flex-row gap-12 bg-transparent lg:-mt-24 lg:items-end z-0'>
         <div className='flex-1'>
           <div className='relative w-4/6 max-w-72 mx-auto'>
             <CloudflareImage 

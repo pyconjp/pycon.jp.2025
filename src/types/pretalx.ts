@@ -1,6 +1,7 @@
 import { Lang } from "./lang";
 
-export type Talk = {
+// Base type for all sessions
+export type BaseSession = {
   code: string,
   title: string,
   speakers: Speaker[],
@@ -12,9 +13,22 @@ export type Talk = {
   slide_language: Lang,
   level: Level,
   resource: Resource[],
-  slot: Slot | null,
-  submission_type_id: number,
 }
+
+// Talk session with optional time slot (TALK, SPECIAL, LUNCH)
+export type TalkSession = BaseSession & {
+  submission_type_id: 5948 | 6521 | -1,  // TALK | SPECIAL | LUNCH
+  slot: TalkSlot | null,
+}
+
+// Poster session with an optional time slot (POSTER, COMMUNITY_POSTER)
+export type PosterSession = BaseSession & {
+  submission_type_id: 5949 | 5950,  // POSTER | COMMUNITY_POSTER
+  slot: PosterSlot | null,
+}
+
+// Union type for all sessions
+export type Talk = TalkSession | PosterSession;
 
 export type Speaker = {
   code: string,
@@ -32,11 +46,22 @@ export type Resource = {
   description: string,
 }
 
-export type Slot = {
+// Slot with required start and end times (for talks)
+export type TalkSlot = {
   room: Room,
   start: string,
   end: string,
 }
+
+// Slot with optional start and end times (for posters)
+export type PosterSlot = {
+  room: Room,
+  start: string | null,
+  end: string | null,
+}
+
+// General slot type
+export type Slot = TalkSlot | PosterSlot;
 
 export type Room = {
   id: number

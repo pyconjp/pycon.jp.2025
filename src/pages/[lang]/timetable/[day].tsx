@@ -145,11 +145,12 @@ function TimetableDayPage({lang, day, talks, posters}: TimetablePageProps) {
         
         {/* 中央のトークリスト */}
         <div className="max-w-screen-xl mx-auto px-4 md:pl-56 lg:pl-64 md:pr-8 md:pt-0 md:pb-8">
-          <TalkList 
-            talks={filteredTalks} 
+          <TalkList
+            talks={filteredTalks}
             locale={lang}
             showFilters={false}
             groupByTime={true}
+            day={day as 'day1' | 'day2'}
           />
           
           {/* ポスターセッション */}
