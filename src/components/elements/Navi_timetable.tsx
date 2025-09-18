@@ -55,6 +55,10 @@ const NaviTimetable: React.FC<NaviTimetableProps> = ({currentDay, currentRoom, l
       id: '4811',
       label: lang === 'ja' ? 'サクラ' : 'Sakura'
     },
+    {
+      id: '4838',
+      label: lang === 'ja' ? 'コスモス' : 'Cosmos',
+    }
   ];
 
   // URLのクエリパラメータが変更されたときにStateを更新

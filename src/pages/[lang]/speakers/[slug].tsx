@@ -112,7 +112,14 @@ export const getStaticProps: GetStaticProps<TrackPageProps> = async ({params}) =
   const track = params?.slug as Track;
 
   try {
-    const allSessions = await fetchSessions(SUBMISSION_TYPES.TALK);
+    // TALK、POSTER、COMMUNITY_POSTERのセッションを取得
+    const [talkSessions, posterSessions, communityPosterSessions] = await Promise.all([
+      fetchSessions(SUBMISSION_TYPES.TALK),
+      fetchSessions(SUBMISSION_TYPES.POSTER),
+      fetchSessions(SUBMISSION_TYPES.COMMUNITY_POSTER),
+    ]);
+
+    const allSessions = [...talkSessions, ...posterSessions, ...communityPosterSessions];
 
     return {
       props: {
