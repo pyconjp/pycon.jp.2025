@@ -9,27 +9,40 @@ Cloudflare Pages のダッシュボードで、以下のようにビルドコマ
 npx next build && npx next-on-pages
 ```
 
-### 推奨設定（修正版）
+### 推奨設定
 
-#### オプション1: 現在の動作を維持（ビルド2回実行）
+#### オプション1: 安定版（現在使用中）
 ```bash
 npm run build && npx next-on-pages
 ```
-**注意**: これは現在の設定で、ビルドが2回実行されます。
+- メリット: 最も安定して動作
+- デメリット: ビルドが2回実行される（約4分）
 
-#### オプション2: ビルドの重複を避ける（推奨）
+#### オプション2: 最適化版（実験的）
 ```bash
-npm run build && npx next-on-pages --skip-build
+npm run build:cf-optimized
 ```
-この設定では：
-- `npm run build`でpre-build、Next.jsビルド、sitemapを実行
-- `--skip-build`オプションでnext-on-pagesのビルドをスキップ
+または直接:
+```bash
+npm run pre-build && npx vercel build --prod && npx next-sitemap && npx next-on-pages --skip-build
+```
+- メリット: ビルドが1回のみ（時間短縮）
+- デメリット: テストが必要
 
-#### オプション3: next-on-pagesのみ使用
-```bash
-npx next-on-pages
-```
-**注意**: この場合、pre-buildスクリプトとsitemap生成は実行されません。
+### なぜビルドが2回必要か
+
+1. **1回目のビルド（npm run build）**
+   - pre-buildスクリプトでPretalxデータをキャッシュ
+   - 環境変数を設定
+   - Next.jsビルド実行
+   - sitemap生成
+
+2. **2回目のビルド（next-on-pages内部）**
+   - Vercel形式でビルド（`.vercel/output`生成）
+   - Cloudflare Workers形式に変換
+   - Edge Runtimeに最適化
+
+`--skip-build`オプションは`.vercel/output`が既に存在することを前提とするため、通常のNext.jsビルドでは使用できません。
 
 ## なぜこの変更が必要か
 
