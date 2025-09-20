@@ -69,11 +69,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
   }
 
   return (
-    <Link href={`/${locale}/timetable/talk/${session.code}`} className="block scroll-mt-24" id={`session-${session.code}`}>
+    <Link href={`/${locale}/timetable/talk/${session.code}`} className="block scroll-mt-32 md:scroll-mt-24" id={`session-${session.code}`}>
       <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-[0_0px_40px_0px_rgba(0,0,0,0.1)] cursor-pointer relative flex flex-col h-full">
         {/* タイトル */}
         <h3 className="text-lg font-bold pb-8 transition-colors leading-[1.3]">
           {session.title}
+
         </h3>
       
         {/* メイン情報 - flexboxで下揃え */}

@@ -9,45 +9,62 @@ import TalkDetailSection from "@/components/sections/TalkDetailSection";
 import SpeakerInfoSection from "@/components/sections/SpeakerInfoSection";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const talks = await fetchSessions(SUBMISSION_TYPES.TALK);
-  const specials = await fetchSessions(SUBMISSION_TYPES.SPECIAL);
-  const posters = await fetchSessions(SUBMISSION_TYPES.POSTER);
-  const communityPosters = await fetchSessions(SUBMISSION_TYPES.COMMUNITY_POSTER);
-  
-  // 全てのセッションを結合
-  const allSessions = [...talks, ...specials, ...posters, ...communityPosters];
-  
-  const paths = allSessions.flatMap(session => [
-    { params: { lang: 'ja', id: session.code } },
-    { params: { lang: 'en', id: session.code } },
-  ]);
+  try {
+    const talks = await fetchSessions(SUBMISSION_TYPES.TALK);
+    const specials = await fetchSessions(SUBMISSION_TYPES.SPECIAL);
+    const posters = await fetchSessions(SUBMISSION_TYPES.POSTER);
+    const communityPosters = await fetchSessions(SUBMISSION_TYPES.COMMUNITY_POSTER);
 
-  return {
-    paths,
-    fallback: false,
-  };
+    // 全てのセッションを結合
+    const allSessions = [...talks, ...specials, ...posters, ...communityPosters];
+
+    const paths = allSessions.flatMap(session => [
+      { params: { lang: 'ja', id: session.code } },
+      { params: { lang: 'en', id: session.code } },
+    ]);
+
+    return {
+      paths,
+      fallback: false, // 静的ビルドのため、事前生成されたパスのみ対応
+    };
+  } catch (error) {
+    console.error('Failed to fetch sessions for static paths:', error);
+    // APIエラーの場合は空の配列で最小限のビルドを実行
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const lang = params?.lang as Lang || 'ja';
   const id = params?.id as string;
-  
-  // 単体のトークを直接取得
-  const talk = await fetchSession(id);
 
-  if (!talk) {
+  try {
+    // 単体のトークを直接取得
+    const talk = await fetchSession(id);
+
+    if (!talk) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        lang,
+        talk,
+      },
+      revalidate: 3600, // 1時間（3600秒）ごとに再生成
+    };
+  } catch (error) {
+    console.error(`Failed to fetch session ${id}:`, error);
+    // APIエラーの場合は404として扱う
     return {
       notFound: true,
     };
   }
-  
-  return {
-    props: {
-      lang,
-      talk,
-    },
-    revalidate: 3600, // 1時間（3600秒）ごとに再生成
-  };
 };
 
 interface TalkDetailPageProps {

@@ -192,11 +192,27 @@ export const fetchSession = async (code: string): Promise<Talk | null> => {
     return parseTalk(res.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      // 404は正常なケース（セッションが見つからない）
       if (error.response?.status === 404) {
+        console.warn(`Session not found: ${code}`);
         return null;
       }
-      console.error('Failed to fetch session from Pretalx API:', error.message);
+
+      // その他のエラーは詳細ログを出力してエラーとして扱う
+      console.error(`Failed to fetch session ${code} from Pretalx API:`, {
+        message: error.message,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        url: error.config?.url,
+        code: error.code,
+      });
+
+      // ネットワークエラーやAPIエラーは再スロー
+      throw error;
     }
+
+    // 予期しないエラーも詳細ログを出力して再スロー
+    console.error(`Unexpected error fetching session ${code}:`, error);
     throw error;
   }
 };
