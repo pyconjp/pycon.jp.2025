@@ -3,7 +3,8 @@ import {GetStaticPaths, GetStaticProps} from 'next';
 import {useRouter} from 'next/router';
 import TrackSessionList from '@/components/sections/TrackSessionList';
 import TrackNavigation from '@/components/sections/TrackNavigation';
-import {fetchSessions, SUBMISSION_TYPES} from '@/libs/pretalx';
+import {SUBMISSION_TYPES} from '@/libs/pretalx';
+import {getSessionsByType} from '@/libs/pretalxCache';
 import {Talk, Track} from '@/types/pretalx';
 import {Lang} from '@/types/lang';
 import DefaultLayout from "@/components/layout/DefaultLayout";
@@ -114,9 +115,9 @@ export const getStaticProps: GetStaticProps<TrackPageProps> = async ({params}) =
   try {
     // TALK、POSTER、COMMUNITY_POSTERのセッションを取得
     const [talkSessions, posterSessions, communityPosterSessions] = await Promise.all([
-      fetchSessions(SUBMISSION_TYPES.TALK),
-      fetchSessions(SUBMISSION_TYPES.POSTER),
-      fetchSessions(SUBMISSION_TYPES.COMMUNITY_POSTER),
+      getSessionsByType(SUBMISSION_TYPES.TALK),
+      getSessionsByType(SUBMISSION_TYPES.POSTER),
+      getSessionsByType(SUBMISSION_TYPES.COMMUNITY_POSTER),
     ]);
 
     const allSessions = [...talkSessions, ...posterSessions, ...communityPosterSessions];

@@ -35,15 +35,20 @@ yarn-error.log*
 
 # vercel
 .vercel
+!.vercel/project.json
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 pnpm-lock.yaml
 package-lock.json
+yarn.lock
 
 .idea
 
 public/robots.txt
 public/sitemap.xml
 public/sitemap-*.xml
+
+# cached data
+/data/pretalx-sessions.json

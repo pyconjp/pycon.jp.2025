@@ -29,8 +29,8 @@ export async function fetchAndSavePretalxData() {
       sessionsMap[session.code] = session;
     });
 
-    // Save to JSON file
-    const dataDir = path.join(process.cwd(), '.next', 'cache');
+    // Save to JSON file in project root
+    const dataDir = path.join(process.cwd(), 'data');
     await fs.mkdir(dataDir, { recursive: true });
 
     const filePath = path.join(dataDir, 'pretalx-sessions.json');
