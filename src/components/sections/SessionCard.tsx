@@ -74,6 +74,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
         {/* タイトル */}
         <h3 className="text-lg font-bold pb-8 transition-colors leading-[1.3]">
           {session.title}
+
         </h3>
       
         {/* メイン情報 - flexboxで下揃え */}
