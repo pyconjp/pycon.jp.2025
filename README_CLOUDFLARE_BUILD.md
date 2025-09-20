@@ -10,15 +10,26 @@ npx next build && npx next-on-pages
 ```
 
 ### 推奨設定（修正版）
+
+#### オプション1: 現在の動作を維持（ビルド2回実行）
 ```bash
 npm run build && npx next-on-pages
 ```
+**注意**: これは現在の設定で、ビルドが2回実行されます。
 
-または
-
+#### オプション2: ビルドの重複を避ける（推奨）
 ```bash
-npm ci && npm run build && npx next-on-pages
+npm run build && npx next-on-pages --skip-build
 ```
+この設定では：
+- `npm run build`でpre-build、Next.jsビルド、sitemapを実行
+- `--skip-build`オプションでnext-on-pagesのビルドをスキップ
+
+#### オプション3: next-on-pagesのみ使用
+```bash
+npx next-on-pages
+```
+**注意**: この場合、pre-buildスクリプトとsitemap生成は実行されません。
 
 ## なぜこの変更が必要か
 
