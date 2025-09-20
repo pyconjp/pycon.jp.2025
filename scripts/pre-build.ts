@@ -9,6 +9,7 @@
 import {GoogleDriveDownloader} from './google-drive-downloader';
 import {CloudflareImagesUploader, CloudflareImageUploadResponse} from './cloudflare-images-uploader';
 import {generateCloudflareImageId} from './cloudflare-image-helper';
+import {fetchAndSavePretalxData} from './fetch-pretalx-data';
 
 interface FolderConfig {
   id: string;
@@ -176,6 +177,18 @@ async function preBuild() {
   };
 
   console.log('📋 Build info:', buildInfo);
+
+  // Fetch and cache Pretalx session data
+  if (process.env.PRETALX_API_KEY) {
+    try {
+      await fetchAndSavePretalxData();
+    } catch (error) {
+      console.error('⚠️  Failed to fetch Pretalx data:', error);
+      console.log('   Continuing with build - will fetch data during build time');
+    }
+  } else {
+    console.log('⚠️  Skipping Pretalx data fetch - PRETALX_API_KEY not set');
+  }
 
   // Sync images from Google Drive to Cloudflare Images
   await syncImagesToCloudflare();
