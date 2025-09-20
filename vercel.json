@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm run pre-build && echo NEXT_PUBLIC_BASE_URL=$CF_PAGES_URL > .env.production && next build && next-sitemap",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_BASE_URL": "@CF_PAGES_URL"
+    }
+  }
+}

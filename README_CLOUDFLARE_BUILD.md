@@ -11,23 +11,27 @@ npx next build && npx next-on-pages
 
 ### 推奨設定
 
-#### オプション1: 安定版（現在使用中）
+#### 現在の最適な設定
 ```bash
 npm run build && npx next-on-pages
 ```
-- メリット: 最も安定して動作
-- デメリット: ビルドが2回実行される（約4分）
 
-#### オプション2: 最適化版（実験的）
-```bash
-npm run build:cf-optimized
-```
-または直接:
-```bash
-npm run pre-build && npx vercel build --prod && npx next-sitemap && npx next-on-pages --skip-build
-```
-- メリット: ビルドが1回のみ（時間短縮）
-- デメリット: テストが必要
+この設定が最も安定して動作します。
+
+**メリット:**
+- 確実に動作する
+- pre-buildスクリプト、環境変数設定、sitemap生成がすべて実行される
+
+**デメリット:**
+- ビルドが2回実行される（約4分）
+
+### 代替案（動作しない）
+
+`--skip-build`オプションを使用するには、事前に`.vercel/output`ディレクトリが必要ですが、以下の問題があります：
+
+1. `vercel build`単独では動作しない（プロジェクト設定が必要）
+2. 通常の`next build`では`.vercel/output`が生成されない
+3. `next-on-pages`は内部で`vercel build`を実行するため、結局2回ビルドが必要
 
 ### なぜビルドが2回必要か
 
