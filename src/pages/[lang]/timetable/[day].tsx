@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import NaviTimetable from "@/components/elements/Navi_timetable";
 import PageHead from "@/components/elements/PageHead";
-import {fetchSessions, SUBMISSION_TYPES} from "@/libs/pretalx";
+import {SUBMISSION_TYPES} from "@/libs/pretalx";
+import {getSessionsByType} from "@/libs/pretalxCache";
 import { Talk } from "@/types/pretalx";
 import TalkList from "@/components/sections/TalkList";
 import SessionCard from "@/components/sections/SessionCard";
@@ -27,10 +28,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({params}) => {
   const lang = params?.lang || 'ja';
   const day = params?.day || 'day1';
-  const talks = await fetchSessions(SUBMISSION_TYPES.TALK);
-  const specials = await fetchSessions(SUBMISSION_TYPES.SPECIAL);
-  const posters = await fetchSessions(SUBMISSION_TYPES.POSTER);
-  const communityPosters = await fetchSessions(SUBMISSION_TYPES.COMMUNITY_POSTER);
+  const talks = await getSessionsByType(SUBMISSION_TYPES.TALK);
+  const specials = await getSessionsByType(SUBMISSION_TYPES.SPECIAL);
+  const posters = await getSessionsByType(SUBMISSION_TYPES.POSTER);
+  const communityPosters = await getSessionsByType(SUBMISSION_TYPES.COMMUNITY_POSTER);
   
   // talksとspecialsをマージ（ポスターは別管理）
   const allTalks = [...talks, ...specials];

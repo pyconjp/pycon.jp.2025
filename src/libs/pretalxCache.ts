@@ -19,7 +19,7 @@ function loadCachedSessions(): Record<string, Talk> | null {
   }
 
   try {
-    const filePath = path.join(process.cwd(), '.next', 'cache', 'pretalx-sessions.json');
+    const filePath = path.join(process.cwd(), 'data', 'pretalx-sessions.json');
     if (fs.existsSync(filePath)) {
       const data = fs.readFileSync(filePath, 'utf-8');
       cachedSessions = JSON.parse(data);
@@ -68,4 +68,20 @@ export async function getAllSessions(): Promise<Talk[]> {
   ]);
 
   return [...talks, ...specials, ...posters, ...communityPosters];
+}
+
+/**
+ * Get sessions by submission type from cache or API
+ */
+export async function getSessionsByType(submissionType: typeof SUBMISSION_TYPES[keyof typeof SUBMISSION_TYPES]): Promise<Talk[]> {
+  // Try to load from cache first
+  const cache = loadCachedSessions();
+  if (cache) {
+    const allSessions = Object.values(cache);
+    return allSessions.filter(session => session.submission_type_id === submissionType);
+  }
+
+  // Fall back to API call
+  console.log(`📡 Cache not found, fetching sessions of type ${submissionType} from API...`);
+  return fetchSessions(submissionType);
 }
