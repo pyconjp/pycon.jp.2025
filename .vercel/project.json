@@ -1,0 +1,11 @@
+{
+  "orgId": "dummy",
+  "projectId": "dummy",
+  "framework": "nextjs",
+  "settings": {
+    "buildCommand": null,
+    "devCommand": null,
+    "outputDirectory": null,
+    "installCommand": null
+  }
+}
