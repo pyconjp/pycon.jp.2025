@@ -20,11 +20,15 @@ function loadCachedSessions(): Record<string, Talk> | null {
 
   try {
     const filePath = path.join(process.cwd(), 'data', 'pretalx-sessions.json');
+    console.log(`🔍 Looking for cache at: ${filePath}`);
+
     if (fs.existsSync(filePath)) {
       const data = fs.readFileSync(filePath, 'utf-8');
       cachedSessions = JSON.parse(data);
       console.log(`📚 Loaded ${Object.keys(cachedSessions!).length} sessions from cache`);
       return cachedSessions;
+    } else {
+      console.log(`❌ Cache file not found at: ${filePath}`);
     }
   } catch (error) {
     console.warn('⚠️  Failed to load cached sessions:', error);
