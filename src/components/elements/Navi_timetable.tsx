@@ -55,16 +55,34 @@ const NaviTimetable: React.FC<NaviTimetableProps> = ({currentDay, currentRoom, l
       id: '4811',
       label: lang === 'ja' ? 'サクラ' : 'Sakura'
     },
-    {
+    ...(currentDay === 'day2' ? [{
       id: '4838',
       label: lang === 'ja' ? 'コスモス' : 'Cosmos',
-    }
+    }] : [])
   ];
 
   // URLのクエリパラメータが変更されたときにStateを更新
   useEffect(() => {
     setSelectedRoom(currentRoom);
   }, [currentRoom]);
+
+  // Day1に切り替えた際、コスモスが選択されていたら未選択にする
+  useEffect(() => {
+    if (currentDay === 'day1' && selectedRoom === '4838') {
+      setSelectedRoom(undefined);
+      // 親コンポーネントに通知
+      if (onRoomChange) {
+        onRoomChange(undefined);
+      }
+      // URLからもroomパラメータを削除
+      const query = {...router.query};
+      delete query.room;
+      router.replace({
+        pathname: router.pathname,
+        query,
+      }, undefined, {shallow: true});
+    }
+  }, [currentDay, selectedRoom, onRoomChange, router]);
 
   useEffect(() => {
     const checkScroll = () => {

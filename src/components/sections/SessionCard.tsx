@@ -69,7 +69,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
   }
 
   return (
-    <Link href={`/${locale}/timetable/talk/${session.code}`} className="block">
+    <Link href={`/${locale}/timetable/talk/${session.code}`} className="block scroll-mt-24" id={`session-${session.code}`}>
       <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-[0_0px_40px_0px_rgba(0,0,0,0.1)] cursor-pointer relative flex flex-col h-full">
         {/* タイトル */}
         <h3 className="text-lg font-bold pb-8 transition-colors leading-[1.3]">
@@ -79,7 +79,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
         {/* メイン情報 - flexboxで下揃え */}
         <div className="flex-grow flex flex-col justify-end">
           {/* 下部情報：左側にラベルと時間、右側にスピーカー */}
-          <div className="flex justify-between items-end gap-4">
+          <div className="flex flex-col lg:flex-row justify-between lg:items-end gap-4">
             {/* 左側：ラベルと時間情報（縦並び） */}
             {session.slot ? (
               <div className="flex flex-col gap-2">
@@ -89,7 +89,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                   <>
                     {/* 1段目：ポスター分類ラベル */}
                     <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                      <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full whitespace-nowrap">
                         {session.submission_type_id === SUBMISSION_TYPES.POSTER
                           ? (locale === 'ja' ? 'ポスター' : 'Poster')
                           : (locale === 'ja' ? 'コミュニティポスター' : 'Community Poster')}
@@ -98,13 +98,13 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                     {/* 2段目：ルームと言語ラベル */}
                     <div className="flex flex-wrap items-center gap-2">
                       {session.slot.room && session.slot.room.name && shouldShowRoom(session.code) && (
-                        <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                        <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full whitespace-nowrap">
                           {locale === 'ja'
                             ? (session.slot.room.name['ja-jp'] || session.slot.room.name.en || `Room ${session.slot.room.id}`)
                             : (session.slot.room.name.en || session.slot.room.name['ja-jp'] || `Room ${session.slot.room.id}`)}
                         </span>
                       )}
-                      <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                      <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full whitespace-nowrap">
                         {getLanguageLabel(session.talk_language)}
                       </span>
                     </div>
@@ -159,7 +159,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                 </div>
               </div>
             )}
-            
+
             {/* 右側：スピーカー情報 */}
             <div className="flex flex-col gap-2 items-end">
               {session.speakers.map((speaker) => (
