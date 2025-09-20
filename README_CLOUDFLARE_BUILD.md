@@ -18,6 +18,12 @@ npm run build && npx next-on-pages
 
 この設定が最も安定して動作します。
 
+#### 実験的な設定（テスト中）
+```bash
+npx vercel build --prod --yes && npx next-on-pages --skip-build
+```
+**注意**: この設定は`vercel-build`スクリプトが`package.json`に定義されている必要があります。
+
 **メリット:**
 - 確実に動作する
 - pre-buildスクリプト、環境変数設定、sitemap生成がすべて実行される
