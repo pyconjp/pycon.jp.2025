@@ -81,7 +81,7 @@ const SightseeingPage = ({ locale, places }: SightseeingPageProps) => {
                       alt={locale === 'ja' ? place.name_ja : place.name_en}
                       width={1200}
                       height={600}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain md:object-cover"
                     />
                   </div>
                 )}
