@@ -53,7 +53,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
       {onClose ? (
         <button
           onClick={onClose}
-          className="absolute -top-5 -right-5 z-[5] bg-black text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-800 transition-colors shadow-lg"
+          className="absolute -top-5 -right-5 z-20 bg-black text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-800 transition-colors shadow-lg"
           aria-label="Close"
         >
           <FontAwesomeIcon icon={faTimes} size="lg" />
@@ -61,7 +61,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
       ) : (
         <Link
           href={`/${lang}/timetable/${startTime?.date === '9/26' ? 'day1' : 'day2'}#session-${talk.code}`}
-          className="absolute -top-5 -right-5 z-[5] bg-black text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-800 transition-colors shadow-lg"
+          className="absolute -top-5 -right-5 z-20 bg-black text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-800 transition-colors shadow-lg"
           aria-label="Close"
         >
           <FontAwesomeIcon icon={faTimes} size="lg" />
