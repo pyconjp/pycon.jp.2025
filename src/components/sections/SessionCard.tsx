@@ -36,8 +36,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
     return Math.round(diffMs / 60000);
   };
 
-  const getLanguageLabel = (lang: string) => {
-    return lang === 'ja' ? '日本語' : 'EN';
+  const getLanguageLabel = (lang: string, currentLocale: 'ja' | 'en') => {
+    if (currentLocale === 'ja') {
+      return lang === 'ja' ? '日本語' : '英語';
+    } else {
+      return lang === 'ja' ? 'JA' : 'EN';
+    }
   };
 
   const getDateInfo = (dateStr: string | null) => {
@@ -106,7 +110,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                         </span>
                       )}
                       <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full whitespace-nowrap">
-                        {getLanguageLabel(session.talk_language)}
+                        {getLanguageLabel(session.talk_language, locale)}
                       </span>
                     </div>
                   </>
@@ -124,7 +128,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                     {/* 言語ラベル */}
                     {session.submission_type_id !== SUBMISSION_TYPES.SPECIAL && (
                       <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
-                        {getLanguageLabel(session.talk_language)}
+                        {getLanguageLabel(session.talk_language, locale)}
                       </span>
                     )}
                   </div>

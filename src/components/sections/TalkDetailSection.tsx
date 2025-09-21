@@ -15,8 +15,12 @@ interface TalkDetailCardProps {
   onClose?: () => void;
 }
 
-const getLanguageLabel = (langCode: Lang): string => {
-  return langCode === 'ja' ? '日本語' : 'EN';
+const getLanguageLabel = (langCode: Lang, currentLang: Lang): string => {
+  if (currentLang === 'ja') {
+    return langCode === 'ja' ? '日本語' : '英語';
+  } else {
+    return langCode === 'ja' ? 'JA' : 'EN';
+  }
 };
 
 
@@ -119,7 +123,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
 
                 {talk.talk_language && talk.submission_type_id !== SUBMISSION_TYPES.SPECIAL && (
                   <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
-                    {getLanguageLabel(talk.talk_language)}
+                    {getLanguageLabel(talk.talk_language, lang)}
                   </span>
                 )}
               </div>
