@@ -38,7 +38,7 @@ export default function DisplayDate({ lang }: { lang: Lang }) {
     return href ? <Link href={href} className='flex-1'>{content}</Link> : content;
   }
   return (
-    <div className='font-jost'>
+    <div className='font-jost relative z-0'>
       <div className='flex flex-col w-80 font-semibold ml-auto mx-auto lg:mr-0'>
         <div className='flex flex-row lg:h-60 h-40'>
           <DateArea day='DAY 1' month='09' date='26' weekday='FRI' className='bg-secondary text-black' href={`/${lang}/timetable/day1`} />
