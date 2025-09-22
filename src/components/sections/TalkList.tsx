@@ -5,6 +5,12 @@ import { Lang } from '@/types/lang';
 import Ja from '@/lang/ja';
 import En from '@/lang/en';
 import { SUBMISSION_TYPES } from '@/libs/pretalx';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface TalkListProps {
   talks: Talk[];
@@ -75,7 +81,7 @@ const TalkList: React.FC<TalkListProps> = ({
     // 時間順にソート
     return filtered.sort((a, b) => {
       if (!a.slot?.start || !b.slot?.start) return 0;
-      const timeComparison = new Date(a.slot.start).getTime() - new Date(b.slot.start).getTime();
+      const timeComparison = dayjs(a.slot.start).valueOf() - dayjs(b.slot.start).valueOf();
       
       // 同じ時刻の場合はroom.idでソート
       if (timeComparison === 0 && a.slot.room && b.slot.room) {
@@ -93,12 +99,8 @@ const TalkList: React.FC<TalkListProps> = ({
     
     filteredTalks.forEach(talk => {
       if (talk.slot?.start) {
-        const startTime = new Date(talk.slot.start);
-        const timeKey = startTime.toLocaleTimeString(locale === 'ja' ? 'ja-JP' : 'en-US', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        });
+        const startTime = dayjs(talk.slot.start).tz('Asia/Tokyo');
+        const timeKey = startTime.format('HH:mm');
         
         if (!groups.has(timeKey)) {
           groups.set(timeKey, []);
