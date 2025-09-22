@@ -2,6 +2,12 @@ import {Blogger} from "@/types/blogger";
 import {Lang} from "@/types/lang";
 import ExternalLink from "@/components/elements/ExternalLink";
 import {dictionary} from "@/lang";
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type Props = {
   posts: Blogger[],
@@ -25,7 +31,7 @@ export default function NewsSection({lang, posts, ...props}: Props) {
                 {post.title}
               </h2>
               <time className="text-sm text-gray-500" dateTime={post.published}>
-                {new Date(post.published).toLocaleDateString(lang === 'ja' ? "ja-JP" : "en-US")}
+                {dayjs(post.published).tz('Asia/Tokyo').format('YYYY/MM/DD')}
               </time>
             </article>
           </ExternalLink>

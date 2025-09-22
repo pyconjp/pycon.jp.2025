@@ -8,6 +8,12 @@ import ResourceSection from '@/components/sections/ResourceSection';
 import { Talk } from '@/types/pretalx';
 import { Lang } from '@/types/lang';
 import { SUBMISSION_TYPES, shouldShowRoom } from '@/libs/pretalx';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface TalkDetailCardProps {
   talk: Talk;
@@ -25,31 +31,25 @@ const getLanguageLabel = (langCode: Lang, currentLang: Lang): string => {
 
 
 const formatDateTime = (dateStr: string) => {
-  const date = new Date(dateStr);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const dayOfWeek = date.getDay() === 5 ? 'FRI' : 'SAT';
-  
+  const date = dayjs(dateStr).tz('Asia/Tokyo');
+
   return {
-    date: `${month}/${day}`,
-    time: `${hours}:${minutes}`,
-    dayOfWeek,
+    date: date.format('M/D'),
+    time: date.format('HH:mm'),
+    dayOfWeek: date.format('ddd').toUpperCase(),
   };
 };
 
 const calculateDuration = (start: string, end: string) => {
-  const startDate = new Date(start);
-  const endDate = new Date(end);
-  const diffMs = endDate.getTime() - startDate.getTime();
-  return Math.round(diffMs / 60000);
+  const startDate = dayjs(start).tz('Asia/Tokyo');
+  const endDate = dayjs(end).tz('Asia/Tokyo');
+  return endDate.diff(startDate, 'minute');
 };
 
 const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose }) => {
   const isJapanese = lang === 'ja';
   const startTime = talk.slot?.start ? formatDateTime(talk.slot.start) : null;
-  const endTime = talk.slot?.end ? new Date(talk.slot.end).toTimeString().slice(0, 5) : null;
+  const endTime = talk.slot?.end ? dayjs(talk.slot.end).tz('Asia/Tokyo').format('HH:mm') : null;
 
   return (
     <div className="bg-white rounded-lg border border-gray-300 pt-14 relative">

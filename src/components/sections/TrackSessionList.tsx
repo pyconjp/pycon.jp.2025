@@ -2,6 +2,12 @@ import React from 'react';
 import { Talk } from '@/types/pretalx';
 import { isTalkSession } from '@/libs/pretalx';
 import SessionCard from './SessionCard';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface TrackSessionListProps {
   sessions: Talk[];
@@ -22,7 +28,7 @@ const TrackSessionList: React.FC<TrackSessionListProps> = ({
 
       // 両方がTalkSessionの場合
       if (aIsTalk && bIsTalk && a.slot && b.slot) {
-        return new Date(a.slot.start).getTime() - new Date(b.slot.start).getTime();
+        return dayjs(a.slot.start).valueOf() - dayjs(b.slot.start).valueOf();
       }
 
       // 片方だけがTalkSessionの場合、TalkSessionを先に
@@ -32,7 +38,7 @@ const TrackSessionList: React.FC<TrackSessionListProps> = ({
       // 両方がPosterSessionの場合
       if (!aIsTalk && !bIsTalk) {
         if (!a.slot || !b.slot || !a.slot.start || !b.slot.start) return 0;
-        return new Date(a.slot.start).getTime() - new Date(b.slot.start).getTime();
+        return dayjs(a.slot.start).valueOf() - dayjs(b.slot.start).valueOf();
       }
 
       return 0;

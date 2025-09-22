@@ -3,6 +3,12 @@ import {Talk} from '@/types/pretalx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SUBMISSION_TYPES, shouldShowRoom } from '@/libs/pretalx';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface SessionCardProps {
   session: Talk;
@@ -13,27 +19,18 @@ interface SessionCardProps {
 const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = false }) => {
   const formatTime = (start: string | null, end: string | null) => {
     if (!start || !end) return '';
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    
-    const timeOptions: Intl.DateTimeFormatOptions = {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    };
-    
-    const startTime = startDate.toLocaleTimeString(locale === 'ja' ? 'ja-JP' : 'en-US', timeOptions);
-    const endTime = endDate.toLocaleTimeString(locale === 'ja' ? 'ja-JP' : 'en-US', timeOptions);
-    
+
+    const startTime = dayjs(start).tz('Asia/Tokyo').format('HH:mm');
+    const endTime = dayjs(end).tz('Asia/Tokyo').format('HH:mm');
+
     return `${startTime} - ${endTime}`;
   };
 
   const calculateDuration = (start: string | null, end: string | null) => {
     if (!start || !end) return 0;
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const diffMs = endDate.getTime() - startDate.getTime();
-    return Math.round(diffMs / 60000);
+    const startDate = dayjs(start).tz('Asia/Tokyo');
+    const endDate = dayjs(end).tz('Asia/Tokyo');
+    return endDate.diff(startDate, 'minute');
   };
 
   const getLanguageLabel = (lang: string, currentLocale: 'ja' | 'en') => {
@@ -46,9 +43,9 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
 
   const getDateInfo = (dateStr: string | null) => {
     if (!dateStr) return null;
-    const date = new Date(dateStr);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
+    const date = dayjs(dateStr).tz('Asia/Tokyo');
+    const day = date.date();
+    const month = date.month() + 1;
     const dayNumber = day === 26 ? '1' : '2';
     return `DAY ${dayNumber} - ${month}/${day}`;
   };
