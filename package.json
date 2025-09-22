@@ -27,6 +27,7 @@
     "@types/mdx": "^2.0.13",
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.18",
     "googleapis": "^150.0.1",
     "lightningcss": "^1.28.2",
     "next": "15.3.2",

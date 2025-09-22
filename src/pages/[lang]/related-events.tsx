@@ -9,6 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import Navi_about from '@/components/elements/Navi_about';
 import PageHead from '@/components/elements/PageHead';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface RelatedEventsPageProps {
   lang: Lang;
@@ -20,11 +26,12 @@ const EventCard = ({ event, lang }: { event: RelatedEvent; lang: Lang }) => {
 
   // 日時のフォーマット
   const formatDateTime = (start: string, end: string) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const dateStr = `${startDate.getMonth() + 1}/${startDate.getDate()}`;
-    const startTime = `${startDate.getHours()}:${startDate.getMinutes().toString().padStart(2, '0')}`;
-    const endTime = `${endDate.getHours()}:${endDate.getMinutes().toString().padStart(2, '0')}`;
+    const startDate = dayjs(start).tz('Asia/Tokyo');
+    const endDate = dayjs(end).tz('Asia/Tokyo');
+
+    const dateStr = startDate.format('M/D');
+    const startTime = startDate.format('HH:mm');
+    const endTime = endDate.format('HH:mm');
     return `${dateStr} ${startTime} - ${endTime}`;
   };
 

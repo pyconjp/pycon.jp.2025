@@ -8,6 +8,12 @@ import PageHead from "@/components/elements/PageHead";
 import {SUBMISSION_TYPES} from "@/libs/pretalx";
 import {getSessionsByType} from "@/libs/pretalxCache";
 import { Talk } from "@/types/pretalx";
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 import TalkList from "@/components/sections/TalkList";
 import SessionCard from "@/components/sections/SessionCard";
 import DateArea from "@/components/elements/DateArea";
@@ -40,15 +46,15 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   // 日付でフィルタリング（9/26はday1、9/27はday2）
   const filteredTalks = allTalks.filter(talk => {
     if (!talk.slot?.start) return false;
-    const date = new Date(talk.slot.start);
-    const dayNumber = date.getDate() === 26 ? 'day1' : 'day2';
+    const date = dayjs(talk.slot.start).tz('Asia/Tokyo');
+    const dayNumber = date.date() === 26 ? 'day1' : 'day2';
     return dayNumber === day;
   });
   
   // 時間順にソート
   const sortedTalks = filteredTalks.sort((a, b) => {
     if (!a.slot?.start || !b.slot?.start) return 0;
-    return new Date(a.slot.start).getTime() - new Date(b.slot.start).getTime();
+    return dayjs(a.slot.start).valueOf() - dayjs(b.slot.start).valueOf();
   });
   
   return {
