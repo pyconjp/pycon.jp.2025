@@ -110,7 +110,7 @@ const TalkList: React.FC<TalkListProps> = ({
     });
     
     return Array.from(groups.entries());
-  }, [filteredTalks, groupByTime, locale]);
+  }, [filteredTalks, groupByTime]);
 
   return (
     <div className="space-y-6">
