@@ -48,7 +48,7 @@ export default function OnSiteContentsPage({ lang, onSiteContents }: OnSiteConte
                 end: content.datetime_end
               }}
               details={isJapanese ? content.description_ja : content.description_en}
-              thumbnail={`/common/on-site-contents/${content.thumbnail_url}`}
+              thumbnail={content.thumbnail_url ? `/common/on-site-contents/${content.thumbnail_url}` : undefined}
               link={content.link_url}
               linkText={isJapanese ? content.link_text_ja || '詳細を見る' : content.link_text_en || 'See Details'}
             />
