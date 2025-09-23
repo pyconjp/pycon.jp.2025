@@ -54,7 +54,7 @@ export default function OnSiteContentCard({
             {formatDateTime(datetime.start, datetime.end)}
           </div>
         </div>
-        <p className={`lg:max-w-[381px] ${NotoSansJP.className}`}>{details}</p>
+        <p className={`${thumbnail ? 'lg:max-w-[381px]' : 'lg:max-w-[1003px]'} ${NotoSansJP.className}`}>{details}</p>
         {link && <LinkButton href={link}>{linkText}</LinkButton>}
       </div>
       {thumbnail && <Image src={thumbnail} alt={title} width={564} height={496} className="lg:w-[564px] lg:h-[496px]"/>}
