@@ -1,8 +1,9 @@
 import React from 'react';
-import {Talk} from '@/types/pretalx';
+import {Talk, Level} from '@/types/pretalx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SUBMISSION_TYPES, shouldShowRoom } from '@/libs/pretalx';
+import { SUBMISSION_TYPES, shouldShowRoom, shouldShowLevel, getLevelLabel } from '@/libs/pretalx';
+import { Lang } from '@/types/lang';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -12,7 +13,7 @@ dayjs.extend(timezone);
 
 interface SessionCardProps {
   session: Talk;
-  locale: 'ja' | 'en';
+  locale: Lang;
   showDate?: boolean; // スピーカーページで日付を表示するかどうか
 }
 
@@ -33,7 +34,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
     return endDate.diff(startDate, 'minute');
   };
 
-  const getLanguageLabel = (lang: string, currentLocale: 'ja' | 'en') => {
+  const getLanguageLabel = (lang: string, currentLocale: Lang) => {
     if (currentLocale === 'ja') {
       return lang === 'ja' ? '日本語' : '英語';
     } else {
@@ -99,6 +100,11 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                     </div>
                     {/* 2段目：ルームと言語ラベル */}
                     <div className="flex flex-wrap items-center gap-2">
+                      {shouldShowLevel(session.code) && (
+                        <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full whitespace-nowrap">
+                          {getLevelLabel(session.level as Level, locale)}
+                        </span>
+                      )}
                       {session.slot.room && session.slot.room.name && shouldShowRoom(session.code) && (
                         <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full whitespace-nowrap">
                           {locale === 'ja'
@@ -120,6 +126,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                         {locale === 'ja'
                           ? (session.slot.room.name['ja-jp'] || session.slot.room.name.en || `Room ${session.slot.room.id}`)
                           : (session.slot.room.name.en || session.slot.room.name['ja-jp'] || `Room ${session.slot.room.id}`)}
+                      </span>
+                    )}
+                    {/* レベルラベル */}
+                    {shouldShowLevel(session.code) && (
+                      <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                        {getLevelLabel(session.level as Level, locale)}
                       </span>
                     )}
                     {/* 言語ラベル */}

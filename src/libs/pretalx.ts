@@ -30,10 +30,25 @@ export const shouldShowRoom = (code: string): boolean => {
   return !CODES_WITHOUT_ROOM.includes(code as typeof CODES_WITHOUT_ROOM[number]);
 };
 
+// レベル表示を非表示にする特殊コード
+export const CODES_WITHOUT_LEVEL: readonly string[] = [
+  'NYCNJH', 'GCDDKB', '9KUYKK', 'TK7NJK', 'Y8UYKV', 'NE9BXD',
+  'N7NJCH', 'CY9JZH', 'ZJNKT7', 'WFF8ZJ', '8ESUWG', '3XJHRW',
+  'YB3CEX', 'SZ9VJM', 'RBZ9Y8', 'HXTCWC'
+] as const;
+
+// レベル表示判定ヘルパー関数
+export const shouldShowLevel = (code: string): boolean => {
+  return !CODES_WITHOUT_LEVEL.includes(code);
+};
+
 const QUESTION_IDS = {
   talk_language: 5337,
   slide_language: 5338,
   level: 5336,
+  motivation: 5333,  // この題材を選んだ理由やきっかけ
+  takeaway: 5334,     // オーディエンスが持って帰れる具体的な知識やノウハウ
+  prerequisite: 5335, // オーディエンスに求める前提知識
 }
 
 const LEVELS: { [key: string]: Level } = {
@@ -41,6 +56,19 @@ const LEVELS: { [key: string]: Level } = {
   Beginner: 'beginner',
   Intermediate: 'intermediate',
   Advanced: 'advanced',
+}
+
+// レベル表示ラベルのマッピング
+export const LEVEL_LABELS: { [key in Level]: { ja: string; en: string } } = {
+  novice: { ja: '初学者向け', en: 'Novice' },
+  beginner: { ja: '初級', en: 'Beginner' },
+  intermediate: { ja: '中級', en: 'Intermediate' },
+  advanced: { ja: '上級', en: 'Advanced' },
+}
+
+// レベルラベル取得ヘルパー関数
+export const getLevelLabel = (level: Level, lang: Lang): string => {
+  return LEVEL_LABELS[level]?.[lang] || LEVEL_LABELS.beginner[lang];
 }
 
 const LANG_LABEL: { [key: string]: Lang } = {
@@ -101,6 +129,9 @@ const parseTalk = (originalTalk: OriginalTalk): Talk => {
       resource: resource.resource,
       description: resource.description,
     })),
+    motivation: getAnswerByQuestionId(originalTalk, QUESTION_IDS.motivation) || undefined,
+    takeaway: getAnswerByQuestionId(originalTalk, QUESTION_IDS.takeaway) || undefined,
+    prerequisite: getAnswerByQuestionId(originalTalk, QUESTION_IDS.prerequisite) || undefined,
   };
 
   // POSTERとCOMMUNITY_POSTERの場合

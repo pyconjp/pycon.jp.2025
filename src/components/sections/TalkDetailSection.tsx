@@ -5,9 +5,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import DateArea from '@/components/elements/DateArea';
 import MarkdownContent from '@/components/elements/MarkdownContent';
 import ResourceSection from '@/components/sections/ResourceSection';
-import { Talk } from '@/types/pretalx';
+import { Talk, Level } from '@/types/pretalx';
 import { Lang } from '@/types/lang';
-import { SUBMISSION_TYPES, shouldShowRoom } from '@/libs/pretalx';
+import { SUBMISSION_TYPES, shouldShowRoom, shouldShowLevel, getLevelLabel } from '@/libs/pretalx';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -121,6 +121,12 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
                   </span>
                 )}
 
+                {talk.level && shouldShowLevel(talk.code) && (
+                  <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                    {getLevelLabel(talk.level as Level, lang)}
+                  </span>
+                )}
+
                 {talk.talk_language && talk.submission_type_id !== SUBMISSION_TYPES.SPECIAL && (
                   <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
                     {getLanguageLabel(talk.talk_language, lang)}
@@ -194,8 +200,50 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
             <h2 className="text-lg font-bold mb-4">
               {isJapanese ? 'トーク詳細 / Description' : 'Description'}
             </h2>
-            <MarkdownContent 
+            <MarkdownContent
               content={talk.description}
+              className="text-gray-700 text-sm md:text-base break-all"
+            />
+          </div>
+        )}
+
+        {/* この題材を選んだ理由やきっかけ */}
+        {talk.motivation && (
+          <div className="mb-8">
+            <hr className="border-gray-200 mb-6"/>
+            <h2 className="text-lg font-bold mb-4">
+              {isJapanese ? 'この題材を選んだ理由やきっかけ' : 'Motivation'}
+            </h2>
+            <MarkdownContent
+              content={talk.motivation}
+              className="text-gray-700 text-sm md:text-base break-all"
+            />
+          </div>
+        )}
+
+        {/* オーディエンスが持って帰れる具体的な知識やノウハウ */}
+        {talk.takeaway && (
+          <div className="mb-8">
+            <hr className="border-gray-200 mb-6"/>
+            <h2 className="text-lg font-bold mb-4">
+              {isJapanese ? 'オーディエンスが持って帰れる具体的な知識やノウハウ' : 'Key Takeaways'}
+            </h2>
+            <MarkdownContent
+              content={talk.takeaway}
+              className="text-gray-700 text-sm md:text-base break-all"
+            />
+          </div>
+        )}
+
+        {/* オーディエンスに求める前提知識 */}
+        {talk.prerequisite && (
+          <div className="mb-8">
+            <hr className="border-gray-200 mb-6"/>
+            <h2 className="text-lg font-bold mb-4">
+              {isJapanese ? 'オーディエンスに求める前提知識' : 'Prerequisites'}
+            </h2>
+            <MarkdownContent
+              content={talk.prerequisite}
               className="text-gray-700 text-sm md:text-base break-all"
             />
           </div>
