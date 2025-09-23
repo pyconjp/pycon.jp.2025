@@ -1,8 +1,9 @@
-import {Patron, SpecialSponsor, Sponsor} from "@/types/sponsor";
-import {google} from "googleapis";
-import {Member, RawMember} from "@/types/member";
-import {RelatedEvent} from "@/types/relatedEvents";
-import {SightseeingPlace} from "@/types/sightseeing";
+import { Patron, SpecialSponsor, Sponsor } from "@/types/sponsor";
+import { google } from "googleapis";
+import { Member, RawMember } from "@/types/member";
+import { RelatedEvent } from "@/types/relatedEvents";
+import { SightseeingPlace } from "@/types/sightseeing";
+import { OnSiteContents } from "@/types/onSiteContents";
 
 const cache = new Map<string, unknown>();
 
@@ -15,26 +16,26 @@ const auth = new google.auth.JWT(
 
 const fetchSheet: <T extends object>(spreadSheetId: string, range: string, keys: (keyof T)[]) => Promise<T[]>
   = async <T extends object>(spreadSheetId: string, range: string, keys: (keyof T)[]): Promise<T[]> => {
-  const sheets = google.sheets({version: 'v4', auth});
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: spreadSheetId,
-    range,
-  });
-
-  return (response.data.values || [])
-    .map((row: string[]) => {
-      // rowの長さがkeysの長さに満たない場合、空文字列で埋める
-      while (row.length < keys.length) {
-        row.push('');
-      }
-
-      // 初期値を空のオブジェクトとして型推論を利用
-      return keys.reduce((acc, key, i) => {
-        acc[key] = row[i] as T[keyof T];
-        return acc;
-      }, {} as T);
+    const sheets = google.sheets({ version: 'v4', auth });
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: spreadSheetId,
+      range,
     });
-}
+
+    return (response.data.values || [])
+      .map((row: string[]) => {
+        // rowの長さがkeysの長さに満たない場合、空文字列で埋める
+        while (row.length < keys.length) {
+          row.push('');
+        }
+
+        // 初期値を空のオブジェクトとして型推論を利用
+        return keys.reduce((acc, key, i) => {
+          acc[key] = row[i] as T[keyof T];
+          return acc;
+        }, {} as T);
+      });
+  }
 
 export async function getSponsors(): Promise<Sponsor[]> {
   if (!process.env.SPONSOR_SPREADSHEET_ID) {
@@ -257,6 +258,55 @@ export async function getRelatedEvents(): Promise<RelatedEvent[]> {
 
   cache.set('related_events', relatedEventsPromise);
   return relatedEventsPromise;
+}
+
+export async function getOnSiteContents(): Promise<OnSiteContents[]> {
+  if (!process.env.ON_SITE_CONTENTS_SPREADSHEET_ID) {
+    return [];
+  }
+
+  if (cache.has('on_site_contents')) {
+    return cache.get('on_site_contents') as Promise<OnSiteContents[]>;
+  }
+
+  const onSiteContentsPromise = (async () => {
+    const contents = await fetchSheet<OnSiteContents>(
+      process.env.ON_SITE_CONTENTS_SPREADSHEET_ID || '',
+      '当日企画!A2:K100',
+      [
+        'location_type',
+        'title_ja',
+        'description_ja',
+        'title_en',
+        'description_en',
+        'link_url',
+        'link_text_ja',
+        'link_text_en',
+        'datetime_start',
+        'datetime_end',
+        'thumbnail_url',
+      ]
+    );
+
+    // "-"を空文字列に変換、imageUrlはファイル名のみ抽出
+    return contents.map(content => {
+      const transformedContent: Partial<OnSiteContents> = {};
+      for (const key in content) {
+        let value = content[key as keyof OnSiteContents];
+
+        // imageUrlの場合はファイル名のみ抽出
+        if (key === 'thumbnail_url' && value && value !== '-') {
+          value = value.split('/').pop() || '';
+        }
+
+        (transformedContent as Record<string, string>)[key] = value === '-' ? '' : value;
+      }
+      return transformedContent as OnSiteContents;
+    });
+  })();
+
+  cache.set('on_site_contents', onSiteContentsPromise);
+  return onSiteContentsPromise;
 }
 
 export async function getSightseeingPlaces(): Promise<SightseeingPlace[]> {

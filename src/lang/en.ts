@@ -1,4 +1,4 @@
-import {Dictionary} from "@/types/lang";
+import { Dictionary } from "@/types/lang";
 
 const En: Dictionary = {
   'top': {
@@ -19,6 +19,7 @@ const En: Dictionary = {
     speakers: 'Speakers',
     map: 'Map',
     sightseeing: 'Sightseeing',
+    on_site_contents: 'On-Site Contents',
     venue: 'Venue',
     coc: 'Code of Conduct',
     members: 'Members',
@@ -114,6 +115,17 @@ const En: Dictionary = {
     updateComing: 'Hiroshima, Updating.',
     description: "New spots are opening all over the city, making parks and museums more exciting than ever. In conjunction with PyCon JP 2025's venue 'Gather Python's Peace', we've picked out the latest of Hiroshima. Whether you're visiting for the first time or returning after a while, you're sure to discover something new about Hiroshima. Step out from the International Conference Center and explore the unique Hiroshima of today.",
     googleMapButton: 'Google Map'
+  },
+  'places': {
+    phoenix: 'Phoenix Hall',
+    ran: 'Ran',
+    kosmos: 'Kosmos',
+    dahlia_1: 'Dahlia 1',
+    dahlia_2: 'Dahlia 2',
+    sakura: 'Sakura',
+    open_space: 'Open Space',
+    poster_session: 'Poster Session',
+    entrance: 'Entrance',
   }
 }
 
