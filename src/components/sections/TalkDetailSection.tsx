@@ -7,7 +7,15 @@ import MarkdownContent from '@/components/elements/MarkdownContent';
 import ResourceSection from '@/components/sections/ResourceSection';
 import { Talk, Level } from '@/types/pretalx';
 import { Lang } from '@/types/lang';
-import { SUBMISSION_TYPES, shouldShowRoom, shouldShowLevel, getLevelLabel } from '@/libs/pretalx';
+import {
+  SUBMISSION_TYPES,
+  shouldShowRoom,
+  shouldShowLevel,
+  getLevelLabel,
+  shouldShowMotivation,
+  shouldShowTakeaway,
+  shouldShowPrerequisite
+} from '@/libs/pretalx';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -208,7 +216,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
         )}
 
         {/* この題材を選んだ理由やきっかけ */}
-        {talk.motivation && (
+        {talk.motivation && shouldShowMotivation(talk.code) && (
           <div className="mb-8">
             <hr className="border-gray-200 mb-6"/>
             <h2 className="text-lg font-bold mb-4">
@@ -222,7 +230,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
         )}
 
         {/* オーディエンスが持って帰れる具体的な知識やノウハウ */}
-        {talk.takeaway && (
+        {talk.takeaway && shouldShowTakeaway(talk.code) && (
           <div className="mb-8">
             <hr className="border-gray-200 mb-6"/>
             <h2 className="text-lg font-bold mb-4">
@@ -236,7 +244,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
         )}
 
         {/* オーディエンスに求める前提知識 */}
-        {talk.prerequisite && (
+        {talk.prerequisite && shouldShowPrerequisite(talk.code) && (
           <div className="mb-8">
             <hr className="border-gray-200 mb-6"/>
             <h2 className="text-lg font-bold mb-4">

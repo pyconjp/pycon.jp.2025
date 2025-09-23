@@ -42,6 +42,45 @@ export const shouldShowLevel = (code: string): boolean => {
   return !CODES_WITHOUT_LEVEL.includes(code);
 };
 
+// motivation表示を非表示にする特殊コード
+export const CODES_WITHOUT_MOTIVATION: readonly string[] = [
+  'NYCNJH', 'GCDDKB', '9KUYKK', 'TK7NJK', 'Y8UYKV', 'NE9BXD',
+  'N7NJCH', 'CY9JZH', 'ZJNKT7', 'WFF8ZJ', '8ESUWG', '3XJHRW',
+  'YB3CEX', 'SZ9VJM', 'RBZ9Y8', 'HXTCWC', 'TSUPAD', 'BRSMDS',
+  'NSJ7BU', 'QB78EG', '9GTUWR'
+] as const;
+
+// motivation表示判定ヘルパー関数
+export const shouldShowMotivation = (code: string): boolean => {
+  return !CODES_WITHOUT_MOTIVATION.includes(code);
+};
+
+// takeaway表示を非表示にする特殊コード
+export const CODES_WITHOUT_TAKEAWAY: readonly string[] = [
+  'NYCNJH', 'GCDDKB', '9KUYKK', 'TK7NJK', 'Y8UYKV', 'NE9BXD',
+  'N7NJCH', 'CY9JZH', 'ZJNKT7', 'WFF8ZJ', '8ESUWG', '3XJHRW',
+  'YB3CEX', 'SZ9VJM', 'RBZ9Y8', 'HXTCWC', 'TSUPAD', 'BRSMDS',
+  'NSJ7BU', 'QB78EG', '9GTUWR'
+] as const;
+
+// takeaway表示判定ヘルパー関数
+export const shouldShowTakeaway = (code: string): boolean => {
+  return !CODES_WITHOUT_TAKEAWAY.includes(code);
+};
+
+// prerequisite表示を非表示にする特殊コード
+export const CODES_WITHOUT_PREREQUISITE: readonly string[] = [
+  'NYCNJH', 'GCDDKB', '9KUYKK', 'TK7NJK', 'Y8UYKV', 'NE9BXD',
+  'N7NJCH', 'CY9JZH', 'ZJNKT7', 'WFF8ZJ', '8ESUWG', '3XJHRW',
+  'YB3CEX', 'SZ9VJM', 'RBZ9Y8', 'HXTCWC', 'TSUPAD', 'BRSMDS',
+  'NSJ7BU', 'QB78EG', '9GTUWR'
+] as const;
+
+// prerequisite表示判定ヘルパー関数
+export const shouldShowPrerequisite = (code: string): boolean => {
+  return !CODES_WITHOUT_PREREQUISITE.includes(code);
+};
+
 const QUESTION_IDS = {
   talk_language: 5337,
   slide_language: 5338,

@@ -81,9 +81,9 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
       
         {/* メイン情報 - flexboxで下揃え */}
         <div className="flex-grow flex flex-col justify-end">
-          {/* 下部情報：左側にラベルと時間、右側にスピーカー */}
-          <div className="flex flex-col lg:flex-row justify-between lg:items-end gap-4">
-            {/* 左側：ラベルと時間情報（縦並び） */}
+          {/* 下部情報：ラベルと時間情報 */}
+          <div className="flex flex-col gap-4">
+            {/* ラベルと時間情報 */}
             {session.slot ? (
               <div className="flex flex-col gap-2">
                 {/* ポスターの場合は2段構成 */}
@@ -174,29 +174,31 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
               </div>
             )}
 
-            {/* 右側：スピーカー情報 */}
-            <div className="flex flex-col gap-2 items-end">
-              {session.speakers.map((speaker) => (
-                <div key={speaker.code} className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-gray-900 text-right leading-none">{speaker.name}</span>
-                  <div className="relative w-10 h-10 overflow-hidden bg-gray-200 flex-shrink-0 rounded">
-                    {speaker.avatar_url ? (
-                      <Image
-                        src={speaker.avatar_url}
-                        alt={speaker.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    )}
+            {/* スピーカー情報（別の段として配置） */}
+            <div className="flex justify-end">
+              <div className="flex flex-col gap-2 items-end">
+                {session.speakers.map((speaker) => (
+                  <div key={speaker.code} className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-gray-900 text-right leading-none">{speaker.name}</span>
+                    <div className="relative w-10 h-10 overflow-hidden bg-gray-200 flex-shrink-0 rounded">
+                      {speaker.avatar_url ? (
+                        <Image
+                          src={speaker.avatar_url}
+                          alt={speaker.name}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
