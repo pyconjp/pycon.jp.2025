@@ -2,10 +2,6 @@ import {Menu} from "@/types/menu";
 
 export const menu: Menu[] = [
   {
-    'key': 'home',
-    'href': '/',
-  },
-  {
     'key': 'about',
     'href': '/venue',
   },
@@ -16,6 +12,10 @@ export const menu: Menu[] = [
   {
     'key': 'speakers',
     'href': '/speakers',
+  },
+  {
+    'key': 'on_site_contents',
+    'href': '/on-site-contents',
   },
   {
     'key': 'sightseeing',

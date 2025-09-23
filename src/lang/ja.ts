@@ -18,6 +18,7 @@ const Ja: Dictionary = {
     timetable: 'タイムテーブル',
     speakers: 'スピーカー',
     map: '周辺施設',
+    on_site_contents: '当日企画',
     sightseeing: '周辺施設',
     venue: '会場案内',
     coc: '行動規範',
@@ -92,7 +93,7 @@ const Ja: Dictionary = {
     head_name: "西本 卓也",
     co_host: "後援",
     co_host_name: "広島県・中国新聞社",
-    see_on_google_map: "Googleマップで見る", 
+    see_on_google_map: "Googleマップで見る",
   },
   'timetable': {
     track: {
@@ -114,6 +115,17 @@ const Ja: Dictionary = {
     updateComing: '広島、アップデート中。',
     description: '街のまんなかに新しいスポットが続々と登場して、駅もお城も、公園もミュージアムもどんどん進化。PyCon JP 2025の合言葉「あつまれPythonのピース」に合わせて、最新の広島をピックアップしました。初めての人も、久しぶりの人も、「こんな広島、知らなかった！」がきっと見つかるはず。さあ、会場（国際会議場）からちょっと足をのばして、今だけ・ここだけの広島へ。',
     googleMapButton: 'Google Map'
+  },
+  'places': {
+    phoenix: 'フェニックスホール',
+    ran: 'ラン',
+    kosmos: 'コスモス',
+    dahlia_1: 'ダリア1',
+    dahlia_2: 'ダリア2',
+    sakura: 'サクラ',
+    open_space: 'Open Space',
+    poster_session: 'ポスターセッション',
+    entrance: 'エントランス',
   }
 }
 
