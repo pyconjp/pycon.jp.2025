@@ -34,7 +34,8 @@ export const shouldShowRoom = (code: string): boolean => {
 export const CODES_WITHOUT_LEVEL: readonly string[] = [
   'NYCNJH', 'GCDDKB', '9KUYKK', 'TK7NJK', 'Y8UYKV', 'NE9BXD',
   'N7NJCH', 'CY9JZH', 'ZJNKT7', 'WFF8ZJ', '8ESUWG', '3XJHRW',
-  'YB3CEX', 'SZ9VJM', 'RBZ9Y8', 'HXTCWC'
+  'YB3CEX', 'SZ9VJM', 'RBZ9Y8', 'HXTCWC', 'TSUPAD', 'BRSMDS',
+  'NSJ7BU', 'QB78EG', '9GTUWR'
 ] as const;
 
 // レベル表示判定ヘルパー関数
