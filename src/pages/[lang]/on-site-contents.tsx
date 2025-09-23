@@ -37,7 +37,7 @@ export default function OnSiteContentsPage({ lang, onSiteContents }: OnSiteConte
           <h1 className="text-5xl font-bold mb-2">On-site Contents</h1>
           <p className="text-2xl text-gray-600 font-bold">当日企画</p>
         </div>
-        <div className="flex flex-wrap justify-center gap-20">
+        <div className="flex flex-wrap justify-start gap-20">
           {onSiteContents.map((content, index) => (
             <OnSiteContentCard
               key={index}

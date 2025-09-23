@@ -45,8 +45,8 @@ export default function OnSiteContentCard({
   linkText = "詳細を見る",
 }: OnSiteContentCardProps) {
   return (
-    <div className="flex max-lg:flex-col space-y-[25px] lg:items-top lg:space-x-[58px]">
-      <div className="flex flex-col space-y-[25px]">
+    <div className="flex max-lg:flex-col lg:flex-row lg:gap-[58px] w-full">
+      <div className="flex flex-col space-y-[25px] flex-1">
         <h2 className="font-jost font-semibold text-[28px]">{title}</h2>
         <div className="flex flex-col space-y-[15px]">
           <p className="rounded-full bg-[#D9D9D9] font-bold px-[9px] py-[3px] flex items-center w-fit text-[12px]">{location}</p>
@@ -54,10 +54,10 @@ export default function OnSiteContentCard({
             {formatDateTime(datetime.start, datetime.end)}
           </div>
         </div>
-        <p className={`${thumbnail ? 'lg:max-w-[381px]' : 'lg:max-w-[1003px]'} ${NotoSansJP.className}`}>{details}</p>
+        <p className={`${NotoSansJP.className}`}>{details || 'Coming Soon'}</p>
         {link && <LinkButton href={link}>{linkText}</LinkButton>}
       </div>
-      {thumbnail && <Image src={thumbnail} alt={title} width={564} height={496} className="lg:w-[564px] lg:h-[496px]"/>}
+      {thumbnail && <Image src={thumbnail} alt={title} width={564} height={496} className="lg:w-[564px] lg:h-[496px] flex-shrink-0 mt-[25px] lg:mt-0"/>}
     </div>
   )
 }
