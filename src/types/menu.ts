@@ -4,4 +4,4 @@ export type Menu = {
   isComingSoon?: boolean;
 }
 
-export type MenuKey = 'home' | 'about' | 'timetable' | 'speakers' | 'map' | 'sightseeing';
+export type MenuKey = 'home' | 'about' | 'timetable' | 'speakers' | 'map' | 'sightseeing' | 'on_site_contents';

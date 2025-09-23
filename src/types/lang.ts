@@ -19,6 +19,7 @@ export type Dictionary = {
     speakers: string,
     map: string,
     sightseeing: string,
+    on_site_contents: string,
     venue: string,
     coc: string,
     members: string,
@@ -114,5 +115,15 @@ export type Dictionary = {
     updateComing: string,
     description: string,
     googleMapButton: string,
+  },
+  places: {
+    phoenix: string,
+    ran: string,
+    dahlia_1: string,
+    dahlia_2: string,
+    sakura: string,
+    open_space: string,
+    poster_session: string,
+    entrance: string,
   },
 };

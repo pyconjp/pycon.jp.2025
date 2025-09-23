@@ -138,7 +138,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
           <span className="text-5xl font-bold font-jost">Silver Sponsors</span><span className="lg:mx-24 text-[##808080]">シルバースポンサー</span>
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 gap-y-8 lg:gap-y-10 place-items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 gap-y-14 lg:gap-y-10 place-items-center">
           {sponsors.filter(sponsor => sponsor.plan === 'silver').map((sponsor, index) => (
             <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
@@ -163,7 +163,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
           <span className="text-5xl font-bold font-jost">Special Sponsors</span><span className="lg:mx-24 text-[##808080]">特別スポンサー</span>
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 gap-y-12 lg:gap-y-10 place-items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 gap-y-14 lg:gap-y-10 place-items-center">
           {specialSponsors.filter(sponsor => sponsor.plan === 'special').map((sponsor, index) => (
             <Link href={`/${lang}/sponsors/special/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
