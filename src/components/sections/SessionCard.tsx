@@ -1,8 +1,9 @@
 import React from 'react';
-import {Talk} from '@/types/pretalx';
+import {Talk, Level} from '@/types/pretalx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SUBMISSION_TYPES, shouldShowRoom } from '@/libs/pretalx';
+import { SUBMISSION_TYPES, shouldShowRoom, shouldShowLevel, getLevelLabel } from '@/libs/pretalx';
+import { Lang } from '@/types/lang';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -12,7 +13,7 @@ dayjs.extend(timezone);
 
 interface SessionCardProps {
   session: Talk;
-  locale: 'ja' | 'en';
+  locale: Lang;
   showDate?: boolean; // スピーカーページで日付を表示するかどうか
 }
 
@@ -33,7 +34,7 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
     return endDate.diff(startDate, 'minute');
   };
 
-  const getLanguageLabel = (lang: string, currentLocale: 'ja' | 'en') => {
+  const getLanguageLabel = (lang: string, currentLocale: Lang) => {
     if (currentLocale === 'ja') {
       return lang === 'ja' ? '日本語' : '英語';
     } else {
@@ -80,9 +81,9 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
       
         {/* メイン情報 - flexboxで下揃え */}
         <div className="flex-grow flex flex-col justify-end">
-          {/* 下部情報：左側にラベルと時間、右側にスピーカー */}
-          <div className="flex flex-col lg:flex-row justify-between lg:items-end gap-4">
-            {/* 左側：ラベルと時間情報（縦並び） */}
+          {/* 下部情報：ラベルと時間情報 */}
+          <div className="flex flex-col gap-4">
+            {/* ラベルと時間情報 */}
             {session.slot ? (
               <div className="flex flex-col gap-2">
                 {/* ポスターの場合は2段構成 */}
@@ -99,6 +100,11 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                     </div>
                     {/* 2段目：ルームと言語ラベル */}
                     <div className="flex flex-wrap items-center gap-2">
+                      {shouldShowLevel(session.code) && (
+                        <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full whitespace-nowrap">
+                          {getLevelLabel(session.level as Level, locale)}
+                        </span>
+                      )}
                       {session.slot.room && session.slot.room.name && shouldShowRoom(session.code) && (
                         <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full whitespace-nowrap">
                           {locale === 'ja'
@@ -120,6 +126,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                         {locale === 'ja'
                           ? (session.slot.room.name['ja-jp'] || session.slot.room.name.en || `Room ${session.slot.room.id}`)
                           : (session.slot.room.name.en || session.slot.room.name['ja-jp'] || `Room ${session.slot.room.id}`)}
+                      </span>
+                    )}
+                    {/* レベルラベル */}
+                    {shouldShowLevel(session.code) && (
+                      <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                        {getLevelLabel(session.level as Level, locale)}
                       </span>
                     )}
                     {/* 言語ラベル */}
@@ -162,29 +174,31 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
               </div>
             )}
 
-            {/* 右側：スピーカー情報 */}
-            <div className="flex flex-col gap-2 items-end">
-              {session.speakers.map((speaker) => (
-                <div key={speaker.code} className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-gray-900 text-right leading-none">{speaker.name}</span>
-                  <div className="relative w-10 h-10 overflow-hidden bg-gray-200 flex-shrink-0 rounded">
-                    {speaker.avatar_url ? (
-                      <Image
-                        src={speaker.avatar_url}
-                        alt={speaker.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    )}
+            {/* スピーカー情報（別の段として配置） */}
+            <div className="flex justify-end">
+              <div className="flex flex-col gap-2 items-end">
+                {session.speakers.map((speaker) => (
+                  <div key={speaker.code} className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-gray-900 text-right leading-none">{speaker.name}</span>
+                    <div className="relative w-10 h-10 overflow-hidden bg-gray-200 flex-shrink-0 rounded">
+                      {speaker.avatar_url ? (
+                        <Image
+                          src={speaker.avatar_url}
+                          alt={speaker.name}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
