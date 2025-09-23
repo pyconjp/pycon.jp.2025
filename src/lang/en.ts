@@ -118,7 +118,8 @@ const En: Dictionary = {
   },
   'places': {
     phoenix: 'Phoenix Hall',
-    ran: 'RAN',
+    ran: 'Ran',
+    kosmos: 'Kosmos',
     dahlia_1: 'Dahlia 1',
     dahlia_2: 'Dahlia 2',
     sakura: 'Sakura',

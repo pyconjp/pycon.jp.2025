@@ -119,6 +119,7 @@ export type Dictionary = {
   places: {
     phoenix: string,
     ran: string,
+    kosmos: string,
     dahlia_1: string,
     dahlia_2: string,
     sakura: string,

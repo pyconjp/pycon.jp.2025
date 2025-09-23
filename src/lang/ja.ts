@@ -119,6 +119,7 @@ const Ja: Dictionary = {
   'places': {
     phoenix: 'フェニックスホール',
     ran: 'ラン',
+    kosmos: 'コスモス',
     dahlia_1: 'ダリア1',
     dahlia_2: 'ダリア2',
     sakura: 'サクラ',
