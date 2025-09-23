@@ -13,6 +13,9 @@ export type BaseSession = {
   slide_language: Lang,
   level: Level,
   resource: Resource[],
+  motivation?: string,     // この題材を選んだ理由やきっかけ
+  takeaway?: string,       // オーディエンスが持って帰れる具体的な知識やノウハウ
+  prerequisite?: string,   // オーディエンスに求める前提知識
 }
 
 // Talk session with optional time slot (TALK, SPECIAL, LUNCH)
