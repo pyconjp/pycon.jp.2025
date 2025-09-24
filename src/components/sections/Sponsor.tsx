@@ -159,6 +159,34 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
           ))}
         </div>
       </div>
+      {specialSponsors.filter(sponsor => sponsor.plan === 'streaming').length > 0 &&
+        <div className="relative py-2">
+          <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
+            <span className="text-5xl font-bold font-jost">Streaming Sponsor</span><span className="lg:mx-24 text-[##808080]">配信スポンサー</span>
+          </h2>
+          <div className="grid lg:grid-cols-4 gap-6 gap-y-24 justify-center items-center">
+            {specialSponsors.filter(sponsor => sponsor.plan === 'streaming').map((sponsor, index) => (
+              <Link href={`/${lang}/sponsors/special/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
+                <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
+                  <CloudflareImage
+                    category="sponsors"
+                    fileName={sponsor.logo_image}
+                    fallbackSrc="/common/no_image_sponsor.png"
+                    alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
+                    width={480}
+                    height={210}
+                    className="w-[220px] h-[130px] p-4 object-contain"
+                  />
+                </div>
+                <div className="flex flex-col my-4">
+                  <h3 className="text-xl font-bold">{lang === 'ja' ? (sponsor.name_ja || sponsor.name_en) : (sponsor.name_en || sponsor.name_ja)}</h3>
+                  <p className="text-[#808080]">{lang === 'ja' ? (sponsor.title_ja || sponsor.title_en) : (sponsor.title_en || sponsor.title_ja)}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      }
       <div className="relative py-2 mb-10">
         <h2 className="flex max-lg:flex-col max-lg:gap-6 lg:items-center my-20">
           <span className="text-5xl font-bold font-jost">Special Sponsors</span><span className="lg:mx-24 text-[##808080]">特別スポンサー</span>
