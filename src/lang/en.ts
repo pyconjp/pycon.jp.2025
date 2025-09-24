@@ -119,6 +119,7 @@ const En: Dictionary = {
   'places': {
     phoenix: 'Phoenix Hall',
     ran: 'Ran',
+    himawari: 'Himawari',
     kosmos: 'Kosmos',
     dahlia_1: 'Dahlia 1',
     dahlia_2: 'Dahlia 2',
