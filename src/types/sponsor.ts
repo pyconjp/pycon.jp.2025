@@ -6,7 +6,7 @@ export type Sponsor = {
   pr_ja: string;
   pr_en: string;
   logo_image: string;
-  plan: 'platinum' | 'gold' | 'silver' | 'flower' | 'psf';
+  plan: 'platinum' | 'gold' | 'silver' | 'flower' | 'psf' | 'streaming';
   path: string;
 }
 
@@ -18,7 +18,7 @@ export type SpecialSponsor = {
   title_ja: string;
   title_en: string;
   logo_image: string;
-  plan: 'psf' | 'advertising' | 'special';
+  plan: 'psf' | 'advertising' | 'special' | 'streaming';
   path: string;
 }
 
