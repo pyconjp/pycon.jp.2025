@@ -17,6 +17,7 @@ const sponsorLabel_en: Record<Sponsor['plan'], string> = {
   silver: 'Silver Sponsor',
   flower: 'Flower Sponsor',
   psf: 'PSF Sponsor',
+  streaming: 'Streaming Sponsor',
 };
 
 const sponsorLabel_ja: Record<Sponsor['plan'], string> = {
@@ -25,6 +26,7 @@ const sponsorLabel_ja: Record<Sponsor['plan'], string> = {
   silver: 'シルバースポンサー',
   flower: 'フラワースポンサー',
   psf: 'PSF',
+  streaming: '配信スポンサー',
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
