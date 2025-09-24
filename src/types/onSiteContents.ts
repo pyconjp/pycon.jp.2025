@@ -1,5 +1,5 @@
 export interface OnSiteContents {
-  location_type: 'phoenix' | 'ran' | 'dahlia_1' | 'dahlia_2' | 'sakura' | 'open_space' | 'poster_session' | 'entrance';
+  location_type: 'phoenix' | 'ran' | 'himawari' | 'dahlia_1' | 'dahlia_2' | 'sakura' | 'open_space' | 'poster_session' | 'entrance';
   title_ja: string;
   description_ja: string;
   title_en: string;
