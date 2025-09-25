@@ -129,9 +129,9 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                       </span>
                     )}
                     {/* ハッシュタグラベル */}
-                    {session.slot.room && getRoomHashtag(session.slot.room.id) && (
+                    {session.slot.room && getRoomHashtag(session.slot.room.id, session.code) && (
                       <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
-                        {getRoomHashtag(session.slot.room.id)}
+                        {getRoomHashtag(session.slot.room.id, session.code)}
                       </span>
                     )}
                     {/* レベルラベル */}
