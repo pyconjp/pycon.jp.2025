@@ -14,7 +14,8 @@ import {
   getLevelLabel,
   shouldShowMotivation,
   shouldShowTakeaway,
-  shouldShowPrerequisite
+  shouldShowPrerequisite,
+  getRoomHashtag
 } from '@/libs/pretalx';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
@@ -127,6 +128,19 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
                       ? (talk.slot.room.name['ja-jp'] || talk.slot.room.name.en || `Room ${talk.slot.room.id}`)
                       : (talk.slot.room.name.en || talk.slot.room.name['ja-jp'] || `Room ${talk.slot.room.id}`)}
                   </span>
+                )}
+
+                {/* ハッシュタグラベル（クリック可能） */}
+                {talk.slot?.room && getRoomHashtag(talk.slot.room.id) && (
+                  <a
+                    href={`https://x.com/search?q=${encodeURIComponent(getRoomHashtag(talk.slot.room.id) || '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 text-sm font-bold rounded-full hover:bg-blue-200 transition-all hover:scale-105 cursor-pointer"
+                    title={lang === 'ja' ? 'Xで検索' : 'Search on X'}
+                  >
+                    {getRoomHashtag(talk.slot.room.id)}
+                  </a>
                 )}
 
                 {talk.level && shouldShowLevel(talk.code) && (

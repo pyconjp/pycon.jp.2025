@@ -82,6 +82,23 @@ export const shouldShowPrerequisite = (code: string): boolean => {
   return !CODES_WITHOUT_PREREQUISITE.includes(code);
 };
 
+// ルームIDからハッシュタグを取得するヘルパー関数
+export const getRoomHashtag = (roomId: number | undefined): string | null => {
+  if (!roomId) return null;
+  switch (roomId) {
+    case 4739:
+      return '#pyconjp_1';
+    case 4740:
+      return '#pyconjp_2';
+    case 4741:
+      return '#pyconjp_3';
+    case 4742:
+      return '#pyconjp_4';
+    default:
+      return null;
+  }
+};
+
 const QUESTION_IDS = {
   talk_language: 5337,
   slide_language: 5338,
