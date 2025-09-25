@@ -83,8 +83,10 @@ export const shouldShowPrerequisite = (code: string): boolean => {
 };
 
 // ルームIDからハッシュタグを取得するヘルパー関数
-export const getRoomHashtag = (roomId: number | undefined): string | null => {
+export const getRoomHashtag = (roomId: number | undefined, code?: string): string | null => {
   if (!roomId) return null;
+  // CODES_WITHOUT_ROOMに含まれるコードの場合はハッシュタグを表示しない
+  if (code && CODES_WITHOUT_ROOM.includes(code as typeof CODES_WITHOUT_ROOM[number])) return null;
   switch (roomId) {
     case 4739:
       return '#pyconjp_1';
