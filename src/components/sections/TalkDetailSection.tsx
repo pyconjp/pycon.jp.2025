@@ -131,15 +131,15 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
                 )}
 
                 {/* ハッシュタグラベル（クリック可能） */}
-                {talk.slot?.room && getRoomHashtag(talk.slot.room.id) && (
+                {talk.slot?.room && getRoomHashtag(talk.slot.room.id, talk.code) && (
                   <a
-                    href={`https://x.com/search?q=${encodeURIComponent(getRoomHashtag(talk.slot.room.id) || '')}`}
+                    href={`https://x.com/search?q=${encodeURIComponent(getRoomHashtag(talk.slot.room.id, talk.code) || '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 text-sm font-bold rounded-full hover:bg-blue-200 transition-all hover:scale-105 cursor-pointer"
                     title={lang === 'ja' ? 'Xで検索' : 'Search on X'}
                   >
-                    {getRoomHashtag(talk.slot.room.id)}
+                    {getRoomHashtag(talk.slot.room.id, talk.code)}
                   </a>
                 )}
 
