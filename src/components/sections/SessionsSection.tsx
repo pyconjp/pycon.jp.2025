@@ -74,6 +74,26 @@ const SessionsSection: React.FC<SessionsSectionProps> = ({ lang, className = '' 
           </div>
         </Link>
       </div>
+      <Link href={`/${lang}/related-events`}>
+        <div className="flex justify-center mx-4 md:mx-16 hover:opacity-[50] transition">
+          <div className="relative inline-block">
+            <CloudflareImage
+              category="common"
+              fileName="related-events-banner.png"
+              fallbackSrc="/common/related-events-banner.png"
+              alt={isJapanese ? '関連イベント' : 'Related Events'}
+              width={800}
+              height={400}
+              className="lg:max-w-[500px] h-auto object-cover mt-8 rounded-2xl hover:shadow-xl transition-shadow duration-300"
+            />
+            <span className="absolute top-[50%] right-[10%] inline-flex items-center justify-center bg-white text-black rounded-full p-2 shadow-md">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };
