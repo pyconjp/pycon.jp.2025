@@ -19,7 +19,7 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
             </h2>
             <p className="lg:mx-24 text-[#808080]">会場内マップ</p>
           </div>
-          <div className="w-full lg:h-[520px] bg-white rounded-2xl border border-[#808080]">
+          <div className="w-full lg:h-[520px] max-lg:px-[10px] py-[20px] bg-white rounded-2xl border border-[#808080]">
             <Link href="https://imagedelivery.net/b5En07d-KFQsH_ChaBdJ-A/common_pyconjp2025map/public" target="_blank">
               <CloudflareImage
                 category="common"
