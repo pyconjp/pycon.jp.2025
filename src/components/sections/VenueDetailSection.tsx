@@ -12,6 +12,26 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
   return (
     <>
       <section {...props}>
+        <section id="hall-map">
+          <div className="flex lg:items-center my-16 max-lg:flex-col">
+            <h2 className='text-4xl lg:text-6xl font-bold font-jost'>
+              Hall Map
+            </h2>
+            <p className="lg:mx-24 text-[#808080]">会場内マップ</p>
+          </div>
+          <div className="w-full lg:h-[520px] bg-white rounded-2xl border border-[#808080]">
+            <Link href="https://imagedelivery.net/b5En07d-KFQsH_ChaBdJ-A/common_pyconjp2025map/public" target="_blank">
+              <CloudflareImage
+                category="common"
+                fileName="pyconjp2025map.jpg"
+                fallbackSrc="/common/pyconjp2025map.jpg"
+                alt="Hall Map"
+                width={1000}
+                height={516}
+                className="w-full h-full object-contain rounded-2xl" />
+            </Link>
+          </div>
+        </section>
         <div className="flex lg:items-center my-16 max-lg:flex-col">
           <h2 className='text-4xl lg:text-6xl font-bold font-jost'>
             Conference Overview
@@ -62,7 +82,7 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
           </h2>
           <p className="lg:mx-24 text-[#808080]">アクセスマップ</p>
         </div>
-        <div className="w-full h-[520px] bg-white rounded-2xl border border-[#808080]">
+        <div className="w-full lg:h-[520px] bg-white rounded-2xl border border-[#808080]">
           <Link href="https://imagedelivery.net/b5En07d-KFQsH_ChaBdJ-A/common_access_map/public" target="_blank">
             <CloudflareImage
               category="common"
@@ -78,6 +98,7 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
           <p className="my-2 underline p-1">{dict.venue.see_on_google_map}</p>
         </ExternalLink>
         <RecruitmentSection lang={lang} className="my-32" />
-      </section></>
+      </section>
+    </>
   );
 }
