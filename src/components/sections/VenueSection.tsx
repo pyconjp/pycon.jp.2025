@@ -33,6 +33,10 @@ export default function VenueSection({ lang, ...props }: Props) {
               <Description />
             </div>
             <div className={clsx("flex flex-col gap-4", lang === "ja" && "mt-4")}>
+              <Link href="#hall-map" className="flex justify-between items-center border-b border-gray-300 py-3 pr-2 no-underline">
+                <span className="font-bold">{dict.venue.hall_map_title}</span>
+                <span><FontAwesomeIcon icon={faArrowDown} /></span>
+              </Link>
               <Link href="#access" className="flex justify-between items-center border-b border-gray-300 py-3 pr-2 no-underline">
                 <span className="font-bold">{dict.venue.access_map_title}</span>
                 <span><FontAwesomeIcon icon={faArrowDown} /></span>
