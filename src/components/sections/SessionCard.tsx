@@ -2,7 +2,7 @@ import React from 'react';
 import {Talk, Level} from '@/types/pretalx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SUBMISSION_TYPES, shouldShowRoom, shouldShowLevel, getLevelLabel } from '@/libs/pretalx';
+import { SUBMISSION_TYPES, shouldShowRoom, shouldShowLevel, getLevelLabel, getRoomHashtag } from '@/libs/pretalx';
 import { Lang } from '@/types/lang';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
@@ -126,6 +126,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ session, locale, showDate = f
                         {locale === 'ja'
                           ? (session.slot.room.name['ja-jp'] || session.slot.room.name.en || `Room ${session.slot.room.id}`)
                           : (session.slot.room.name.en || session.slot.room.name['ja-jp'] || `Room ${session.slot.room.id}`)}
+                      </span>
+                    )}
+                    {/* ハッシュタグラベル */}
+                    {session.slot.room && getRoomHashtag(session.slot.room.id, session.code) && (
+                      <span className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-900 text-sm font-bold rounded-full">
+                        {getRoomHashtag(session.slot.room.id, session.code)}
                       </span>
                     )}
                     {/* レベルラベル */}
