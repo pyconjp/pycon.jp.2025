@@ -20,6 +20,7 @@ import {
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -140,6 +141,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
                     title={lang === 'ja' ? 'Xで検索' : 'Search on X'}
                   >
                     {getRoomHashtag(talk.slot.room.id, talk.code)}
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="ml-2" />
                   </a>
                 )}
 
