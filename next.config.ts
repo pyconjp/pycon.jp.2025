@@ -25,12 +25,12 @@ const nextConfig: NextConfig = {
       // タイムテーブルのリダイレクト
       {
         source: '/ja/timetable',
-        destination: '/ja/timetable/day1',
+        destination: '/ja/timetable/day2',
         permanent: false,
       },
       {
         source: '/en/timetable',
-        destination: '/en/timetable/day1',
+        destination: '/en/timetable/day2',
         permanent: false,
       },
       
