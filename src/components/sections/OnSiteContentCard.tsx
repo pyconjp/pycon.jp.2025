@@ -28,7 +28,7 @@ const formatDateTime = (start: string, end: string) => {
   const endTime = endDate.format('HH:mm');
 
   // 同じ日付の場合
-  if (startDate.format('YYYY-MM-DD') === endDate.format('YYYY-MM-DD')) {
+  if (startDate.isSame(endDate, 'day')) {
     return (
       <div className="font-bold flex gap-4">
         {`${startDate.format('M/D')} `}
