@@ -16,16 +16,23 @@ export default function Footer({lang}: { lang: Lang }) {
       <div className='w-10/12 lg:max-w-[1000px] mx-auto pt-11 flex flex-col lg:flex-row items-stretch max-lg:gap-4'>
         <div className='flex-1'>
           <CloudflareImage category='common' fileName='logo_footer.svg' fallbackSrc='/common/logo_footer.svg' alt='PyCon JP 2025 Logo' width={280} height={80} className='mb-6'/>
-          <ExternalLink href='https://x.com/pyconjapan'
-                        className='flex flex-row justify-between border-2 border-gray-200 rounded-r-full rounded-l-full py-3 px-8 w-full lg:w-80 mb-5'>
-            <span className='font-semibold'>X</span>
-            <span className='font-semibold text-gray-500'>@pyconjapan</span>
-          </ExternalLink>
-          <ExternalLink href='https://www.facebook.com/PyConJP/'
-                        className='flex flex-row justify-between border-2 border-gray-200 rounded-r-full rounded-l-full py-3 px-8 w-full lg:w-80'>
-            <span className='font-semibold'>Facebook</span>
-            <span className='font-semibold text-gray-500'>@PyConJP</span>
-          </ExternalLink>
+          <div className='space-y-3'>
+            <ExternalLink href='https://x.com/pyconjapan'
+                          className='flex flex-row justify-between border-2 border-gray-200 rounded-r-full rounded-l-full py-3 px-8 w-full lg:w-80'>
+              <span className='font-semibold'>X</span>
+              <span className='font-semibold text-gray-500'>@pyconjapan</span>
+            </ExternalLink>
+            <ExternalLink href='https://www.facebook.com/PyConJP/'
+                          className='flex flex-row justify-between border-2 border-gray-200 rounded-r-full rounded-l-full py-3 px-8 w-full lg:w-80'>
+              <span className='font-semibold'>Facebook</span>
+              <span className='font-semibold text-gray-500'>@PyConJP</span>
+            </ExternalLink>
+            <ExternalLink href='https://www.instagram.com/pyconjp'
+                          className='flex flex-row justify-between border-2 border-gray-200 rounded-r-full rounded-l-full py-3 px-8 w-full lg:w-80'>
+              <span className='font-semibold'>Instagram</span>
+              <span className='font-semibold text-gray-500'>@pyconjp</span>
+            </ExternalLink>
+          </div>
         </div>
         <nav className='flex-1 flex lg:flex-row flex-col max-lg:gap-4 items-stretch pt-6'>
           <ul className='flex-1 flex flex-col justify-between max-lg:gap-4'>

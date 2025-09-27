@@ -26,11 +26,27 @@ const formatDateTime = (start: string, end: string) => {
   const endDate = dayjs(end).tz('Asia/Tokyo');
   const startTime = startDate.format('HH:mm');
   const endTime = endDate.format('HH:mm');
+
+  // 同じ日付の場合
+  if (startDate.isSame(endDate, 'day')) {
+    return (
+      <div className="font-bold flex gap-4">
+        {`${startDate.format('M/D')} `}
+        <span style={{ color: '#808080' }}>{startDate.format('ddd').toUpperCase()}</span>
+        {` ${startTime} - ${endTime}`}
+      </div>
+    );
+  }
+
+  // 別日の場合
   return (
     <div className="font-bold flex gap-4">
       {`${startDate.format('M/D')} `}
       <span style={{ color: '#808080' }}>{startDate.format('ddd').toUpperCase()}</span>
-      {` ${startTime} - ${endTime}`}
+      {` ${startTime} - `}
+      {`${endDate.format('M/D')} `}
+      <span style={{ color: '#808080' }}>{endDate.format('ddd').toUpperCase()}</span>
+      {` ${endTime}`}
     </div>
   );
 };
