@@ -1,40 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# PyCon JP 2025 公式ウェブサイト
 
-## Getting Started
+[PyCon JP 2025](https://2025.pycon.jp) の公式ウェブサイトのソースコードです。
 
-First, run the development server:
+## 概要
+
+このプロジェクトは、PyCon JP 2025の公式サイトで、日本語と英語の2言語対応の静的サイトです。Next.js 15を使用し、Google SheetsとBlogger APIから動的にコンテンツを取得します。
+
+## 技術スタック
+
+- **フレームワーク**: Next.js 15.3.2 (SSG - Static Site Generation)
+- **言語**: TypeScript 5, React 19
+- **スタイリング**: Tailwind CSS 4
+- **コンテンツ管理**: MDX
+- **デプロイ**: Cloudflare Pages
+- **外部API**: Google Sheets API, Blogger API
+
+## はじめに
+
+### 必要な環境
+
+- Node.js 18以上
+- npm または yarn
+
+### セットアップ
+
+1. リポジトリをクローン
+   ```bash
+   git clone https://github.com/pyconjp/pycon.jp.2025.git
+   cd pycon.jp.2025
+   ```
+
+2. 依存関係をインストール
+   ```bash
+   npm install
+   ```
+
+3. 環境変数を設定
+   ```bash
+   cp .env.local.example .env.local
+   ```
+   `.env.local`ファイルに必要な環境変数を設定してください：
+   - Google API認証情報（Sheets APIとBlogger API用）
+
+4. 開発サーバーを起動
+   ```bash
+   npm run dev
+   ```
+
+[http://localhost:3000](http://localhost:3000) にアクセスして確認してください。
+
+## 開発
+
+### 主要なコマンド
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev        # 開発サーバーの起動（Turbopack使用）
+npm run build      # プロダクションビルド（サイトマップ生成含む）
+npm start          # プロダクションサーバーの起動
+npm run lint       # ESLintチェック
+
+# ビルド前処理
+npm run pre-build      # ビルド前にGoogle Drive画像同期とPretalxデータ取得を実行
+npm run pre-build:dev  # 開発環境用（.envファイル使用）
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### ビルド前処理（pre-build）について
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+`pre-build`スクリプトは、Next.jsのビルド前に以下の処理を自動実行します：
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+1. **Google Drive画像同期**
+   - 設定されたGoogle Driveフォルダから画像をダウンロード
+   - Cloudflare Imagesへ自動アップロード
+   - メンバーやスポンサーの画像を最新化
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+2. **Pretalxデータ取得**
+   - カンファレンスのスケジュールデータをフェッチ
+   - スピーカー情報の同期
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`npm run build`実行時に自動的に`pre-build`が呼ばれるため、通常は個別に実行する必要はありません。
 
-## Learn More
+### ディレクトリ構造
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── components/
+│   ├── elements/      # 基本UIコンポーネント
+│   ├── sections/      # ページセクション（Header, Footer, Hero等）
+│   ├── layout/        # レイアウトコンポーネント
+│   └── markdown/      # MDXコンテンツ（言語別）
+├── pages/
+│   └── [locale]/      # 言語別のページ（ja/en）
+├── libs/              # APIクライアント等のライブラリ
+├── lang/              # 言語辞書ファイル
+└── types/             # TypeScript型定義
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+### 多言語対応（i18n）
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- URLパス: `/ja/...` または `/en/...`
+- 言語辞書: `/src/lang/ja.ts` と `/src/lang/en.ts`
+- MDXコンテンツ: `/src/components/markdown/[ja|en]/`
+- Cookieベースの言語設定保持
 
-## Deploy on Vercel
+### データ連携
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Google Sheets API
+- スポンサー情報
+- スタッフ・メンバー情報
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+#### Blogger API
+- ニュース・ブログ記事
+
+### コンテンツの更新
+
+#### 静的コンテンツ
+MDXファイルを直接編集：
+- `/src/components/markdown/ja/` - 日本語コンテンツ
+- `/src/components/markdown/en/` - 英語コンテンツ
+
+#### 動的コンテンツ
+- スポンサー情報：Google Sheetsを更新後、再ビルド
+- ニュース：Blogger管理画面から投稿
+
+## デプロイ
+
+mainブランチへのpush時に自動的にCloudflare Pagesへデプロイされます。
