@@ -4,13 +4,17 @@ import createMDX from '@next/mdx'
 const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   images: {
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
+      /*
       {
         protocol: 'https',
         hostname: 'imagedelivery.net',
         port: '',
         pathname: '/**',
       },
+      */
       {
         protocol: 'https',
         hostname: 'pretalx.com',

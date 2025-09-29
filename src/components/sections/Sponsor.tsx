@@ -29,7 +29,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
                   <CloudflareImage
                     category="sponsors"
                     fileName={sponsor.logo_image}
-                    fallbackSrc="/common/no_image_sponsor.png"
+                    fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -58,7 +58,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
                   <CloudflareImage
                     category="sponsors"
                     fileName={sponsor.logo_image}
-                    fallbackSrc="/common/no_image_sponsor.png"
+                    fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -87,7 +87,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
                 <CloudflareImage
                   category="sponsors"
                   fileName={sponsor.logo_image}
-                  fallbackSrc="/common/no_image_sponsor.png"
+                  fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
@@ -116,7 +116,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
                   <CloudflareImage
                     category="sponsors"
                     fileName={sponsor.logo_image}
-                    fallbackSrc="/common/no_image_sponsor.png"
+                    fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -145,7 +145,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
                 <CloudflareImage
                   category="sponsors"
                   fileName={sponsor.logo_image}
-                  fallbackSrc="/common/no_image_sponsor.png"
+                  fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
@@ -171,7 +171,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
                   <CloudflareImage
                     category="sponsors"
                     fileName={sponsor.logo_image}
-                    fallbackSrc="/common/no_image_sponsor.png"
+                    fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -198,7 +198,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
                 <CloudflareImage
                   category="sponsors"
                   fileName={sponsor.logo_image}
-                  fallbackSrc="/common/no_image_sponsor.png"
+                  fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
@@ -224,7 +224,7 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
                 <CloudflareImage
                   category="patron"
                   fileName={patron.image}
-                  fallbackSrc="/common/no_image_sponsor.png"
+                  fallbackSrc={`/common/sponsor/${patron.image}`}
                   alt={patron.name}
                   width={500}
                   height={500}

@@ -23,8 +23,9 @@ export default function CloudflareImage({
 }: CloudflareImageProps) {
   const [imgSrc, setImgSrc] = useState(() => {
     if (!fileName || fileName.trim() === '') return fallbackSrc;
-    const url = getCloudflareImageUrl(category, fileName);
-    return url || fallbackSrc;
+    /*const url = getCloudflareImageUrl(category, fileName);*/
+    /*return url || fallbackSrc;*/
+    return fallbackSrc; // CFIの無効化
   });
 
   // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
