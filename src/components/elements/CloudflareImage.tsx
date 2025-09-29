@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {getCloudflareImageUrl} from '@/libs/cloudflare-images';
+/*import {getCloudflareImageUrl} from '@/libs/cloudflare-images';*/
 import {useState} from 'react';
 
 interface CloudflareImageProps {
@@ -13,7 +13,7 @@ interface CloudflareImageProps {
 }
 
 export default function CloudflareImage({
-  category,
+  /*category,*/
   fileName,
   fallbackSrc,
   alt,
