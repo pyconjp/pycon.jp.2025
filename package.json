@@ -7,7 +7,7 @@
     "dev:turbo": "next dev --turbopack",
     "pre-build": "tsx scripts/pre-build.ts",
     "pre-build:dev": "tsx --env-file .env scripts/pre-build.ts",
-    "build": "npm run echo NEXT_PUBLIC_BASE_URL=$CF_PAGES_URL > .env.production && next build && next-sitemap",
+    "build": "npm run pre-build && echo NEXT_PUBLIC_BASE_URL=$CF_PAGES_URL > .env.production && next build && next-sitemap",
     "vercel-build": "npm run build",
     "build:vercel": "tsx scripts/vercel-build.ts",
     "build:cf": "npm run build:vercel && npx next-on-pages --skip-build",
