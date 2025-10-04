@@ -25,7 +25,13 @@ export default function CloudflareImage({
     if (!fileName || fileName.trim() === '') return fallbackSrc;
     /*const url = getCloudflareImageUrl(category, fileName);*/
     /*return url || fallbackSrc;*/
-    return fallbackSrc; // CFIの無効化
+
+    // ファイル名をURLエンコードしてfallbackSrcを生成
+    const pathParts = fallbackSrc.split('/');
+    const encodedFileName = encodeURIComponent(pathParts[pathParts.length - 1]);
+    const encodedSrc = pathParts.slice(0, -1).join('/') + '/' + encodedFileName;
+
+    return encodedSrc; // CFIの無効化
   });
 
   // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
