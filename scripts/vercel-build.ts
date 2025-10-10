@@ -33,9 +33,10 @@ async function main() {
     console.log('📦 Starting optimized build process...\n');
 
     // 1. Run pre-build script
-    console.log('1️⃣  Running pre-build script...');
+    /*console.log('1️⃣  Running pre-build script...');
     await runCommand('npm', ['run', 'pre-build']);
     console.log('✅ Pre-build completed\n');
+    */
 
     // 2. Set environment variable
     console.log('2️⃣  Setting environment variables...');

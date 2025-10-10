@@ -104,7 +104,7 @@ function SponsorPage({ sponsors, lang }: Props) {
                     <CloudflareImage
                       category="sponsors"
                       fileName={currentSponsor.logo_image || ''}
-                      fallbackSrc="/common/no_image_sponsor.png"
+                      fallbackSrc={`/common/sponsor/${currentSponsor.logo_image}`}
                       alt={lang === 'ja' ? (currentSponsor.name_ja || currentSponsor.name_en) : (currentSponsor.name_en || currentSponsor.name_ja)}
                       width={480}
                       height={210}
