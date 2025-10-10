@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {getCloudflareImageUrl} from '@/libs/cloudflare-images';
+/*import {getCloudflareImageUrl} from '@/libs/cloudflare-images';*/
 import {useState} from 'react';
 
 interface CloudflareImageProps {
@@ -13,7 +13,7 @@ interface CloudflareImageProps {
 }
 
 export default function CloudflareImage({
-  category,
+  /*category,*/
   fileName,
   fallbackSrc,
   alt,
@@ -23,16 +23,16 @@ export default function CloudflareImage({
 }: CloudflareImageProps) {
   const [imgSrc, setImgSrc] = useState(() => {
     if (!fileName || fileName.trim() === '') return fallbackSrc;
-    const url = getCloudflareImageUrl(category, fileName);
-    return url || fallbackSrc;
+    /*const url = getCloudflareImageUrl(category, fileName);*/
+    /*return url || fallbackSrc;*/
+    return fallbackSrc; // CFIの無効化
   });
 
   // Cloudflare Images URLの場合はNext.jsの画像最適化をバイパス
-  const isCloudflareUrl = imgSrc && imgSrc.includes('imagedelivery.net');
+  /*const isCloudflareUrl = imgSrc && imgSrc.includes('imagedelivery.net');*/
 
-  if (isCloudflareUrl) {
+  /*if (isCloudflareUrl) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={imgSrc}
         alt={alt}
@@ -42,7 +42,7 @@ export default function CloudflareImage({
         onError={() => setImgSrc(fallbackSrc)}
       />
     );
-  }
+  }*/
 
   // フォールバック画像の場合はNext.js Imageコンポーネントを使用
   return (
