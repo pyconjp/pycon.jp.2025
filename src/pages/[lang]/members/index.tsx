@@ -48,7 +48,7 @@ function MembersPage({ lang, members }: { lang: Lang, members: Member[] }) {
           cloudflareImages={{
             category: 'common',
             fileNames: ['member_header_1', 'member_header_2'],
-            fallbackSrcs: ['/common/member_header_1.png', '/common/member_header_2.png']
+            fallbackSrcs: ['/common/member_header_1.jpg', '/common/member_header_2.jpg']
           }}
         />
         <MembersSection members={members} lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20' />
