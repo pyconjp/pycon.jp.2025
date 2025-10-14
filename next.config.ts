@@ -29,13 +29,13 @@ const nextConfig: NextConfig = {
       // タイムテーブルのリダイレクト
       {
         source: '/ja/timetable',
-        destination: '/ja/timetable/day2',
-        permanent: false,
+        destination: '/ja/timetable/day1',
+        permanent: true,
       },
       {
         source: '/en/timetable',
-        destination: '/en/timetable/day2',
-        permanent: false,
+        destination: '/en/timetable/day1',
+        permanent: true,
       },
       
       // ルートへのアクセス：cookie.lang に応じてリダイレクト
