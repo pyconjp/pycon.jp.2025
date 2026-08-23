@@ -3,15 +3,15 @@ import {Autoplay, EffectFade} from 'swiper/modules';
 import 'swiper/css'
 import 'swiper/css/effect-fade'
 import LinkButton from "@/components/elements/LinkButton";
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import {Lang} from "@/types/lang";
 import dynamic from "next/dynamic";
 import {dictionary} from "@/lang";
 import DisplayDate from '../elements/DisplayDate';
 
 const images = [
-  {fileName: 'hero_1', fallback: '/common/hero/hero_1.jpg'},
-  {fileName: 'hero_2', fallback: '/common/hero/hero_2.jpg'},
+  '/common/hero/hero_1.jpg',
+  '/common/hero/hero_2.jpg',
 ]
 
 export default function HeroSection({lang}: {lang: Lang}) {
@@ -35,10 +35,8 @@ export default function HeroSection({lang}: {lang: Lang}) {
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
-              <CloudflareImage 
-                category="hero"
-                fileName={image.fileName}
-                fallbackSrc={image.fallback}
+              <ImageWithFallback
+                src={image}
                 alt={`Hero Section ${index}`} 
                 width={1920} 
                 height={1080} 
@@ -56,10 +54,8 @@ export default function HeroSection({lang}: {lang: Lang}) {
         className='relative lg:w-5/8 w-10/12 h-auto mx-auto flex flex-col lg:flex-row gap-12 bg-transparent lg:-mt-24 lg:items-end z-0'>
         <div className='flex-1'>
           <div className='relative w-4/6 max-w-72 mx-auto'>
-            <CloudflareImage 
-              category="hero"
-              fileName="theme.png"
-              fallbackSrc="/common/hero/theme.png"
+            <ImageWithFallback
+              src="/common/hero/theme.png"
               alt='あつまれPythonのピース' 
               width={1120} 
               height={1120} 
@@ -80,10 +76,8 @@ export default function HeroSection({lang}: {lang: Lang}) {
         <div className='flex-1 w-10/12 lg:w-auto mx-auto'>
           <div className='relative aspect-[4/3] ml-auto max-h-[400px]'>
             <div className="absolute bottom-[40%] left-0 h-[60%] aspect-[4/3]">
-              <CloudflareImage
-                category="hero"
-                fileName="abstract_1.jpg"
-                fallbackSrc="/common/hero/abstract_1.jpg"
+              <ImageWithFallback
+                src="/common/hero/abstract_1.jpg"
                 alt='Abstract Image 1'
                 width={800}
                 height={600}
@@ -91,10 +85,8 @@ export default function HeroSection({lang}: {lang: Lang}) {
               />
             </div>
             <div className="absolute bottom-0 right-0 h-[60%] aspect-[4/3]">
-              <CloudflareImage
-                category="hero"
-                fileName="abstract_2.jpg"
-                fallbackSrc="/common/hero/abstract_2.jpg"
+              <ImageWithFallback
+                src="/common/hero/abstract_2.jpg"
                 alt='Abstract Image 2'
                 width={800}
                 height={600}

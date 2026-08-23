@@ -5,6 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import DateArea from '@/components/elements/DateArea';
 import MarkdownContent from '@/components/elements/MarkdownContent';
 import ResourceSection from '@/components/sections/ResourceSection';
+import { getYoutubeVideoUrl } from '@/data/youtubeVideos';
 import { Talk, Level } from '@/types/pretalx';
 import { Lang } from '@/types/lang';
 import {
@@ -60,6 +61,7 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
   const isJapanese = lang === 'ja';
   const startTime = talk.slot?.start ? formatDateTime(talk.slot.start) : null;
   const endTime = talk.slot?.end ? dayjs(talk.slot.end).tz('Asia/Tokyo').format('HH:mm') : null;
+  const youtubeUrl = getYoutubeVideoUrl(talk.code);
 
   return (
     <div className="bg-white rounded-lg border border-gray-300 pt-14 relative">
@@ -216,7 +218,21 @@ const TalkDetailSection: React.FC<TalkDetailCardProps> = ({ talk, lang, onClose 
             <ResourceSection resources={talk.resource} className="" />
           </div>
         )}
-        
+
+        {/* 発表動画セクション */}
+        {youtubeUrl && (
+          <div className="mb-8">
+            <hr className="border-gray-200 mb-6"/>
+            <ResourceSection
+              resources={[{
+                resource: youtubeUrl,
+                description: isJapanese ? '発表動画 (YouTube)' : 'Session Video (YouTube)',
+              }]}
+              className=""
+            />
+          </div>
+        )}
+
         {/* 詳細説明 */}
         {talk.description && (
           <div className="mb-8">

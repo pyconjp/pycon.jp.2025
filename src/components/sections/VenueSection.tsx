@@ -1,6 +1,6 @@
 import { Lang } from "@/types/lang";
 import dynamic from "next/dynamic";
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import clsx from "clsx";
 import { dictionary } from "@/lang";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -44,10 +44,8 @@ export default function VenueSection({ lang, ...props }: Props) {
             </div>
           </div>
           <div>
-            <CloudflareImage
-              category="common"
-              fileName="venue_hero.png"
-              fallbackSrc="/common/venue_hero.png"
+            <ImageWithFallback
+              src="/common/venue_hero.png"
               alt="Venue Image Main"
               width={740}
               height={564}

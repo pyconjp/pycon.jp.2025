@@ -107,11 +107,7 @@ function TimetableDayPage({lang, day, talks, posters}: TimetablePageProps) {
         grayscale
         title="Timetable"
         subtitle="タイムテーブル"
-        cloudflareImages={{
-          category: 'common',
-          fileNames: ['timetable_header_1', 'timetable_header_2'],
-          fallbackSrcs: ['/common/timetable_header_1.png', '/common/timetable_header_2.png']
-        }}
+        images={['/common/timetable_header_1.png', '/common/timetable_header_2.png']}
       />
       
       {/* ナビゲーションタブ */}
