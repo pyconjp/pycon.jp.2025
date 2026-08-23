@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import CloudflareImage from '@/components/elements/CloudflareImage';
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import { Lang } from '@/types/lang';
 
 interface SessionsSectionProps {
@@ -17,10 +17,8 @@ const SessionsSection: React.FC<SessionsSectionProps> = ({ lang, className = '' 
         {/* タイムテーブル */}
         <Link href={`/${lang}/timetable`} className="group relative block overflow-hidden">
           <div className="aspect-[16/9] relative">
-            <CloudflareImage
-              category="common"
-              fileName="session_section_talk"
-              fallbackSrc="/common/session_section_talk.jpg"
+            <ImageWithFallback
+              src="/common/session_section_talk.jpg"
               alt={isJapanese ? 'タイムテーブル' : 'Timetable'}
               width={1920}
               height={1080}
@@ -47,10 +45,8 @@ const SessionsSection: React.FC<SessionsSectionProps> = ({ lang, className = '' 
         {/* ポスターセッション */}
         <Link href={`/${lang}/timetable#poster-section`} className="group relative block overflow-hidden">
           <div className="aspect-[16/9] relative">
-            <CloudflareImage
-              category="common"
-              fileName="session_section_poster"
-              fallbackSrc="/common/session_section_poster.jpg"
+            <ImageWithFallback
+              src="/common/session_section_poster.jpg"
               alt={isJapanese ? 'ポスターセッション' : 'Poster Session'}
               width={1920}
               height={1080}
@@ -77,10 +73,8 @@ const SessionsSection: React.FC<SessionsSectionProps> = ({ lang, className = '' 
       <Link href={`/${lang}/related-events`}>
         <div className="flex justify-center mx-4 md:mx-16 hover:opacity-[50] transition">
           <div className="relative inline-block">
-            <CloudflareImage
-              category="common"
-              fileName="related-events-banner.png"
-              fallbackSrc="/common/related-events-banner.png"
+            <ImageWithFallback
+              src="/common/related-events-banner.png"
               alt={isJapanese ? '関連イベント' : 'Related Events'}
               width={800}
               height={400}

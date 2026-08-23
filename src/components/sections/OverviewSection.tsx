@@ -1,6 +1,6 @@
 import { Lang } from "@/types/lang";
 import dynamic from "next/dynamic";
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import clsx from "clsx";
 import LinkButton from "@/components/elements/LinkButton";
 import { dictionary } from "@/lang";
@@ -14,10 +14,8 @@ export default function OverviewSection({ lang, ...props }: Props) {
   return (
     <section {...props} className={clsx('flex lg:flex-row flex-col gap-14', props.className)}>
       <div className='flex-[3_3_0] relative lg:aspect-auto aspect-[2_/_3]'>
-        <CloudflareImage
-          category='overview'
-          fileName='overview_main.jpg'
-          fallbackSrc='/common/overview/overview_main.jpg'
+        <ImageWithFallback
+          src='/common/overview/overview_main.jpg'
           alt='Overview Image Main'
           width={232}
           height={406}
@@ -33,10 +31,8 @@ export default function OverviewSection({ lang, ...props }: Props) {
         </div>
       </div>
       <div className='flex-[2_2_0]'>
-        <CloudflareImage
-          category='overview'
-          fileName='overview_sub.jpg'
-          fallbackSrc='/common/overview/overview_sub.jpg'
+        <ImageWithFallback
+          src='/common/overview/overview_sub.jpg'
           alt='Overview Image Sub'
           width={376}
           height={213}

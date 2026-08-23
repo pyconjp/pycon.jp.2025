@@ -1,4 +1,4 @@
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import HeaderMenu from "@/components/elements/HeaderMenu";
 import { Lang } from "@/types/lang";
 import LangButton from "@/components/elements/LangButton";
@@ -29,26 +29,20 @@ export default function Header({ active, lang, isTop, ...props }: Props) {
       })}>
         <div className={clsx({ 'lg:w-60': !isTop, 'lg:w-96 pt-3': isTop })}>
           <Link href={`/${lang}`}>
-            <CloudflareImage
-              category='common'
-              fileName='logo_pc.svg'
-              fallbackSrc='/common/logo_pc.svg'
+            <ImageWithFallback
+              src='/common/logo_pc.svg'
               alt='PyCon JP 2025 Logo'
               width={243}
               height={57}
               className={clsx('hidden', { 'lg:block': !isTop })} />
-            <CloudflareImage
-              category='common'
-              fileName='logo_sp.png'
-              fallbackSrc='/common/logo_sp.png'
+            <ImageWithFallback
+              src='/common/logo_sp.png'
               alt='PyCon JP 2025 Logo'
               width={112.44}
               height={38.29}
               className='lg:hidden' />
-            <CloudflareImage
-              category='common'
-              fileName='logo_pc_top.png'
-              fallbackSrc='/common/logo_pc_top.png'
+            <ImageWithFallback
+              src='/common/logo_pc_top.png'
               alt='PyCon JP 2025 Logo'
               width={372}
               height={144}

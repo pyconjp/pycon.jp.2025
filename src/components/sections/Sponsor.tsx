@@ -1,7 +1,7 @@
 import { Lang } from "@/types/lang";
 import { Patron, SpecialSponsor, Sponsor } from "@/types/sponsor";
 import React from "react";
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import Link from "next/link";
 
 type Props = {
@@ -26,10 +26,8 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
             {sponsors.filter(sponsor => sponsor.plan === 'platinum').map((sponsor, index) => (
               <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
                 <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                  <CloudflareImage
-                    category="sponsors"
-                    fileName={sponsor.logo_image}
-                    fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
+                  <ImageWithFallback
+                    src={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -55,10 +53,8 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
             {sponsors.filter(sponsor => sponsor.plan === 'psf').map((sponsor, index) => (
               <Link href={`/${lang}/sponsors/${sponsor.path}}`} key={index} className="max-w-[315px] max-h-[215px] lg:max-w-[480px] lg:max-h-[210px]">
                 <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                  <CloudflareImage
-                    category="sponsors"
-                    fileName={sponsor.logo_image}
-                    fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
+                  <ImageWithFallback
+                    src={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -84,10 +80,8 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
           {sponsors.filter(sponsor => sponsor.plan === 'gold').map((sponsor, index) => (
             <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <CloudflareImage
-                  category="sponsors"
-                  fileName={sponsor.logo_image}
-                  fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
+                <ImageWithFallback
+                  src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
@@ -113,10 +107,8 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
             {sponsors.filter(sponsor => sponsor.plan === 'flower').map((sponsor, index) => (
               <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
                 <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                  <CloudflareImage
-                    category="sponsors"
-                    fileName={sponsor.logo_image}
-                    fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
+                  <ImageWithFallback
+                    src={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -142,10 +134,8 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
           {sponsors.filter(sponsor => sponsor.plan === 'silver').map((sponsor, index) => (
             <Link href={`/${lang}/sponsors/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <CloudflareImage
-                  category="sponsors"
-                  fileName={sponsor.logo_image}
-                  fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
+                <ImageWithFallback
+                  src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
@@ -168,10 +158,8 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
             {specialSponsors.filter(sponsor => sponsor.plan === 'streaming').map((sponsor, index) => (
               <Link href={`/${lang}/sponsors/special/${sponsor.path}`} key={index} className="max-w-[225px] max-h-[220px] lg:max-w-[220px] lg:h-[225px]">
                 <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                  <CloudflareImage
-                    category="sponsors"
-                    fileName={sponsor.logo_image}
-                    fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
+                  <ImageWithFallback
+                    src={`/common/sponsor/${sponsor.logo_image}`}
                     alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                     width={480}
                     height={210}
@@ -195,10 +183,8 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
           {specialSponsors.filter(sponsor => sponsor.plan === 'special').map((sponsor, index) => (
             <Link href={`/${lang}/sponsors/special/${sponsor.path}`} key={index} className="max-w-[145px] h-[165px] lg:max-w-[180px] lg:h-[210px]">
               <div className="flex flex-col items-center bg-white border border-[#0000001A] rounded-lg">
-                <CloudflareImage
-                  category="sponsors"
-                  fileName={sponsor.logo_image}
-                  fallbackSrc={`/common/sponsor/${sponsor.logo_image}`}
+                <ImageWithFallback
+                  src={`/common/sponsor/${sponsor.logo_image}`}
                   alt={lang === 'ja' ? sponsor.name_ja : sponsor.name_en}
                   width={480}
                   height={210}
@@ -221,10 +207,8 @@ export default function SponsorSection({ sponsors, specialSponsors, patron, lang
           {patron.map((patron, index) => (
             <div key={index} className="w-[145px] h-[165px] lg:w-[180px] lg:h-[210px]">
               <div className="flex flex-col items-center bg-[#9A9A9A] rounded-lg">
-                <CloudflareImage
-                  category="patron"
-                  fileName={patron.image}
-                  fallbackSrc={`/common/sponsor/${patron.image}`}
+                <ImageWithFallback
+                  src={`/common/sponsor/${patron.image}`}
                   alt={patron.name}
                   width={500}
                   height={500}
