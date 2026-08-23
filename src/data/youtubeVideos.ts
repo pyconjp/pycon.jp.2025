@@ -12,8 +12,6 @@
 export const YOUTUBE_VIDEO_IDS: Record<string, string> = {
 
   // ===== Day 1 (9/26) =====
-  // [Special] 09:00 フェニックスホール / 受付 Registration
-  'NYCNJH': '',
   // [Special] 10:00 フェニックスホール / Day 1 Opening
   'GCDDKB': '',
   // [Talk] 10:30 ダリア1 / Hello, satellite data! ～Pythonではじめる衛星データ解析～
@@ -71,39 +69,37 @@ export const YOUTUBE_VIDEO_IDS: Record<string, string> = {
   // [Talk] 16:15 フェニックスホール / 初心者向け：ゼロから作る自作LLM ― PyTorch実装とRAG連携入門
   'WXJ3ZG': '',
   // [Talk] 16:15 ラン / mypyの10年、pyrightの5年、tyの挑戦 - 型チェッカー進化論
-  'SLYBTR': '',
+  'SLYBTR': 'B3yjd1Bv0gQ',
   // [Special] 17:00 フェニックスホール / Day 1 Lightning Talks
   'TK7NJK': '',
   // [Special] 17:55 フェニックスホール / 【Day 1 Keynote】 Sebastián Ramírez 氏 Behind the scenes of FastAPI and friends for developers and builders
-  'Y8UYKV': '',
+  'Y8UYKV': 'oKZnP_ECjnQ',
   // [Special] 18:55 フェニックスホール / Day 1 Closing
   'NE9BXD': '',
 
   // ===== Day 2 (9/27) =====
-  // [Special] 09:00 フェニックスホール / 受付 Registration
-  'N7NJCH': '',
   // [Special] 09:40 フェニックスホール / Day 2 Opening
-  'CY9JZH': '',
+  'CY9JZH': 'tVxPWlndtKI',
   // [Special] 09:55 フェニックスホール / 一般社団法人PyCon JP Associationからの報告
   'ZJNKT7': '',
   // [Special] 10:20 コスモス / オープンスペース / Open Space
   'WFF8ZJ': '',
   // [Talk] 10:20 ダリア1 / Python×信号処理入門！スペクトログラムで視る音の世界
-  'DRCDCV': '',
+  'DRCDCV': 'SC6HDK96uJI',
   // [Talk] 10:20 ダリア2 / NetworkXとGNNで学ぶグラフデータ分析入門：複雑な関係性を解き明かすPythonの力
-  '7MGHF9': '',
+  '7MGHF9': 'wgOE0TtP_Eg',
   // [Special] 10:20 フェニックスホール / D&I（Diversity & Inclusion）パネルディスカッション (Panel Discussion)
   '9GTUWR': '',
   // [Talk] 10:20 ラン / AST Black Magic: Run synchronous Python code on asynchronous Pyodide
-  'ZCX89J': '',
+  'ZCX89J': 'kkjknP5tDdA',
   // [Talk] 11:05 ダリア1 / Pythonによるデータ処理のための分散フレームワーク選び
-  'LG9EK3': '',
+  'LG9EK3': 'aCgJSk0674I',
   // [Talk] 11:05 ダリア2 / 標準ライブラリのlogging、レゴブロックのように組合せてロギングできることを理解しよう！
-  'Z8ZYFA': '',
+  'Z8ZYFA': 'tSuSr2jFE0Q',
   // [Talk] 11:05 フェニックスホール / 【招待講演】広島から世界へ ― Pythonで描くデータサイエンスの新しい未来
   'QB78EG': '',
   // [Talk] 11:05 ラン / How I Built a CPU for Fun (and Didn’t Learn Verilog)
-  '8EAGDB': '',
+  '8EAGDB': 'qQglVxWz1b4',
   // [Talk] 11:50 ダリア1 / Webアプリケーションにおけるパスルーティングアルゴリズムの解剖
   'S9RPVX': '',
   // [Talk] 11:50 ダリア2 / タスクって今どうなってるの？3.14の新機能 asyncio ps と pstree でasyncioのデバッグを
@@ -111,7 +107,7 @@ export const YOUTUBE_VIDEO_IDS: Record<string, string> = {
   // [Talk] 11:50 フェニックスホール / ボロノイモザイクアートの作り方
   'AXAAZJ': '',
   // [Talk] 11:50 ラン / Goodbye GIL: Exploring the Free-threaded mode in Python 3.13 and Beyond
-  'KLCT8T': '',
+  'KLCT8T': 'Qa41zUOzZaU',
   // [Special] 12:20 コスモス / PyCon JP Association 公開 meeting
   '8ESUWG': '',
   // [Special] 13:20 コスモス / オープンスペース / Open Space
@@ -119,27 +115,27 @@ export const YOUTUBE_VIDEO_IDS: Record<string, string> = {
   // [Talk] 13:20 ダリア1 / Python製RDBMSで理解する、データベースのピース 〜コードのステップ実行とヘックスビューアーで内部動作を追ってみよう〜
   'D7D9R3': '',
   // [Talk] 13:20 ダリア2 / Weaponizing MCP Servers: Production-Ready AI Agent Infrastructure with Python
-  'UX8DM8': '',
+  'UX8DM8': 'jO4ypxwL_3I',
   // [Talk] 13:20 フェニックスホール / 【招待講演】＃普通の文系サラリーマンチャレンジ 自分でアプリ開発と電子工作を続けたら人生が変わった
   'NSJ7BU': '',
   // [Talk] 13:20 ラン / ビビってどうする：セキュアなPythonコードを目指して
-  '8PAPQE': '',
+  '8PAPQE': 'ZUD9P4t2W-4',
   // [Talk] 14:05 ダリア1 / Streamlit は社内ツールだけじゃない！PoCの速さで実現する"商用品質"の分析SaaSアーキテクチャ
   'ZEWVKF': '',
   // [Talk] 14:05 ダリア2 / How Fast Can We Go? Build a NumPy-Like Backend in C++ with Python Bindings
-  'CHWSGG': '',
+  'CHWSGG': 'vjesL7fwp9w',
   // [Talk] 14:05 フェニックスホール / Pythonによる契約プログラミング入門
   'PKNNAL': '',
   // [Talk] 14:05 ラン / pytest を爆速にする10の方法
-  'ZFYREY': '',
+  'ZFYREY': 'ffUfbG1G4v8',
   // [Talk] 14:50 ダリア1 / 育てるアーキテクチャ：戦い抜くPythonマイクロサービスの設計と進化戦略
-  'CVUNWL': '',
+  'CVUNWL': '_5lz4EsLs6w',
   // [Talk] 14:50 ダリア2 / Programming Lessons from Japanese Poetry
-  'BFDEE7': '',
+  'BFDEE7': 'p4sBA-ed4ck',
   // [Talk] 14:50 フェニックスホール / Python開発環境の整え方ライブデモ
   'SB3RDY': '',
   // [Talk] 14:50 ラン / PythonとLLMで挑む、4コマ漫画の構造化データ化
-  'TATGYX': '',
+  'TATGYX': 'rQz_UUBS7u4',
   // [Special] 15:20 サクラ / Day 2 Poster Session
   'YB3CEX': '',
   // [Special] 16:05 フェニックスホール / Day 2 Lightning Talks
