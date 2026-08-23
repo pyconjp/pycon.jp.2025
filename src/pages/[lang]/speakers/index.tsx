@@ -24,7 +24,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       lang,
     },
-    revalidate: 3600, // 1時間（3600秒）ごとに再生成
   };
 };
 

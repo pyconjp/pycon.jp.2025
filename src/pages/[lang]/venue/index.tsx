@@ -23,7 +23,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       lang,
     },
-    revalidate: 3600,
   };
 };
 

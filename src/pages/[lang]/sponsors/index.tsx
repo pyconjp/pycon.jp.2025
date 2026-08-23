@@ -30,7 +30,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       special_Sponsors,
       patrons
     },
-    revalidate: 3600,
   };
 };
 

@@ -59,7 +59,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       lang,
       specialSponsor,
     },
-    revalidate: 3600,
   };
 };
 

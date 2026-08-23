@@ -64,7 +64,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       talks: sortedTalks,
       posters: allPosters,
     },
-    revalidate: 3600, // 1時間（3600秒）ごとに再生成
   };
 };
 

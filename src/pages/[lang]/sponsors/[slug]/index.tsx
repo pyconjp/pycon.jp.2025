@@ -62,7 +62,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       sponsor,
       sponsors: sponsors.filter(s => s.path === sponsor),
     },
-    revalidate: 3600,
   };
 };
 

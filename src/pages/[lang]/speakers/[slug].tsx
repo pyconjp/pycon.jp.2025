@@ -128,7 +128,6 @@ export const getStaticProps: GetStaticProps<TrackPageProps> = async ({params}) =
         track,
         locale,
       },
-      revalidate: 3600,
     };
   } catch (error) {
     console.error('Failed to fetch sessions:', error);
@@ -139,7 +138,6 @@ export const getStaticProps: GetStaticProps<TrackPageProps> = async ({params}) =
         track,
         locale,
       },
-      revalidate: 60,
     };
   }
 };

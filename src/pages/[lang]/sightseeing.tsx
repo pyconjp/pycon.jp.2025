@@ -139,7 +139,6 @@ export const getStaticProps: GetStaticProps<SightseeingPageProps> = async ({ par
         locale,
         places,
       },
-      revalidate: 3600,
     };
   } catch (error) {
     console.error('Failed to fetch sightseeing places:', error);
@@ -149,7 +148,6 @@ export const getStaticProps: GetStaticProps<SightseeingPageProps> = async ({ par
         locale,
         places: [],
       },
-      revalidate: 60,
     };
   }
 };

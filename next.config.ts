@@ -3,6 +3,8 @@ import createMDX from '@next/mdx'
 
 const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  // 静的エクスポート（out/ に HTML を出力し、nginx から配信する）
+  output: "export",
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
@@ -16,63 +18,11 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: true,
   },
-  async redirects() {
-    return [
-      // タイムテーブルのリダイレクト
-      {
-        source: '/ja/timetable',
-        destination: '/ja/timetable/day1',
-        permanent: true,
-      },
-      {
-        source: '/en/timetable',
-        destination: '/en/timetable/day1',
-        permanent: true,
-      },
-      
-      // ルートへのアクセス：cookie.lang に応じてリダイレクト
-      {
-        source: '/',
-        has: [{ type: 'cookie', key: 'lang', value: 'en' }],
-        destination: '/en',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [{ type: 'cookie', key: 'lang', value: 'ja' }],
-        destination: '/ja',
-        permanent: false,
-      },
-      {
-        source: '/',
-        missing: [{ type: 'cookie', key: 'lang' }],
-        destination: '/ja',
-        permanent: false,
-      },
-
-      // サブパスへのアクセス：cookie.lang に応じてパスを変換
-      {
-        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap.*\.xml$|robots.txt$).+)',
-        has: [{ type: 'cookie', key: 'lang', value: 'en' }],
-        destination: '/en/:path',
-        permanent: false,
-      },
-      {
-        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap.*\.xml$|robots.txt$).+)',
-        has: [{ type: 'cookie', key: 'lang', value: 'ja' }],
-        destination: '/ja/:path',
-        permanent: false,
-      },
-      {
-        source: '/:path((?!_next/|api/|ja$|ja/|en$|en/|common$|common/|sitemap.*\.xml$|robots.txt$).+)',
-        missing: [{ type: 'cookie', key: 'lang' }],
-        destination: '/ja/:path',
-        permanent: false,
-      },
-    ];
-  },
+  // 静的エクスポートでは next.config の redirects が適用されないため、
+  // 言語振り分け（/ → /ja）とタイムテーブルのリダイレクトは nginx 側で行う。
+  // 設定内容は pyconjp/pyconjp-ansible の
+  // roles/nginx/files/etc/nginx/sites-enabled/yyyy.pycon.jp.conf を参照。
   reactStrictMode: true,
-  output: "standalone",
 };
 
 const withMDX = createMDX({});

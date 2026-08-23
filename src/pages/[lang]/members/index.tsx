@@ -26,7 +26,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       lang,
       members,
     },
-    revalidate: 3600,
   };
 };
 
