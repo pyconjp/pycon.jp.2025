@@ -6,6 +6,8 @@
  *
  * 空文字列のものは「動画が未公開 / リンクを表示しない」を意味する。
  * セッション詳細ページでは、値が入っているものだけリンクが表示される。
+ *
+ * ポスター / コミュニティポスターは配信がないため、この一覧には含めていない。
  */
 export const YOUTUBE_VIDEO_IDS: Record<string, string> = {
 
@@ -146,42 +148,6 @@ export const YOUTUBE_VIDEO_IDS: Record<string, string> = {
   'RBZ9Y8': '',
   // [Special] 18:10 フェニックスホール / Day 2 Closing
   'HXTCWC': '',
-
-  // ===== 時間枠なし =====
-  // --- Poster ---
-  // 「まっすぐ行って、右！」って言ってラズパイカーを動かしたい 〜生成AI × Raspberry Pi Pico × Gradioの試作メモ〜
-  '9CD3UW': '',
-  // そのグラフに「魂」は宿っているか？ ～生成AI全盛期におけるデータ可視化手法とライブラリ比較～
-  'BP88GS': '',
-  // CNN-Based Classification of Nutrient Stress in Rice Using Leaf Images
-  'SBDEFY': '',
-  // CellRake: a Python package for analyzing cells in fluorescent images
-  'TTLV7U': '',
-  // Python in Rocket Science: Visualisation of Supersonic Combustion
-  'YHZKGQ': '',
-  // GraphRAG：グラフDBで強化したRAGによるLLM生成の実践
-  'ZVTUGM': '',
-  // --- Community Poster ---
-  // django-ja
-  '9XUSLA': '',
-  // PyCon mini Shizuokaの活動紹介
-  'LF8VEK': '',
-  // stapy10年の歩み
-  'LTVUZW': '',
-  // PyCon mini 東海 2025
-  'MANUYG': '',
-  // Python Asia Organization: Strengthening Python Communities Across Asia
-  'PETCT8': '',
-  // Python Meetup Fukuoka紹介
-  'PKSTKK': '',
-  // Python Boot CampでPythonの環を広げよう in 広島
-  'QSXKMK': '',
-  // PyLadies Japan の活動報告 2025
-  'SFB3RF': '',
-  // PyCon Taiwan
-  'T8QCCU': '',
-  // Hyper-Local and Globally Connected: The “Sugoi Hiroshima” Model for Sustainable Python Communities (超ローカルかつグローバルに繋がる: 持続可能なPythonコミュニティのための「すごい広島」モデル)
-  'U8EJYT': '',
 };
 
 /**
