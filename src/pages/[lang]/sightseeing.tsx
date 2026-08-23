@@ -4,7 +4,7 @@ import { dictionary } from '@/lang';
 import DefaultLayout from '@/components/layout/DefaultLayout';
 import PageHead from '@/components/elements/PageHead';
 import ContentsHeader from '@/components/sections/ContentsHeader';
-import CloudflareImage from '@/components/elements/CloudflareImage';
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import { SightseeingPlace } from '@/types/sightseeing';
 import { getSightseeingPlaces } from '@/libs/spreadsheet';
 
@@ -28,11 +28,7 @@ const SightseeingPage = ({ locale, places }: SightseeingPageProps) => {
       <ContentsHeader
         title={dict.sightseeing.title}
         subtitle={dict.sightseeing.subtitle}
-        cloudflareImages={{
-          category: 'common',
-          fileNames: ['venue_header_1', 'venue_header_2'],
-          fallbackSrcs: ['/common/venue_header_1.png', '/common/venue_header_2.png']
-        }}
+        images={['/common/venue_header_1.png', '/common/venue_header_2.png']}
       />
 
       {/* Table of Contents - 目次 */}
@@ -74,10 +70,8 @@ const SightseeingPage = ({ locale, places }: SightseeingPageProps) => {
                 {/* 画像 - 横幅100% */}
                 {place.image && (
                   <div className="relative w-full h-64 md:h-96 mb-6 overflow-hidden rounded-lg">
-                    <CloudflareImage
-                      category="sightseeing"
-                      fileName={place.image}
-                      fallbackSrc={`/common/sightseeing/${place.image}`}
+                    <ImageWithFallback
+                      src={`/common/sightseeing/${place.image}`}
                       alt={locale === 'ja' ? place.name_ja : place.name_en}
                       width={1200}
                       height={600}

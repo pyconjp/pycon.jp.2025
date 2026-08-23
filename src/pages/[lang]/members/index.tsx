@@ -45,11 +45,7 @@ function MembersPage({ lang, members }: { lang: Lang, members: Member[] }) {
           grayscale
           title="Members"
           subtitle="メンバー"
-          cloudflareImages={{
-            category: 'common',
-            fileNames: ['member_header_1', 'member_header_2'],
-            fallbackSrcs: ['/common/member_header_1.jpg', '/common/member_header_2.jpg']
-          }}
+          images={['/common/member_header_1.jpg', '/common/member_header_2.jpg']}
         />
         <MembersSection members={members} lang={lang} className='mx-auto lg:w-5/8 w-10/12 mt-20' />
       </div>

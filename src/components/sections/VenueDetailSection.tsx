@@ -1,4 +1,4 @@
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import { Lang } from "@/types/lang";
 import ExternalLink from "../elements/ExternalLink";
 import RecruitmentSection from "./RecruitmentSection";
@@ -20,11 +20,9 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
             <p className="lg:mx-24 text-[#808080]">会場内マップ</p>
           </div>
           <div className="w-full lg:h-[520px] max-lg:px-[10px] py-[20px] bg-white rounded-2xl border border-[#808080]">
-            <Link href="https://imagedelivery.net/b5En07d-KFQsH_ChaBdJ-A/common_pyconjp2025map/public" target="_blank">
-              <CloudflareImage
-                category="common"
-                fileName="pyconjp2025map.jpg"
-                fallbackSrc="/common/pyconjp2025map.jpg"
+            <Link href="/common/pyconjp2025map.jpg" target="_blank">
+              <ImageWithFallback
+                src="/common/pyconjp2025map.jpg"
                 alt="Hall Map"
                 width={1000}
                 height={516}
@@ -83,11 +81,9 @@ export default function VenueDetailSection({ lang, ...props }: Props) {
           <p className="lg:mx-24 text-[#808080]">アクセスマップ</p>
         </div>
         <div className="w-full lg:h-[520px] bg-white rounded-2xl border border-[#808080]">
-          <Link href="https://imagedelivery.net/b5En07d-KFQsH_ChaBdJ-A/common_access_map/public" target="_blank">
-            <CloudflareImage
-              category="common"
-              fileName="access_map.png"
-              fallbackSrc="/common/access_map.png"
+          <Link href="/common/access_map.png" target="_blank">
+            <ImageWithFallback
+              src="/common/access_map.png"
               alt="Access Map"
               width={1000}
               height={516}
