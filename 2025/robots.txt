@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://2025.pycon.jp
+
+# Sitemaps
+Sitemap: https://2025.pycon.jp/sitemap.xml
