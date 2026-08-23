@@ -1,6 +1,6 @@
 import {Lang} from "@/types/lang";
 import {Member} from "@/types/member";
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import {dictionary} from "@/lang";
 import Link from "next/link";
 
@@ -22,10 +22,8 @@ export default function MembersSection({members, lang, ...props}: Props) {
         {members.sort((a, b) => a.role_id - b.role_id).map((member, index) => (
           <Link key={index} href={`/${lang}/members/${member.path}`}>
             <div className='flex items-row gap-5 p-5 border-gray-200 border-2 rounded-xl'>
-              <CloudflareImage
-                category="members"
-                fileName={member.image}
-                fallbackSrc={member.image ? "/common/members/" + member.image : "/common/no_image_organizer.png"}
+              <ImageWithFallback
+                src={member.image ? "/common/members/" + member.image : "/common/no_image_organizer.png"}
                 alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
                 width={110}
                 height={110}

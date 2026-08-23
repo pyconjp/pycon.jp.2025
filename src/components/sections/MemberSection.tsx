@@ -1,7 +1,7 @@
 import {Lang} from "@/types/lang";
 import {Member} from "@/types/member";
 import Image from "next/image";
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import clsx from "clsx";
 import {dictionary} from "@/lang";
 import ExternalLink from "@/components/elements/ExternalLink";
@@ -22,10 +22,8 @@ export default function MemberSection({lang, member, ...props}: Props) {
       <div className='relative'>
         <Image src={`/common/member_cover.jpg`} alt='Cover Image' width={400} height={400}
                className='w-full aspect-[8_/_3] object-cover rounded-t-lg'/>
-        <CloudflareImage
-          category="members"
-          fileName={member.image}
-          fallbackSrc={member.image ? "/common/members/" + member.image : "/common/no_image_organizer.png"}
+        <ImageWithFallback
+          src={member.image ? "/common/members/" + member.image : "/common/no_image_organizer.png"}
           alt={lang === 'ja' ? (member.name_ja || member.name_en) : (member.name_en || member.name_ja)}
           width={110}
           height={110}

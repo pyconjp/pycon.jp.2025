@@ -63,7 +63,6 @@ npx vercel build --prod --yes && npx next-on-pages --skip-build
 
 2. **`pre-build`** スクリプトは以下を実行します：
    - Pretalx API からセッションデータを取得してキャッシュファイルを生成
-   - Google Drive から画像を取得して Cloudflare Images にアップロード
 
 3. 直接 `npx next build` を実行すると、pre-build スクリプトがスキップされ、キャッシュファイルが生成されません。
 
@@ -87,13 +86,9 @@ Cloudflare Pages の環境変数に以下を設定してください：
 ### 必須
 - `PRETALX_API_KEY`: Pretalx API のアクセストークン
 
-### オプション（画像同期用）
+### オプション（Google スプレッドシート連携用）
 - `GOOGLE_SERVICE_ACCOUNT_EMAIL`: Google サービスアカウントのメール
 - `GOOGLE_PRIVATE_KEY`: Google サービスアカウントの秘密鍵
-- `GOOGLE_DRIVE_FOLDERS`: 同期するフォルダの設定（例: `members:folder_id1,sponsors:folder_id2`）
-- `CLOUDFLARE_ACCOUNT_ID`: Cloudflare アカウント ID
-- `CLOUDFLARE_API_TOKEN`: Cloudflare API トークン
-- `CLOUDFLARE_ACCOUNT_HASH`: Cloudflare アカウントハッシュ（オプション）
 
 ## トラブルシューティング
 

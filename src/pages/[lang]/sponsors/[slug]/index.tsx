@@ -6,7 +6,7 @@ import { Lang } from "@/types/lang";
 import { Sponsor } from "@/types/sponsor";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import CloudflareImage from "@/components/elements/CloudflareImage";
+import ImageWithFallback from "@/components/elements/ImageWithFallback";
 import SponsorLinkButton from "@/components/elements/SponsorLinkButton";
 import Link from "next/link";
 import KeynotesSection from "@/components/sections/KeynotesSection";
@@ -101,10 +101,8 @@ function SponsorPage({ sponsors, lang }: Props) {
                 </div>
                 <div className="flex justify-center items-center gap-4">
                   <div className="rounded-xl border border-[#0000001A] w-[195px] h-[115px] lg:w-[400px] lg:h-[175px] flex justify-center items-center overflow-hidden">
-                    <CloudflareImage
-                      category="sponsors"
-                      fileName={currentSponsor.logo_image || ''}
-                      fallbackSrc={`/common/sponsor/${currentSponsor.logo_image}`}
+                    <ImageWithFallback
+                      src={`/common/sponsor/${currentSponsor.logo_image}`}
                       alt={lang === 'ja' ? (currentSponsor.name_ja || currentSponsor.name_en) : (currentSponsor.name_en || currentSponsor.name_ja)}
                       width={480}
                       height={210}
