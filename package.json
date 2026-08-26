@@ -30,7 +30,7 @@
     "dayjs": "^1.11.18",
     "googleapis": "^150.0.1",
     "lightningcss": "^1.28.2",
-    "next": "15.3.2",
+    "next": "15.4.10",
     "next-sitemap": "^4.2.3",
     "rc-tooltip": "^6.4.0",
     "react": "^19.0.0",
